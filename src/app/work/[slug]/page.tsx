@@ -1,9 +1,14 @@
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
+import { client, workPostBySlugQuery, workPostsQuery, urlFor } from "@/lib/sanity";
+import type { SanityWorkPost } from "@/lib/types";
+import PortableTextBody from "@/components/PortableTextBody";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
-// Static work post data (will be replaced with Sanity queries)
-const workPosts: Record<
+// Static fallback data used when Sanity is not configured
+const fallbackPosts: Record<
   string,
   { title: string; desc: string; date: string; categories: string[] }
 > = {
@@ -73,9 +78,35 @@ interface WorkPostPageProps {
   params: Promise<{ slug: string }>;
 }
 
+async function getWorkPost(slug: string) {
+  try {
+    const post: SanityWorkPost | null = await client.fetch(
+      workPostBySlugQuery,
+      { slug },
+    );
+    if (post) {
+      return {
+        title: post.title,
+        desc: post.description,
+        date: post.date,
+        categories: post.categories?.map((c) => c.title) ?? [],
+        imageUrl: post.image ? urlFor(post.image).width(1200).url() : null,
+        body: post.body,
+      };
+    }
+  } catch {
+    // Fall through to fallback
+  }
+  const fallback = fallbackPosts[slug];
+  if (fallback) {
+    return { ...fallback, imageUrl: null, body: null };
+  }
+  return null;
+}
+
 export default async function WorkPostPage({ params }: WorkPostPageProps) {
   const { slug } = await params;
-  const post = workPosts[slug];
+  const post = await getWorkPost(slug);
 
   if (!post) {
     return (
@@ -125,23 +156,44 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
         </Link>
       </nav>
 
-      {/* Hero image placeholder */}
-      <div
-        style={{
-          background: "linear-gradient(135deg, #E8E4DF 0%, #D4CFC8 100%)",
-          aspectRatio: "21/9",
-          maxHeight: 480,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 11,
-          color: "var(--color-fg-secondary)",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-        }}
-      >
-        Project Image
-      </div>
+      {/* Hero image */}
+      {post.imageUrl ? (
+        <div
+          style={{
+            aspectRatio: "21/9",
+            maxHeight: 480,
+            overflow: "hidden",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={post.imageUrl}
+            alt={post.title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </div>
+      ) : (
+        <div
+          style={{
+            background: "linear-gradient(135deg, #E8E4DF 0%, #D4CFC8 100%)",
+            aspectRatio: "21/9",
+            maxHeight: 480,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 11,
+            color: "var(--color-fg-secondary)",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+          }}
+        >
+          Project Image
+        </div>
+      )}
 
       {/* Content */}
       <article
@@ -197,20 +249,24 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
           {post.date}
         </div>
 
-        <div
-          style={{
-            fontSize: 16,
-            lineHeight: 1.8,
-            color: "var(--color-fg-secondary)",
-          }}
-        >
-          <p>{post.desc}</p>
-          <p style={{ marginTop: 24 }}>
-            Full case study content will be managed through Sanity CMS. Connect
-            your Sanity project to populate this page with rich content
-            including images, embedded media, and detailed project breakdowns.
-          </p>
-        </div>
+        {post.body ? (
+          <PortableTextBody value={post.body} />
+        ) : (
+          <div
+            style={{
+              fontSize: 16,
+              lineHeight: 1.8,
+              color: "var(--color-fg-secondary)",
+            }}
+          >
+            <p>{post.desc}</p>
+            <p style={{ marginTop: 24 }}>
+              Full case study content will be managed through Sanity CMS. Connect
+              your Sanity project to populate this page with rich content
+              including images, embedded media, and detailed project breakdowns.
+            </p>
+          </div>
+        )}
       </article>
 
       {/* Footer */}
@@ -244,6 +300,14 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
   );
 }
 
-export function generateStaticParams() {
-  return Object.keys(workPosts).map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  try {
+    const posts: SanityWorkPost[] = await client.fetch(workPostsQuery);
+    if (posts?.length > 0) {
+      return posts.map((post) => ({ slug: post.slug.current }));
+    }
+  } catch {
+    // Fall through to fallback
+  }
+  return Object.keys(fallbackPosts).map((slug) => ({ slug }));
 }
