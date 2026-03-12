@@ -64,6 +64,7 @@ export default function Experience({ entries }: ExperienceProps) {
         {experience.map((e, i) => (
           <Reveal
             key={i}
+            className="exp-row"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 2fr 1fr",

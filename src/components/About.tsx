@@ -11,7 +11,7 @@ export default function About() {
     >
       <SectionLabel label="About" num="01" />
       <div
-        className="grid gap-[clamp(40px,6vw,100px)] items-start"
+        className="about-grid grid gap-[clamp(40px,6vw,100px)] items-start"
         style={{ gridTemplateColumns: "1fr 1fr" }}
       >
         <Reveal>

@@ -24,7 +24,7 @@ export default function Nav() {
       >
         Justin Parra
       </div>
-      <div className="flex gap-8">
+      <div className="nav-links flex gap-8">
         {navLinks.map((s) => (
           <a
             key={s}
