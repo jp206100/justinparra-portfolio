@@ -6,41 +6,53 @@ import Reveal from "./Reveal";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
-const experience = [
+const fallbackExperience = [
   {
     role: "VP, Digital",
     company: "Allison Worldwide",
     url: "https://www.allisonworldwide.com/",
-    date: "2024 \u2013 2026",
+    date: "2024 – 2026",
   },
   {
     role: "Digital Director",
     company: "Allison Worldwide",
     url: "https://www.allisonworldwide.com/",
-    date: "2018 \u2013 2024",
+    date: "2018 – 2024",
   },
   {
     role: "Sr. Interactive Producer",
     company: "PRR",
     url: "https://www.prrbiz.com/",
-    date: "2016 \u2013 2018",
+    date: "2016 – 2018",
   },
   {
     role: "Sr. Producer & Co-Founder",
     company: "Creation-1 Interactive",
     url: "https://c1studios.com/int/",
-    date: "2006 \u2013 2016",
+    date: "2006 – 2016",
   },
   {
     role: "Digital Archivist",
     company: "Mark Seliger Photography",
     url: "https://markseliger.com/",
-    date: "2006 \u2013 2007",
+    date: "2006 – 2007",
   },
 ];
 
-export default function Experience() {
+export interface ExperienceEntry {
+  role: string;
+  company: string;
+  url?: string;
+  date: string;
+}
+
+interface ExperienceProps {
+  entries?: ExperienceEntry[];
+}
+
+export default function Experience({ entries }: ExperienceProps) {
   const [hoveredExp, setHoveredExp] = useState<number | null>(null);
+  const experience = entries ?? fallbackExperience;
 
   return (
     <section

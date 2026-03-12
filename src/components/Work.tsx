@@ -6,7 +6,7 @@ import SectionLabel from "./SectionLabel";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
-const categories = [
+const fallbackCategories = [
   "All",
   "Case Studies",
   "Work in Progress",
@@ -14,7 +14,7 @@ const categories = [
   "Personal Projects",
 ];
 
-const workPosts = [
+const fallbackPosts = [
   {
     title: "NERIS: Modernizing Fire Data for 2,900+ Departments",
     slug: "neris-modernizing-fire-data",
@@ -87,10 +87,26 @@ const workPosts = [
   },
 ];
 
-export default function Work() {
+export interface WorkPost {
+  title: string;
+  slug: string;
+  desc: string;
+  date: string;
+  categories: string[];
+}
+
+interface WorkProps {
+  posts?: WorkPost[];
+  categories?: string[];
+}
+
+export default function Work({ posts, categories }: WorkProps) {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState("All");
   const [visibleCount, setVisibleCount] = useState(5);
+
+  const workPosts = posts ?? fallbackPosts;
+  const categoryList = categories ?? fallbackCategories;
 
   const filtered =
     activeFilter === "All"
@@ -108,7 +124,7 @@ export default function Work() {
 
       {/* Category Filter Bar */}
       <div className="flex flex-wrap gap-3" style={{ marginBottom: 40 }}>
-        {categories.map((cat) => {
+        {categoryList.map((cat) => {
           const isActive = activeFilter === cat;
           return (
             <button

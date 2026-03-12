@@ -5,13 +5,13 @@ import Reveal from "./Reveal";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
-const clients = [
+const fallbackClients = [
   "Toyota North America",
   "US Fire Administration",
   "US EPA",
   "Lexus",
   "Sound Transit",
-  "Cond\u00e9 Nast",
+  "Condé Nast",
   "Vanity Fair",
   "Getty Images",
   "CAA",
@@ -20,8 +20,13 @@ const clients = [
   "Dexcom",
 ];
 
-export default function Clients() {
+interface ClientsProps {
+  clients?: string[];
+}
+
+export default function Clients({ clients }: ClientsProps) {
   const [hoveredClient, setHoveredClient] = useState<number | null>(null);
+  const clientList = clients ?? fallbackClients;
 
   return (
     <div
@@ -51,7 +56,7 @@ export default function Clients() {
         className="grid"
         style={{ gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))" }}
       >
-        {clients.map((c, i) => (
+        {clientList.map((c, i) => (
           <Reveal
             key={i}
             style={{
