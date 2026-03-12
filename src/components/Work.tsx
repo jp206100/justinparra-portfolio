@@ -6,6 +6,15 @@ import SectionLabel from "./SectionLabel";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
+export interface WorkPost {
+  title: string;
+  slug: string;
+  desc: string;
+  date: string;
+  categories: string[];
+  imageUrl?: string;
+}
+
 const fallbackCategories = [
   "All",
   "Case Studies",
@@ -14,7 +23,7 @@ const fallbackCategories = [
   "Personal Projects",
 ];
 
-const fallbackPosts = [
+const fallbackPosts: WorkPost[] = [
   {
     title: "NERIS: Modernizing Fire Data for 2,900+ Departments",
     slug: "neris-modernizing-fire-data",
@@ -86,14 +95,6 @@ const fallbackPosts = [
     categories: ["Experiments", "Personal Projects"],
   },
 ];
-
-export interface WorkPost {
-  title: string;
-  slug: string;
-  desc: string;
-  date: string;
-  categories: string[];
-}
 
 interface WorkProps {
   posts?: WorkPost[];
@@ -189,22 +190,44 @@ export default function Work({ posts, categories }: WorkProps) {
               onMouseLeave={() => setHoveredCard(null)}
             >
               {/* Image preview */}
-              <div
-                style={{
-                  background:
-                    "linear-gradient(135deg, #E8E4DF 0%, #D4CFC8 100%)",
-                  aspectRatio: "16/9",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 11,
-                  color: "var(--color-fg-secondary)",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Project Image
-              </div>
+              {post.imageUrl ? (
+                <div
+                  style={{
+                    aspectRatio: "16/9",
+                    overflow: "hidden",
+                  }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={post.imageUrl}
+                    alt={post.title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)",
+                      transform: isHovered ? "scale(1.05)" : "scale(1)",
+                    }}
+                  />
+                </div>
+              ) : (
+                <div
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #E8E4DF 0%, #D4CFC8 100%)",
+                    aspectRatio: "16/9",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 11,
+                    color: "var(--color-fg-secondary)",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Project Image
+                </div>
+              )}
               <div style={{ padding: 32 }}>
                 {/* Multi-category tags */}
                 <div

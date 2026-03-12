@@ -14,6 +14,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import {
   client,
+  urlFor,
   experienceQuery,
   clientsQuery,
   workPostsQuery,
@@ -62,12 +63,16 @@ async function getSanityData() {
               description: string;
               date: string;
               categories: { title: string }[];
+              image?: { asset: { _ref: string } };
             }) => ({
               title: p.title,
               slug: p.slug.current,
               desc: p.description,
               date: p.date,
               categories: p.categories?.map((c) => c.title) ?? [],
+              imageUrl: p.image
+                ? urlFor(p.image).width(800).height(450).url()
+                : undefined,
             }),
           )
         : undefined;
