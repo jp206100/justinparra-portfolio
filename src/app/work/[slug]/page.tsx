@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { client, workPostBySlugQuery, workPostsQuery, urlFor } from "@/lib/sanity";
 import type { SanityWorkPost } from "@/lib/types";
+import PortableTextBody from "@/components/PortableTextBody";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
@@ -246,22 +247,24 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
           {post.date}
         </div>
 
-        <div
-          style={{
-            fontSize: 16,
-            lineHeight: 1.8,
-            color: "var(--color-fg-secondary)",
-          }}
-        >
-          <p>{post.desc}</p>
-          {!post.body && (
+        {post.body ? (
+          <PortableTextBody value={post.body} />
+        ) : (
+          <div
+            style={{
+              fontSize: 16,
+              lineHeight: 1.8,
+              color: "var(--color-fg-secondary)",
+            }}
+          >
+            <p>{post.desc}</p>
             <p style={{ marginTop: 24 }}>
               Full case study content will be managed through Sanity CMS. Connect
               your Sanity project to populate this page with rich content
               including images, embedded media, and detailed project breakdowns.
             </p>
-          )}
-        </div>
+          </div>
+        )}
       </article>
 
       {/* Footer */}
