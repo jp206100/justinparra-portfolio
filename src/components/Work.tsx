@@ -156,7 +156,7 @@ export default function Work({ posts, categories }: WorkProps) {
 
       {/* Filtered Posts Grid */}
       <div
-        className="grid"
+        className="grid work-grid"
         style={{
           gridTemplateColumns: "repeat(2, 1fr)",
           gap: "clamp(16px, 2vw, 32px)",

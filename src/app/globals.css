@@ -44,3 +44,28 @@ body {
   from { opacity: 0; transform: translateY(24px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none !important;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .exp-row {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    padding: 24px 0 !important;
+  }
+
+  .exp-row span:last-child {
+    text-align: left !important;
+  }
+
+  .work-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
