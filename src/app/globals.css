@@ -68,4 +68,8 @@ body {
   .work-grid {
     grid-template-columns: 1fr !important;
   }
+
+  .github-bottom-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
