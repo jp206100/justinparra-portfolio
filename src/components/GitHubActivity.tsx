@@ -1,10 +1,39 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import SectionLabel from "./SectionLabel";
 import Reveal from "./Reveal";
 import GitHubGrid from "./GitHubGrid";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
+interface GitHubData {
+  contributions: { w: number; d: number; level: number; count: number }[];
+  recentContributions: number;
+  totalRepos: number;
+  activeProjects: number;
+  username: string;
+}
+
 export default function GitHubActivity() {
+  const [data, setData] = useState<GitHubData | null>(null);
+
+  useEffect(() => {
+    fetch("/api/github")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((d) => d && setData(d))
+      .catch(() => {});
+  }, []);
+
+  const stats = [
+    {
+      value: data?.recentContributions ?? "—",
+      label: "Contributions this month",
+    },
+    { value: data?.totalRepos ?? "—", label: "Repositories" },
+    { value: data?.activeProjects ?? "—", label: "Active Projects" },
+  ];
+
   return (
     <section style={{ padding: `clamp(60px, 10vh, 120px) ${pagePad}` }}>
       <SectionLabel label="GitHub Activity" num="05" />
@@ -23,7 +52,7 @@ export default function GitHubActivity() {
             Contribution Activity
           </span>
           <a
-            href="https://github.com/justinparra"
+            href={`https://github.com/${data?.username ?? "justinparra"}`}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -36,47 +65,23 @@ export default function GitHubActivity() {
             View Profile &rarr;
           </a>
         </div>
-        <GitHubGrid />
+        <GitHubGrid contributions={data?.contributions ?? null} />
         <div className="flex gap-8">
-          <div>
-            <div style={{ fontSize: 20, fontWeight: 300 }}>47</div>
-            <div
-              style={{
-                fontSize: 10,
-                color: "var(--color-fg-secondary)",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-              }}
-            >
-              Contributions this month
+          {stats.map((s) => (
+            <div key={s.label}>
+              <div style={{ fontSize: 20, fontWeight: 300 }}>{s.value}</div>
+              <div
+                style={{
+                  fontSize: 10,
+                  color: "var(--color-fg-secondary)",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                }}
+              >
+                {s.label}
+              </div>
             </div>
-          </div>
-          <div>
-            <div style={{ fontSize: 20, fontWeight: 300 }}>12</div>
-            <div
-              style={{
-                fontSize: 10,
-                color: "var(--color-fg-secondary)",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-              }}
-            >
-              Repositories
-            </div>
-          </div>
-          <div>
-            <div style={{ fontSize: 20, fontWeight: 300 }}>3</div>
-            <div
-              style={{
-                fontSize: 10,
-                color: "var(--color-fg-secondary)",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-              }}
-            >
-              Active Projects
-            </div>
-          </div>
+          ))}
         </div>
       </Reveal>
     </section>
