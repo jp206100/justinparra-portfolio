@@ -6,13 +6,45 @@ interface GitHubEvent {
   type: string;
   created_at: string;
   repo: { name: string };
+  payload?: {
+    commits?: { message: string }[];
+    action?: string;
+    ref_type?: string;
+  };
 }
 
 interface GitHubRepo {
   name: string;
+  description: string | null;
+  html_url: string;
+  language: string | null;
   updated_at: string;
   pushed_at: string;
   fork: boolean;
+  stargazers_count: number;
+}
+
+function formatEventType(event: GitHubEvent): string {
+  switch (event.type) {
+    case "PushEvent": {
+      const count = event.payload?.commits?.length ?? 0;
+      return `Pushed ${count} commit${count !== 1 ? "s" : ""}`;
+    }
+    case "CreateEvent":
+      return `Created ${event.payload?.ref_type ?? "repository"}`;
+    case "PullRequestEvent":
+      return `${event.payload?.action === "opened" ? "Opened" : "Updated"} pull request`;
+    case "IssuesEvent":
+      return `${event.payload?.action === "opened" ? "Opened" : "Updated"} issue`;
+    case "WatchEvent":
+      return "Starred repository";
+    case "ForkEvent":
+      return "Forked repository";
+    case "DeleteEvent":
+      return `Deleted ${event.payload?.ref_type ?? "branch"}`;
+    default:
+      return event.type.replace("Event", "");
+  }
 }
 
 export async function GET() {
@@ -22,10 +54,15 @@ export async function GET() {
       "User-Agent": "justinparra-portfolio",
     };
 
-    // Fetch repos and recent events in parallel
     const [reposRes, eventsRes] = await Promise.all([
-      fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=pushed`, { headers, next: { revalidate: 3600 } }),
-      fetch(`https://api.github.com/users/${USERNAME}/events/public?per_page=100`, { headers, next: { revalidate: 3600 } }),
+      fetch(
+        `https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=pushed`,
+        { headers, next: { revalidate: 3600 } }
+      ),
+      fetch(
+        `https://api.github.com/users/${USERNAME}/events/public?per_page=100`,
+        { headers, next: { revalidate: 3600 } }
+      ),
     ]);
 
     if (!reposRes.ok || !eventsRes.ok) {
@@ -46,55 +83,66 @@ export async function GET() {
       (r) => new Date(r.pushed_at) > ninetyDaysAgo
     ).length;
 
-    // Build a contribution grid from events (last 52 weeks)
-    // GitHub events API only returns ~90 days, so older weeks will be empty
-    const now = new Date();
-    const grid: number[][] = Array.from({ length: 52 }, () =>
-      Array.from({ length: 7 }, () => 0)
-    );
-
-    // Calculate the start of the grid (52 weeks ago, starting on Sunday)
-    const gridStart = new Date(now);
-    gridStart.setDate(gridStart.getDate() - 52 * 7 - gridStart.getDay());
-    gridStart.setHours(0, 0, 0, 0);
-
-    let recentContributions = 0;
+    // Recent contributions (last 30 days)
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
+    let recentContributions = 0;
     for (const event of events) {
-      const eventDate = new Date(event.created_at);
-      const daysSinceStart = Math.floor(
-        (eventDate.getTime() - gridStart.getTime()) / (1000 * 60 * 60 * 24)
-      );
-      const week = Math.floor(daysSinceStart / 7);
-      const day = daysSinceStart % 7;
-
-      if (week >= 0 && week < 52 && day >= 0 && day < 7) {
-        grid[week][day]++;
-      }
-
-      if (eventDate > thirtyDaysAgo) {
+      if (new Date(event.created_at) > thirtyDaysAgo) {
         recentContributions++;
       }
     }
 
-    // Flatten and assign levels
-    const contributions = [];
-    for (let w = 0; w < 52; w++) {
-      for (let d = 0; d < 7; d++) {
-        const count = grid[w][d];
-        let level = 0;
-        if (count >= 1) level = 1;
-        if (count >= 3) level = 2;
-        if (count >= 5) level = 3;
-        if (count >= 8) level = 4;
-        contributions.push({ w, d, level, count });
-      }
+    // Build activity stream: group events by day with counts
+    const dayMap = new Map<string, { count: number; repos: Set<string> }>();
+    for (const event of events) {
+      const date = event.created_at.split("T")[0];
+      const entry = dayMap.get(date) ?? { count: 0, repos: new Set<string>() };
+      entry.count++;
+      entry.repos.add(event.repo.name.split("/").pop() ?? event.repo.name);
+      dayMap.set(date, entry);
     }
 
+    const activityDays = Array.from(dayMap.entries())
+      .map(([date, { count, repos: repoSet }]) => ({
+        date,
+        count,
+        repos: Array.from(repoSet),
+      }))
+      .sort((a, b) => b.date.localeCompare(a.date));
+
+    // Recent events for activity feed (last 10, deduplicated by repo+type+day)
+    const seen = new Set<string>();
+    const recentEvents = [];
+    for (const event of events) {
+      const day = event.created_at.split("T")[0];
+      const repoShort =
+        event.repo.name.split("/").pop() ?? event.repo.name;
+      const key = `${day}-${event.type}-${repoShort}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      recentEvents.push({
+        type: formatEventType(event),
+        repo: repoShort,
+        date: day,
+        time: event.created_at,
+      });
+      if (recentEvents.length >= 8) break;
+    }
+
+    // Top repos (most recently pushed, non-fork, up to 4)
+    const topRepos = ownRepos.slice(0, 4).map((r) => ({
+      name: r.name,
+      description: r.description,
+      url: r.html_url,
+      language: r.language,
+      stars: r.stargazers_count,
+    }));
+
     return NextResponse.json({
-      contributions,
+      activityDays,
+      recentEvents,
+      topRepos,
       recentContributions,
       totalRepos,
       activeProjects,
