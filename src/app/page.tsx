@@ -25,12 +25,13 @@ import {
 
 async function getSanityData() {
   try {
-    const [experienceData, clientsData, workPostsData, categoriesData] =
+    const [experienceData, clientsData, workPostsData, categoriesData, settingsData] =
       await Promise.all([
         client.fetch(experienceQuery),
         client.fetch(clientsQuery),
         client.fetch(workPostsQuery),
         client.fetch(categoriesQuery),
+        client.fetch(siteSettingsQuery),
       ]);
 
     const experience: ExperienceEntry[] | undefined =
@@ -84,13 +85,14 @@ async function getSanityData() {
         ? ["All", ...categoriesData.map((c: { title: string }) => c.title)]
         : undefined;
 
-    return { experience, clients, posts, categories };
+    return { experience, clients, posts, categories, settings: settingsData ?? undefined };
   } catch {
     return {
       experience: undefined,
       clients: undefined,
       posts: undefined,
       categories: undefined,
+      settings: undefined,
     };
   }
 }
@@ -118,19 +120,26 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const { experience, clients, posts, categories } = await getSanityData();
+  const { experience, clients, posts, categories, settings } = await getSanityData();
 
   return (
     <>
       <Nav />
-      <Hero />
-      <About />
-      <CurrentlySeeking />
+      <Hero
+        label={settings?.heroLabel}
+        title={settings?.heroTitle}
+        subtitle={settings?.heroSubtitle}
+      />
+      <About statement={settings?.aboutStatement} />
+      <CurrentlySeeking text={settings?.seekingText} />
       <Experience entries={experience} />
       <Clients clients={clients} />
       <GitHubActivity />
       <Work posts={posts} categories={categories} />
-      <Contact />
+      <Contact
+        heading={settings?.contactHeading}
+        subtext={settings?.contactSubtext}
+      />
       <Footer />
     </>
   );
