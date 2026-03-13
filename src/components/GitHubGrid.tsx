@@ -34,11 +34,19 @@ export default function GitHubGrid({ activityDays }: Props) {
     resize();
 
     /* ── Prepare bar data ────────────────────────────────── */
-    const days = activityDays ?? [];
-    const maxCount = Math.max(1, ...days.map((d) => d.count));
+    const rawDays = activityDays ?? [];
+    const maxCount = Math.max(1, ...rawDays.map((d) => d.count));
 
-    // Reverse so oldest on left, newest on right
-    const bars = [...days].reverse();
+    // Build a full 60-day range, filling in zero-event days
+    const dayMap = new Map(rawDays.map((d) => [d.date, d]));
+    const bars: ActivityDay[] = [];
+    const today = new Date();
+    for (let i = 59; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().split("T")[0];
+      bars.push(dayMap.get(key) ?? { date: key, count: 0, repos: [] });
+    }
 
     /* ── Mouse handling ──────────────────────────────────── */
     const onMouse = (e: MouseEvent) => {
@@ -104,8 +112,9 @@ export default function GitHubGrid({ activityDays }: Props) {
         const intensity = day.count / maxCount;
         const x = padLeft + i * (barW + gap);
 
-        // Animated height: bars grow with a subtle breathing pulse
-        const breathe = 1 + Math.sin(time * 1.8 + i * 0.5) * 0.03 * intensity;
+        // Animated height: breathing pulse — stronger on shorter bars so they're visible
+        const pulseStrength = intensity > 0 ? 0.08 - intensity * 0.05 : 0;
+        const breathe = 1 + Math.sin(time * 1.8 + i * 0.5) * pulseStrength;
         const targetH = intensity * chartH * 0.85 * breathe;
         const barH = Math.max(2, targetH); // minimum 2px for zero-activity days
 
@@ -209,7 +218,8 @@ export default function GitHubGrid({ activityDays }: Props) {
       for (let i = 0; i < barCount; i++) {
         const intensity = bars[i].count / maxCount;
         const x = padLeft + i * (barW + gap) + barW / 2;
-        const breathe = 1 + Math.sin(time * 1.8 + i * 0.5) * 0.03 * intensity;
+        const ps = intensity > 0 ? 0.08 - intensity * 0.05 : 0;
+        const breathe = 1 + Math.sin(time * 1.8 + i * 0.5) * ps;
         const barH = Math.max(2, intensity * chartH * 0.85 * breathe);
         const y = baseY - barH;
 
@@ -218,9 +228,10 @@ export default function GitHubGrid({ activityDays }: Props) {
         } else {
           // Smooth curve through bar tops
           const prevIntensity = bars[i - 1].count / maxCount;
+          const prevPs = prevIntensity > 0 ? 0.08 - prevIntensity * 0.05 : 0;
           const prevBreathe =
             1 +
-            Math.sin(time * 1.8 + (i - 1) * 0.5) * 0.03 * prevIntensity;
+            Math.sin(time * 1.8 + (i - 1) * 0.5) * prevPs;
           const prevBarH = Math.max(
             2,
             prevIntensity * chartH * 0.85 * prevBreathe
