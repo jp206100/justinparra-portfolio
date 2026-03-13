@@ -54,23 +54,33 @@ export async function GET() {
       "User-Agent": "justinparra-portfolio",
     };
 
-    const [reposRes, eventsRes] = await Promise.all([
-      fetch(
-        `https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=pushed`,
-        { headers, next: { revalidate: 3600 } }
-      ),
-      fetch(
-        `https://api.github.com/users/${USERNAME}/events/public?per_page=100`,
-        { headers, next: { revalidate: 3600 } }
-      ),
-    ]);
+    // Fetch repos + multiple pages of events to cover more days
+    const reposRes = await fetch(
+      `https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=pushed`,
+      { headers, next: { revalidate: 3600 } }
+    );
 
-    if (!reposRes.ok || !eventsRes.ok) {
+    const eventPages = await Promise.all(
+      [1, 2, 3].map((page) =>
+        fetch(
+          `https://api.github.com/users/${USERNAME}/events/public?per_page=100&page=${page}`,
+          { headers, next: { revalidate: 3600 } }
+        )
+      )
+    );
+
+    if (!reposRes.ok) {
       throw new Error("GitHub API request failed");
     }
 
     const repos: GitHubRepo[] = await reposRes.json();
-    const events: GitHubEvent[] = await eventsRes.json();
+    const events: GitHubEvent[] = [];
+    for (const res of eventPages) {
+      if (res.ok) {
+        const page: GitHubEvent[] = await res.json();
+        events.push(...page);
+      }
+    }
 
     // Count public repos (excluding forks)
     const ownRepos = repos.filter((r) => !r.fork);
