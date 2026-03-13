@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Justin Parra | UX Leader & Digital Strategist",
+  metadataBase: new URL("https://justinparra-portfolio.vercel.app"),
+  title: {
+    default: "Justin Parra | UX Leader & Digital Strategist",
+    template: "%s | Justin Parra",
+  },
   description:
     "18+ years leading design, development, and strategy teams across private and public sectors. From Toyota to the US EPA.",
 };

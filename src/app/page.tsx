@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -19,6 +20,7 @@ import {
   clientsQuery,
   workPostsQuery,
   categoriesQuery,
+  siteSettingsQuery,
 } from "@/lib/sanity";
 
 async function getSanityData() {
@@ -91,6 +93,28 @@ async function getSanityData() {
       categories: undefined,
     };
   }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const settings = await client.fetch(siteSettingsQuery);
+    if (settings) {
+      const title = settings.heroTitle || "Justin Parra | UX Leader & Digital Strategist";
+      const description = settings.heroSubtitle || "18+ years leading design, development, and strategy teams across private and public sectors.";
+      return {
+        title,
+        description,
+        openGraph: { title, description, type: "website" },
+        twitter: { card: "summary_large_image", title, description },
+      };
+    }
+  } catch {
+    // Fall through to defaults
+  }
+  return {
+    title: "Justin Parra | UX Leader & Digital Strategist",
+    description: "18+ years leading design, development, and strategy teams across private and public sectors.",
+  };
 }
 
 export default async function Home() {
