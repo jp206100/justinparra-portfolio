@@ -112,7 +112,8 @@ export default function GitHubGrid({ activityDays }: Props) {
       const cx = W / 2 + mx * 20;
       const cy = H * 0.38;
 
-      const flowOffset = time * 8;
+      const flowSpeed = time * 8;
+      const flowOffset = flowSpeed % (spacingX * cols);
 
       // Update grid Y displacements
       for (let r = 0; r < rows; r++) {
