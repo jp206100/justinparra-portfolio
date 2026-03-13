@@ -3,7 +3,16 @@ import Reveal from "./Reveal";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
-export default function About() {
+const fallbackStatement =
+  "I simplify the complex. My work lives at the intersection of design strategy, technical leadership, and user advocacy, translating business goals into intuitive digital products.";
+
+interface AboutProps {
+  statement?: string;
+}
+
+export default function About({ statement }: AboutProps) {
+  const aboutText = statement ?? fallbackStatement;
+
   return (
     <section
       id="about"
@@ -23,19 +32,7 @@ export default function About() {
               letterSpacing: "-0.01em",
             }}
           >
-            I simplify the complex. My work lives at the intersection of{" "}
-            <em style={{ fontStyle: "italic", color: "var(--color-accent)" }}>
-              design strategy
-            </em>
-            ,{" "}
-            <em style={{ fontStyle: "italic", color: "var(--color-accent)" }}>
-              technical leadership
-            </em>
-            , and{" "}
-            <em style={{ fontStyle: "italic", color: "var(--color-accent)" }}>
-              user advocacy
-            </em>
-            , translating business goals into intuitive digital products.
+            {aboutText}
           </div>
         </Reveal>
         <Reveal>

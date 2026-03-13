@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import { client, workPostBySlugQuery, workPostsQuery, urlFor } from "@/lib/sanity";
 import type { SanityWorkPost } from "@/lib/types";
@@ -76,6 +77,36 @@ const fallbackPosts: Record<
 
 interface WorkPostPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: WorkPostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const post: SanityWorkPost | null = await client.fetch(
+      workPostBySlugQuery,
+      { slug },
+    );
+    if (post) {
+      const title = post.title;
+      const description = post.description;
+      const images = post.image
+        ? [{ url: urlFor(post.image).width(1200).height(630).url() }]
+        : [];
+      return {
+        title,
+        description,
+        openGraph: { title, description, type: "article", images },
+        twitter: { card: "summary_large_image", title, description, images: images.map((i) => i.url) },
+      };
+    }
+  } catch {
+    // Fall through to fallback
+  }
+  const fallback = fallbackPosts[slug];
+  if (fallback) {
+    return { title: fallback.title, description: fallback.desc };
+  }
+  return { title: "Work" };
 }
 
 async function getWorkPost(slug: string) {

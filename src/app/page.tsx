@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -19,16 +20,18 @@ import {
   clientsQuery,
   workPostsQuery,
   categoriesQuery,
+  siteSettingsQuery,
 } from "@/lib/sanity";
 
 async function getSanityData() {
   try {
-    const [experienceData, clientsData, workPostsData, categoriesData] =
+    const [experienceData, clientsData, workPostsData, categoriesData, settingsData] =
       await Promise.all([
         client.fetch(experienceQuery),
         client.fetch(clientsQuery),
         client.fetch(workPostsQuery),
         client.fetch(categoriesQuery),
+        client.fetch(siteSettingsQuery),
       ]);
 
     const experience: ExperienceEntry[] | undefined =
@@ -82,31 +85,61 @@ async function getSanityData() {
         ? ["All", ...categoriesData.map((c: { title: string }) => c.title)]
         : undefined;
 
-    return { experience, clients, posts, categories };
+    return { experience, clients, posts, categories, settings: settingsData ?? undefined };
   } catch {
     return {
       experience: undefined,
       clients: undefined,
       posts: undefined,
       categories: undefined,
+      settings: undefined,
     };
   }
 }
 
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const settings = await client.fetch(siteSettingsQuery);
+    if (settings) {
+      const title = settings.heroTitle || "Justin Parra | UX Leader & Digital Strategist";
+      const description = settings.heroSubtitle || "18+ years leading design, development, and strategy teams across private and public sectors.";
+      return {
+        title,
+        description,
+        openGraph: { title, description, type: "website" },
+        twitter: { card: "summary_large_image", title, description },
+      };
+    }
+  } catch {
+    // Fall through to defaults
+  }
+  return {
+    title: "Justin Parra | UX Leader & Digital Strategist",
+    description: "18+ years leading design, development, and strategy teams across private and public sectors.",
+  };
+}
+
 export default async function Home() {
-  const { experience, clients, posts, categories } = await getSanityData();
+  const { experience, clients, posts, categories, settings } = await getSanityData();
 
   return (
     <>
       <Nav />
-      <Hero />
-      <About />
-      <CurrentlySeeking />
+      <Hero
+        label={settings?.heroLabel}
+        title={settings?.heroTitle}
+        subtitle={settings?.heroSubtitle}
+      />
+      <About statement={settings?.aboutStatement} />
+      <CurrentlySeeking text={settings?.seekingText} />
       <Experience entries={experience} />
       <Clients clients={clients} />
       <GitHubActivity />
       <Work posts={posts} categories={categories} />
-      <Contact />
+      <Contact
+        heading={settings?.contactHeading}
+        subtext={settings?.contactSubtext}
+      />
       <Footer />
     </>
   );

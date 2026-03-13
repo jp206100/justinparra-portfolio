@@ -8,7 +8,17 @@ const contactLinks = [
   ["GitHub", "https://github.com/justinparra"],
 ] as const;
 
-export default function Contact() {
+interface ContactProps {
+  heading?: string;
+  subtext?: string;
+}
+
+export default function Contact({ heading, subtext }: ContactProps) {
+  const contactHeading = heading ?? "Let\u2019s build something worth using.";
+  const contactSubtext =
+    subtext ??
+    "Currently open to new opportunities in UX leadership and digital strategy.";
+
   return (
     <section
       id="contact"
@@ -24,9 +34,7 @@ export default function Contact() {
             marginBottom: 24,
           }}
         >
-          Let&apos;s build something
-          <br />
-          worth using.
+          {contactHeading}
         </h2>
       </Reveal>
       <Reveal>
@@ -37,8 +45,7 @@ export default function Contact() {
             marginBottom: 40,
           }}
         >
-          Currently open to new opportunities in UX leadership and digital
-          strategy.
+          {contactSubtext}
         </p>
       </Reveal>
       <Reveal className="flex justify-center gap-10">

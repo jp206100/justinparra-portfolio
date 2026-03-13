@@ -2,7 +2,22 @@ import HeroCanvas from "./HeroCanvas";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
-export default function Hero() {
+interface HeroProps {
+  label?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+export default function Hero({ label, title, subtitle }: HeroProps) {
+  const heroLabel = label ?? "UX Leader & Digital Strategist, Seattle, WA";
+  const heroTitle = title ?? "Justin Parra — Building digital experiences that move people forward.";
+  const heroSubtitle = subtitle ?? "18+ years leading design, development, and strategy teams across private and public sectors. From Toyota to the US EPA.";
+
+  // Split title on " — " to bold the name portion
+  const dashIndex = heroTitle.indexOf(" — ");
+  const namePart = dashIndex >= 0 ? heroTitle.slice(0, dashIndex) : null;
+  const restPart = dashIndex >= 0 ? heroTitle.slice(dashIndex + 3) : heroTitle;
+
   return (
     <section
       className="relative flex flex-col justify-end overflow-hidden"
@@ -25,7 +40,7 @@ export default function Hero() {
             animation: "fadeUp 0.8s ease 0.3s both",
           }}
         >
-          UX Leader &amp; Digital Strategist, Seattle, WA
+          {heroLabel}
         </div>
         <h1
           style={{
@@ -37,11 +52,15 @@ export default function Hero() {
             animation: "fadeUp 0.8s ease 0.5s both",
           }}
         >
-          <strong style={{ fontWeight: 500 }}>Justin Parra</strong>
-          <br />
-          Building digital experiences
-          <br />
-          that move people forward.
+          {namePart ? (
+            <>
+              <strong style={{ fontWeight: 500 }}>{namePart}</strong>
+              <br />
+              {restPart}
+            </>
+          ) : (
+            restPart
+          )}
         </h1>
         <p
           style={{
@@ -53,8 +72,7 @@ export default function Hero() {
             animation: "fadeUp 0.8s ease 0.7s both",
           }}
         >
-          18+ years leading design, development, and strategy teams across
-          private and public sectors. From Toyota to the US EPA.
+          {heroSubtitle}
         </p>
       </div>
     </section>
