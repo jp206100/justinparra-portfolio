@@ -52,7 +52,7 @@ export default function GitHubActivity() {
             Contribution Activity
           </span>
           <a
-            href={`https://github.com/${data?.username ?? "justinparra"}`}
+            href={`https://github.com/${data?.username ?? "jp206100"}`}
             target="_blank"
             rel="noopener noreferrer"
             style={{
