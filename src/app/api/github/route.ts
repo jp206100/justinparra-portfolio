@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const USERNAME = "justinparra";
+const USERNAME = "jp206100";
 
 interface GitHubEvent {
   type: string;
