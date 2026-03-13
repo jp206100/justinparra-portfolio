@@ -37,16 +37,8 @@ export default function GitHubGrid({ activityDays }: Props) {
     const rawDays = activityDays ?? [];
     const maxCount = Math.max(1, ...rawDays.map((d) => d.count));
 
-    // Build a full 60-day range, filling in zero-event days
-    const dayMap = new Map(rawDays.map((d) => [d.date, d]));
-    const bars: ActivityDay[] = [];
-    const today = new Date();
-    for (let i = 59; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
-      const key = d.toISOString().split("T")[0];
-      bars.push(dayMap.get(key) ?? { date: key, count: 0, repos: [] });
-    }
+    // Take the last 60 days that had activity, oldest on left
+    const bars = [...rawDays].slice(0, 60).reverse();
 
     /* ── Mouse handling ──────────────────────────────────── */
     const onMouse = (e: MouseEvent) => {
