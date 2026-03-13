@@ -140,176 +140,106 @@ export default function GitHubActivity() {
         {/* Canvas visualization */}
         <GitHubGrid activityDays={data?.activityDays ?? null} />
 
-        {/* Bottom: recent events + top repos side by side */}
-        <div
-          className="github-bottom-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 24,
-          }}
-        >
-          {/* Recent events feed */}
-          <div>
-            <div
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: "var(--color-fg-secondary)",
-                marginBottom: 12,
-              }}
-            >
-              Recent Events
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {(data?.recentEvents ?? []).map((event, i) => (
+        {/* Top repos – full width grid */}
+        <div>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "var(--color-fg-secondary)",
+              marginBottom: 12,
+            }}
+          >
+            Top Repositories
+          </div>
+          <div
+            className="github-repos-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+              gap: 12,
+            }}
+          >
+            {(data?.topRepos ?? []).map((repo) => (
+              <a
+                key={repo.name}
+                href={repo.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  textDecoration: "none",
+                  display: "block",
+                  padding: "10px 12px",
+                  borderRadius: 4,
+                  border: "1px solid var(--color-border)",
+                  transition: "border-color 0.2s",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.borderColor = "var(--color-accent)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.borderColor = "var(--color-border)")
+                }
+              >
                 <div
-                  key={i}
                   style={{
-                    display: "flex",
-                    alignItems: "baseline",
-                    gap: 8,
                     fontSize: 12,
+                    fontWeight: 500,
+                    color: "var(--color-fg)",
+                    marginBottom: 2,
                   }}
                 >
-                  <span
+                  {repo.name}
+                </div>
+                {repo.description && (
+                  <div
                     style={{
-                      width: 4,
-                      height: 4,
-                      borderRadius: "50%",
-                      backgroundColor: "var(--color-accent)",
-                      flexShrink: 0,
-                      alignSelf: "center",
-                    }}
-                  />
-                  <span style={{ color: "var(--color-fg)", fontWeight: 500 }}>
-                    {event.type}
-                  </span>
-                  <span
-                    style={{
-                      color: "var(--color-fg-secondary)",
                       fontSize: 11,
-                    }}
-                  >
-                    {event.repo}
-                  </span>
-                  <span
-                    style={{
-                      marginLeft: "auto",
-                      fontSize: 10,
                       color: "var(--color-fg-secondary)",
+                      lineHeight: 1.3,
+                      marginBottom: 4,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
                       whiteSpace: "nowrap",
                     }}
                   >
-                    {timeAgo(event.date)}
-                  </span>
-                </div>
-              ))}
-              {!data && (
-                <div
-                  style={{ fontSize: 11, color: "var(--color-fg-secondary)" }}
-                >
-                  Loading...
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Top repos */}
-          <div>
-            <div
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: "var(--color-fg-secondary)",
-                marginBottom: 12,
-              }}
-            >
-              Top Repositories
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {(data?.topRepos ?? []).map((repo) => (
-                <a
-                  key={repo.name}
-                  href={repo.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    textDecoration: "none",
-                    display: "block",
-                    padding: "8px 10px",
-                    borderRadius: 4,
-                    border: "1px solid var(--color-border)",
-                    transition: "border-color 0.2s",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.borderColor = "var(--color-accent)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.borderColor = "var(--color-border)")
-                  }
-                >
+                    {repo.description}
+                  </div>
+                )}
+                {repo.language && (
                   <div
                     style={{
-                      fontSize: 12,
-                      fontWeight: 500,
-                      color: "var(--color-fg)",
-                      marginBottom: 2,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 4,
+                      fontSize: 10,
+                      color: "var(--color-fg-secondary)",
                     }}
                   >
-                    {repo.name}
+                    <span
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: "50%",
+                        backgroundColor:
+                          langColors[repo.language] ??
+                          "var(--color-fg-secondary)",
+                      }}
+                    />
+                    {repo.language}
                   </div>
-                  {repo.description && (
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: "var(--color-fg-secondary)",
-                        lineHeight: 1.3,
-                        marginBottom: 4,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {repo.description}
-                    </div>
-                  )}
-                  {repo.language && (
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 4,
-                        fontSize: 10,
-                        color: "var(--color-fg-secondary)",
-                      }}
-                    >
-                      <span
-                        style={{
-                          width: 6,
-                          height: 6,
-                          borderRadius: "50%",
-                          backgroundColor:
-                            langColors[repo.language] ?? "var(--color-fg-secondary)",
-                        }}
-                      />
-                      {repo.language}
-                    </div>
-                  )}
-                </a>
-              ))}
-              {!data && (
-                <div
-                  style={{ fontSize: 11, color: "var(--color-fg-secondary)" }}
-                >
-                  Loading...
-                </div>
-              )}
-            </div>
+                )}
+              </a>
+            ))}
+            {!data && (
+              <div
+                style={{ fontSize: 11, color: "var(--color-fg-secondary)" }}
+              >
+                Loading...
+              </div>
+            )}
           </div>
         </div>
       </Reveal>
