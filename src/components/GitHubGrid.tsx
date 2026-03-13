@@ -12,22 +12,9 @@ interface Props {
   activityDays: ActivityDay[] | null;
 }
 
-/* Same 3-D helper used by HeroCanvas */
-const project = (
-  x: number,
-  y: number,
-  z: number,
-  cx: number,
-  cy: number,
-  fov = 500
-) => {
-  const scale = fov / (fov + z);
-  return { x: x * scale + cx, y: y * scale + cy, s: scale };
-};
-
 export default function GitHubGrid({ activityDays }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef({ x: 0.5, y: 0.5, active: false });
+  const mouseRef = useRef({ x: -1, y: -1, active: false });
   const animRef = useRef<number>(0);
 
   useEffect(() => {
@@ -46,49 +33,18 @@ export default function GitHubGrid({ activityDays }: Props) {
     };
     resize();
 
-    /* ── Build the terrain grid ───────────────────────────── */
+    /* ── Prepare bar data ────────────────────────────────── */
     const days = activityDays ?? [];
     const maxCount = Math.max(1, ...days.map((d) => d.count));
 
-    // Grid dimensions – columns map to days, rows add depth
-    const cols = Math.max(days.length, 14); // at least 14 columns
-    const rows = 18;
-    const spacingX = 20;
-    const spacingZ = 14;
-
-    // Pre-compute per-column intensity (0-1) from activity data
-    const colIntensity: number[] = [];
-    for (let c = 0; c < cols; c++) {
-      if (c < days.length) {
-        colIntensity.push(days[c].count / maxCount);
-      } else {
-        colIntensity.push(0);
-      }
-    }
-
-    // Reverse so oldest is on the left, newest on the right
-    colIntensity.reverse();
-    const reversedDays = [...days].reverse();
-
-    const grid: { ox: number; oz: number; y: number; intensity: number }[][] =
-      [];
-    for (let r = 0; r < rows; r++) {
-      grid[r] = [];
-      for (let c = 0; c < cols; c++) {
-        grid[r][c] = {
-          ox: (c - cols / 2) * spacingX,
-          oz: (r - rows / 2) * spacingZ,
-          y: 0,
-          intensity: colIntensity[c],
-        };
-      }
-    }
+    // Reverse so oldest on left, newest on right
+    const bars = [...days].reverse();
 
     /* ── Mouse handling ──────────────────────────────────── */
     const onMouse = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      mouseRef.current.y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+      mouseRef.current.x = (e.clientX - rect.left) / rect.width;
+      mouseRef.current.y = (e.clientY - rect.top) / rect.height;
       mouseRef.current.active = true;
     };
     const onLeave = () => {
@@ -105,153 +61,211 @@ export default function GitHubGrid({ activityDays }: Props) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
 
-      const time = Date.now() * 0.0008;
+      if (bars.length === 0) return;
+
+      const time = Date.now() * 0.001;
       const mx = mouseRef.current.x;
-      const my = mouseRef.current.y;
 
-      const cx = W / 2 + mx * 20;
-      const cy = H * 0.38;
+      // Layout
+      const padLeft = 40;
+      const padRight = 20;
+      const padTop = 16;
+      const padBottom = 36;
+      const chartW = W - padLeft - padRight;
+      const chartH = H - padTop - padBottom;
+      const barCount = bars.length;
+      const gap = Math.max(2, Math.min(6, chartW / barCount * 0.25));
+      const barW = Math.max(3, (chartW - gap * (barCount - 1)) / barCount);
+      const baseY = padTop + chartH; // bottom of chart area
 
-      const flowSpeed = time * 8;
-      const flowOffset = flowSpeed % (spacingX * cols);
-
-      // Update grid Y displacements
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const p = grid[r][c];
-          const flowX = p.ox + flowOffset;
-          const intensity = p.intensity;
-
-          // Base wave motion (like hero Grid A)
-          const baseWave =
-            Math.sin(flowX * 0.02 - time * 1.2) * 8 +
-            Math.cos(p.oz * 0.03 + time * 0.4) * 5;
-
-          // Activity displacement – peaks for high-activity days
-          // Shaped as a ridge that spans the depth rows with a smooth falloff
-          const ridgeCenter = rows / 2;
-          const ridgeDist = Math.abs(r - ridgeCenter) / (rows / 2);
-          const ridgeShape = Math.max(0, 1 - ridgeDist * ridgeDist);
-          const activityPeak = -intensity * 55 * ridgeShape; // negative Y = upward
-
-          p.y = baseWave + activityPeak;
-        }
-      }
-
-      // ── Draw row lines ──
-      for (let r = 0; r < rows; r++) {
+      // ── Background grid lines (horizontal, subtle, with gentle wave) ──
+      const gridLines = 4;
+      for (let i = 0; i <= gridLines; i++) {
+        const yFrac = i / gridLines;
+        const y = padTop + yFrac * chartH;
         ctx.beginPath();
-        let started = false;
-        for (let c = 0; c < cols; c++) {
-          const p = grid[r][c];
-          const flowX = p.ox + flowOffset;
-          const pr = project(flowX, p.y, p.oz + 200, cx, cy);
-          if (!started) {
-            ctx.moveTo(pr.x, pr.y);
-            started = true;
-          } else {
-            ctx.lineTo(pr.x, pr.y);
-          }
+        for (let px = padLeft; px <= padLeft + chartW; px += 2) {
+          const wave = Math.sin(px * 0.015 + time * 0.6) * 1.5 * (1 - yFrac);
+          const py = y + wave;
+          px === padLeft ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
         }
-        ctx.strokeStyle = `rgba(200, 65, 43, 0.06)`;
+        ctx.strokeStyle = `rgba(200, 65, 43, 0.04)`;
         ctx.lineWidth = 0.5;
         ctx.stroke();
       }
 
-      // ── Draw column lines ──
-      for (let c = 0; c < cols; c++) {
+      // ── Draw bars ──
+      const hoveredBar = mouseRef.current.active
+        ? Math.floor((mx * W - padLeft + gap / 2) / (barW + gap))
+        : -1;
+
+      for (let i = 0; i < barCount; i++) {
+        const day = bars[i];
+        const intensity = day.count / maxCount;
+        const x = padLeft + i * (barW + gap);
+
+        // Animated height: bars grow with a subtle breathing pulse
+        const breathe = 1 + Math.sin(time * 1.8 + i * 0.5) * 0.03 * intensity;
+        const targetH = intensity * chartH * 0.85 * breathe;
+        const barH = Math.max(2, targetH); // minimum 2px for zero-activity days
+
+        const isHovered = i === hoveredBar;
+
+        // Bar glow (radial gradient behind bar for active days)
+        if (intensity > 0.15) {
+          const glowH = barH + 20;
+          const glowAlpha = intensity * 0.12 + (isHovered ? 0.08 : 0);
+          const glow = ctx.createRadialGradient(
+            x + barW / 2,
+            baseY - barH / 2,
+            0,
+            x + barW / 2,
+            baseY - barH / 2,
+            glowH
+          );
+          glow.addColorStop(0, `rgba(200, 65, 43, ${glowAlpha})`);
+          glow.addColorStop(1, "rgba(200, 65, 43, 0)");
+          ctx.fillStyle = glow;
+          ctx.fillRect(
+            x - 10,
+            baseY - barH - 20,
+            barW + 20,
+            barH + 40
+          );
+        }
+
+        // Bar fill — gradient from bottom to top
+        const barGrad = ctx.createLinearGradient(0, baseY, 0, baseY - barH);
+        if (intensity > 0) {
+          const baseAlpha = 0.25 + intensity * 0.55 + (isHovered ? 0.15 : 0);
+          const tipAlpha = 0.4 + intensity * 0.6 + (isHovered ? 0.15 : 0);
+          barGrad.addColorStop(0, `rgba(200, 65, 43, ${baseAlpha * 0.4})`);
+          barGrad.addColorStop(0.7, `rgba(200, 65, 43, ${baseAlpha})`);
+          barGrad.addColorStop(1, `rgba(200, 65, 43, ${tipAlpha})`);
+        } else {
+          barGrad.addColorStop(0, "rgba(212, 207, 200, 0.1)");
+          barGrad.addColorStop(1, "rgba(212, 207, 200, 0.2)");
+        }
+
+        ctx.fillStyle = barGrad;
+        // Rounded top corners
+        const radius = Math.min(barW / 2, 3);
         ctx.beginPath();
-        for (let r = 0; r < rows; r++) {
-          const p = grid[r][c];
-          const flowX = p.ox + flowOffset;
-          const pr = project(flowX, p.y, p.oz + 200, cx, cy);
-          r === 0 ? ctx.moveTo(pr.x, pr.y) : ctx.lineTo(pr.x, pr.y);
-        }
-        // Columns with higher intensity get brighter accent lines
-        const intensity = colIntensity[c];
-        const alpha = 0.04 + intensity * 0.12;
-        ctx.strokeStyle = `rgba(200, 65, 43, ${alpha})`;
-        ctx.lineWidth = 0.5 + intensity * 1;
-        ctx.stroke();
-      }
-
-      // ── Convergence glow on peaks (matching hero style) ──
-      const convergeCx = W / 2 + mx * 60;
-      const convergeCy = H * 0.5 + my * 30;
-
-      for (let r = 0; r < rows; r++) {
-        for (let c = 1; c < cols; c++) {
-          const p0 = grid[r][c - 1];
-          const p1 = grid[r][c];
-          const f0x = p0.ox + flowOffset;
-          const f1x = p1.ox + flowOffset;
-          const pr0 = project(f0x, p0.y, p0.oz + 200, cx, cy);
-          const pr1 = project(f1x, p1.y, p1.oz + 200, cx, cy);
-
-          const midX = (pr0.x + pr1.x) / 2;
-          const midY = (pr0.y + pr1.y) / 2;
-          const cdx = midX - convergeCx;
-          const cdy = midY - convergeCy;
-          const cDist = Math.sqrt(cdx * cdx + cdy * cdy);
-          const convergeRadius = 180;
-          const inZone = Math.max(0, 1 - cDist / convergeRadius);
-
-          if (inZone > 0.05) {
-            const avgIntensity = (colIntensity[c - 1] + colIntensity[c]) / 2;
-            const glowAlpha = inZone * (0.15 + avgIntensity * 0.2);
-            ctx.strokeStyle = `rgba(200, 65, 43, ${glowAlpha})`;
-            ctx.lineWidth = 0.5 + inZone * 1.5;
-            ctx.beginPath();
-            ctx.moveTo(pr0.x, pr0.y);
-            ctx.lineTo(pr1.x, pr1.y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // ── Radial glow at mouse position ──
-      if (mouseRef.current.active) {
-        const gradient = ctx.createRadialGradient(
-          convergeCx,
-          convergeCy,
-          0,
-          convergeCx,
-          convergeCy,
-          140
+        ctx.moveTo(x, baseY);
+        ctx.lineTo(x, baseY - barH + radius);
+        ctx.quadraticCurveTo(x, baseY - barH, x + radius, baseY - barH);
+        ctx.lineTo(x + barW - radius, baseY - barH);
+        ctx.quadraticCurveTo(
+          x + barW,
+          baseY - barH,
+          x + barW,
+          baseY - barH + radius
         );
-        gradient.addColorStop(0, "rgba(200, 65, 43, 0.04)");
-        gradient.addColorStop(0.5, "rgba(200, 65, 43, 0.015)");
+        ctx.lineTo(x + barW, baseY);
+        ctx.closePath();
+        ctx.fill();
+
+        // Bright cap line at top of bar
+        if (intensity > 0.1) {
+          const capAlpha = 0.5 + intensity * 0.5;
+          ctx.fillStyle = `rgba(200, 65, 43, ${capAlpha})`;
+          ctx.fillRect(x, baseY - barH, barW, 1.5);
+        }
+
+        // ── Hover tooltip ──
+        if (isHovered && i >= 0 && i < barCount) {
+          const dateStr = day.date.slice(5); // MM-DD
+          const label = `${dateStr}  ${day.count} event${day.count !== 1 ? "s" : ""}`;
+          ctx.font = "10px 'Inter Tight', sans-serif";
+          const textW = ctx.measureText(label).width;
+          const tipX = Math.min(
+            Math.max(x + barW / 2 - textW / 2 - 6, 4),
+            W - textW - 16
+          );
+          const tipY = baseY - barH - 22;
+
+          // Tooltip background
+          ctx.fillStyle = "rgba(26, 26, 26, 0.85)";
+          const tipPad = 6;
+          ctx.beginPath();
+          ctx.roundRect(
+            tipX,
+            tipY,
+            textW + tipPad * 2,
+            18,
+            3
+          );
+          ctx.fill();
+
+          // Tooltip text
+          ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+          ctx.textAlign = "left";
+          ctx.fillText(label, tipX + tipPad, tipY + 13);
+        }
+      }
+
+      // ── Flowing wave line connecting bar tops (visual connection to hero) ──
+      ctx.beginPath();
+      for (let i = 0; i < barCount; i++) {
+        const intensity = bars[i].count / maxCount;
+        const x = padLeft + i * (barW + gap) + barW / 2;
+        const breathe = 1 + Math.sin(time * 1.8 + i * 0.5) * 0.03 * intensity;
+        const barH = Math.max(2, intensity * chartH * 0.85 * breathe);
+        const y = baseY - barH;
+
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          // Smooth curve through bar tops
+          const prevIntensity = bars[i - 1].count / maxCount;
+          const prevBreathe =
+            1 +
+            Math.sin(time * 1.8 + (i - 1) * 0.5) * 0.03 * prevIntensity;
+          const prevBarH = Math.max(
+            2,
+            prevIntensity * chartH * 0.85 * prevBreathe
+          );
+          const prevX =
+            padLeft + (i - 1) * (barW + gap) + barW / 2;
+          const prevY = baseY - prevBarH;
+          const cpX = (prevX + x) / 2;
+          ctx.bezierCurveTo(cpX, prevY, cpX, y, x, y);
+        }
+      }
+      // Flowing wave pulse along the line
+      const waveAlpha = 0.08 + Math.sin(time * 1.2) * 0.03;
+      ctx.strokeStyle = `rgba(200, 65, 43, ${waveAlpha})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // ── Date labels along the bottom ──
+      ctx.font = "9px 'Inter Tight', sans-serif";
+      ctx.textAlign = "center";
+      const labelInterval = Math.max(1, Math.floor(barCount / 7));
+      for (let i = 0; i < barCount; i += labelInterval) {
+        const x = padLeft + i * (barW + gap) + barW / 2;
+        const dateStr = bars[i].date.slice(5);
+        ctx.fillStyle = "rgba(107, 101, 96, 0.5)";
+        ctx.fillText(dateStr, x, baseY + 16);
+      }
+      // Always label the last bar
+      if (barCount > 1) {
+        const lastX =
+          padLeft + (barCount - 1) * (barW + gap) + barW / 2;
+        ctx.fillStyle = "rgba(107, 101, 96, 0.5)";
+        ctx.fillText(bars[barCount - 1].date.slice(5), lastX, baseY + 16);
+      }
+
+      // ── Mouse convergence glow (matching hero style) ──
+      if (mouseRef.current.active) {
+        const gx = mx * W;
+        const gy = mouseRef.current.y * H;
+        const gradient = ctx.createRadialGradient(gx, gy, 0, gx, gy, 120);
+        gradient.addColorStop(0, "rgba(200, 65, 43, 0.035)");
+        gradient.addColorStop(0.5, "rgba(200, 65, 43, 0.012)");
         gradient.addColorStop(1, "rgba(200, 65, 43, 0)");
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, W, H);
-      }
-
-      // ── Date labels along the bottom ──
-      if (reversedDays.length > 0) {
-        ctx.font = "9px 'Inter Tight', sans-serif";
-        ctx.textAlign = "center";
-
-        // Show labels for a subset of days to avoid overlap
-        const labelInterval = Math.max(1, Math.floor(reversedDays.length / 7));
-        for (let i = 0; i < reversedDays.length; i += labelInterval) {
-          if (i >= cols) break;
-          const p = grid[rows - 1][i];
-          const flowX = p.ox + flowOffset;
-          const pr = project(flowX, 0, p.oz + 200 + 40, cx, cy);
-
-          const dateStr = reversedDays[i].date.slice(5); // MM-DD
-          const count = reversedDays[i].count;
-          const intensity = colIntensity[i];
-
-          ctx.fillStyle = `rgba(107, 101, 96, ${0.4 + intensity * 0.4})`;
-          ctx.fillText(dateStr, pr.x, H - 8);
-
-          // Show event count above the label for active days
-          if (count > 0) {
-            ctx.fillStyle = `rgba(200, 65, 43, ${0.4 + intensity * 0.5})`;
-            ctx.fillText(`${count}`, pr.x, H - 20);
-          }
-        }
       }
     };
 
@@ -272,7 +286,7 @@ export default function GitHubGrid({ activityDays }: Props) {
       style={{
         position: "relative",
         width: "100%",
-        height: 240,
+        height: 220,
         marginBottom: 24,
       }}
     >
