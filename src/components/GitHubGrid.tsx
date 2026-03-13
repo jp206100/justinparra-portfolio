@@ -1,46 +1,40 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 
 interface CellData {
   w: number;
   d: number;
   level: number;
-  val: number;
 }
 
-function generateContributions(): CellData[] {
-  const weeks = 52,
-    days = 7;
+interface Props {
+  contributions: CellData[] | null;
+}
+
+function generatePlaceholder(): CellData[] {
   const data: CellData[] = [];
-  for (let w = 0; w < weeks; w++) {
-    for (let d = 0; d < days; d++) {
-      const base = Math.random();
-      const weekday = d >= 1 && d <= 5 ? 0.2 : 0;
-      const burst = Math.sin(w * 0.4) > 0.6 ? 0.4 : 0;
-      const recent = w > 38 ? 0.15 : 0;
-      let val = Math.min(
-        1,
-        Math.max(0, base * 0.5 + weekday + burst + recent - 0.25)
-      );
-      if (val < 0.05) val = 0;
-      let level = 0;
-      if (val > 0.05) level = 1;
-      if (val > 0.3) level = 2;
-      if (val > 0.55) level = 3;
-      if (val > 0.75) level = 4;
-      data.push({ w, d, level, val });
+  for (let w = 0; w < 52; w++) {
+    for (let d = 0; d < 7; d++) {
+      data.push({ w, d, level: 0 });
     }
   }
   return data;
 }
 
-export default function GitHubGrid() {
+export default function GitHubGrid({ contributions }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef({ x: 26, y: 3.5 });
   const cellRefs = useRef<(HTMLDivElement | null)[]>([]);
   const animRef = useRef<number>(0);
-  const [data] = useState<CellData[]>(() => generateContributions());
+
+  const data = useMemo(
+    () => contributions ?? generatePlaceholder(),
+    [contributions]
+  );
+
+  // Track loading state for shimmer
+  const isLoading = contributions === null;
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -62,7 +56,7 @@ export default function GitHubGrid() {
 
     const colors = [
       [245, 242, 237], // L0: bg
-      [228, 195, 188], // L1: lightest red
+      [228, 195, 188], // L1: lightest
       [210, 140, 125], // L2: medium
       [200, 85, 60], // L3: strong
       [200, 65, 43], // L4: accent
@@ -112,23 +106,13 @@ export default function GitHubGrid() {
   }, [data]);
 
   const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
   ];
   const dayLabels = ["", "Mon", "", "Wed", "", "Fri", ""];
 
   return (
-    <div ref={wrapRef} style={{ marginBottom: 20, cursor: "default" }}>
+    <div ref={wrapRef} style={{ marginBottom: 20, cursor: "default", opacity: isLoading ? 0.4 : 1, transition: "opacity 0.5s" }}>
       {/* Month labels */}
       <div className="flex" style={{ paddingLeft: 32, marginBottom: 6 }}>
         {months.map((m, i) => (
