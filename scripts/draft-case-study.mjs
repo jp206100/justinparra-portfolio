@@ -51,7 +51,7 @@ const SANITY_DATASET = "production";
 // Image optimization settings
 const HERO_MAX_WIDTH = 2400;
 const GALLERY_MAX_WIDTH = 1600;
-const JPEG_QUALITY = 82;
+const JPEG_QUALITY = 92;
 
 const CATEGORY_IDS = {
   "Case Studies": "cat-case-studies",
