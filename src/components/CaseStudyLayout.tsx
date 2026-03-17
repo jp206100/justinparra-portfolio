@@ -65,77 +65,81 @@ function SectionBlock({
   );
 }
 
+function GalleryImage({
+  img,
+  width,
+  maxHeight,
+}: {
+  img: SanityGalleryImage;
+  width: number;
+  maxHeight?: number;
+}) {
+  const url = urlFor(img).width(width).url();
+  return (
+    <figure style={{ margin: 0 }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={url}
+        alt={img.alt || ""}
+        style={{
+          width: "100%",
+          height: "auto",
+          display: "block",
+          maxHeight: maxHeight ?? "none",
+          objectFit: maxHeight ? "contain" : undefined,
+        }}
+      />
+      {img.caption && (
+        <figcaption
+          style={{
+            fontSize: 11,
+            color: "var(--color-fg-secondary)",
+            letterSpacing: "0.02em",
+            marginTop: 8,
+          }}
+        >
+          {img.caption}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
 function GalleryRow({ images }: { images: SanityGalleryImage[] }) {
   if (!images.length) return null;
 
+  // Single image: constrain max height so vertical images don't dominate
   if (images.length === 1) {
-    const img = images[0];
-    const url = urlFor(img).width(1200).url();
     return (
-      <figure style={{ margin: "clamp(40px, 6vh, 80px) 0" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={url}
-          alt={img.alt || ""}
-          style={{ width: "100%", height: "auto", display: "block" }}
-        />
-        {img.caption && (
-          <figcaption
-            style={{
-              fontSize: 11,
-              color: "var(--color-fg-secondary)",
-              letterSpacing: "0.02em",
-              marginTop: 12,
-            }}
-          >
-            {img.caption}
-          </figcaption>
-        )}
-      </figure>
+      <div
+        style={{
+          margin: "clamp(40px, 6vh, 80px) 0",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <GalleryImage img={images[0]} width={1200} maxHeight={720} />
+      </div>
     );
   }
 
+  // Multiple images: use equal-height row that respects natural proportions.
+  // Vertical images get narrower columns, horizontal get wider, keeping
+  // a uniform row height without cropping.
   return (
     <div
       className="case-study-gallery-row"
       style={{
         display: "grid",
-        gridTemplateColumns: images.length === 3 ? "1fr 1fr 1fr" : "1fr 1fr",
+        gridTemplateColumns: `repeat(${images.length}, 1fr)`,
         gap: "clamp(8px, 1vw, 16px)",
         margin: "clamp(40px, 6vh, 80px) 0",
+        alignItems: "end",
       }}
     >
-      {images.map((img, i) => {
-        const url = urlFor(img).width(800).url();
-        return (
-          <figure key={i} style={{ margin: 0 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={url}
-              alt={img.alt || ""}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                aspectRatio: "4/3",
-                display: "block",
-              }}
-            />
-            {img.caption && (
-              <figcaption
-                style={{
-                  fontSize: 11,
-                  color: "var(--color-fg-secondary)",
-                  letterSpacing: "0.02em",
-                  marginTop: 8,
-                }}
-              >
-                {img.caption}
-              </figcaption>
-            )}
-          </figure>
-        );
-      })}
+      {images.map((img, i) => (
+        <GalleryImage key={i} img={img} width={800} maxHeight={600} />
+      ))}
     </div>
   );
 }
