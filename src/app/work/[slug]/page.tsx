@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import { client, workPostBySlugQuery, workPostsQuery, urlFor } from "@/lib/sanity";
+import { client, workPostBySlugQuery, workPostsQuery, getImageUrl } from "@/lib/sanity";
 import type { SanityWorkPost, SanityGalleryImage } from "@/lib/types";
 import PortableTextBody from "@/components/PortableTextBody";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
@@ -91,7 +91,7 @@ export async function generateMetadata({ params }: WorkPostPageProps): Promise<M
       const title = post.title;
       const description = post.description;
       const images = post.image
-        ? [{ url: urlFor(post.image).width(1200).height(630).url() }]
+        ? [{ url: getImageUrl(post.image, 1200, 630) }]
         : [];
       return {
         title,
@@ -122,7 +122,7 @@ async function getWorkPost(slug: string) {
         desc: post.description,
         date: post.date,
         categories: post.categories?.map((c) => c.title) ?? [],
-        imageUrl: post.image ? urlFor(post.image).width(1200).url() : null,
+        imageUrl: post.image ? getImageUrl(post.image, 1200) : null,
         body: post.body,
         caseStudyWhat: post.caseStudyWhat ?? null,
         caseStudyHow: post.caseStudyHow ?? null,

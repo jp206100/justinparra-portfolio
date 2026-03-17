@@ -15,7 +15,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import {
   client,
-  urlFor,
+  getImageUrl,
   experienceQuery,
   clientsQuery,
   workPostsQuery,
@@ -74,7 +74,7 @@ async function getSanityData() {
               date: p.date,
               categories: p.categories?.map((c) => c.title) ?? [],
               imageUrl: p.image
-                ? urlFor(p.image).width(800).height(450).url()
+                ? getImageUrl(p.image, 800, 450)
                 : undefined,
             }),
           )

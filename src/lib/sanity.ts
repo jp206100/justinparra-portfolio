@@ -17,6 +17,29 @@ export function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
 
+/**
+ * Build an image URL that preserves GIF animation.
+ * Sanity's CDN converts animated GIFs to static images when resize
+ * transforms (width/height) are applied, so we skip those for GIFs.
+ */
+export function getImageUrl(
+  source: SanityImageSource,
+  width?: number,
+  height?: number,
+): string {
+  const ref: string = source?.asset?._ref ?? "";
+  const isGif = ref.endsWith("-gif");
+
+  if (isGif) {
+    return builder.image(source).url();
+  }
+
+  let img = builder.image(source);
+  if (width) img = img.width(width);
+  if (height) img = img.height(height);
+  return img.url();
+}
+
 // Queries
 export const workPostsQuery = `*[_type == "workPost" && !(_id in path("drafts.**"))] | order(date desc) {
   _id,
