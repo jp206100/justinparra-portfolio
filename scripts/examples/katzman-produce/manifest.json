@@ -1,0 +1,36 @@
+{
+  "title": "Katzman Produce Brand Overhaul",
+  "slug": "katzman-produce-brand-overhaul",
+  "description": "Complete brand and digital overhaul for the Tri State area's biggest produce distributor, modernizing a 15-year-old identity with a story-driven website experience.",
+  "date": "2016-03-15",
+  "categories": ["Case Studies"],
+  "caseStudyWhat": "The Tri State area's biggest produce distributor was in desperate need of a new digital presence and brand package. No work had been done on the brand for almost 15 years. The business had evolved immensely over time, and they were desperate to modernize their identity and serve their more tech savvy audience.",
+  "caseStudyHow": "We recognized immediately that this was more than just a branding project. This was an experience project. There was an amazing story to tell in the Katzman family history. We knew that the image assets of the family, staff and product were going to move the needle for them. This is what really distinguished them in the market.",
+  "caseStudyResults": "Parallel pathing a video and photo shoot along with the initial discovery and user experience work allowed us to get to know all aspects of the business very quickly. We soon had recorded stakeholder interviews, customer interviews, and the family story along with appealing produce photos inside their facilities. We then moved to build User Personas and eventually the full website that told the story of the Katzman Produce path to become one of New York City's most storied businesses.",
+  "caseStudyRole": [
+    "Art direction of the photo and video shoot",
+    "Build user personas that focused the design on the tasks of our priority users",
+    "Led our internal design team to build out and revise responsive wireframes and mockups for each page template",
+    "Lead an onshore development team to build, test, and deploy the website on a staging and production server",
+    "Train Katzman staff on how to maintain and update their website"
+  ],
+  "heroImage": "./images/katzman-header.png",
+  "heroImageAlt": "Katzman Produce website redesign displayed across devices",
+  "galleryImages": [
+    {
+      "path": "./images/katzman-user-personas.png",
+      "alt": "Katzman Produce user persona research and development",
+      "caption": "User personas built to focus design on the tasks of priority users"
+    },
+    {
+      "path": "./images/katzman-wireframes.png",
+      "alt": "Katzman Produce responsive wireframe exploration",
+      "caption": "Responsive wireframes revised with the internal design team"
+    },
+    {
+      "path": "./images/katzman-design-mockups.png",
+      "alt": "Katzman Produce final website design mockups",
+      "caption": "Final design mockups telling the story of Katzman Produce"
+    }
+  ]
+}
