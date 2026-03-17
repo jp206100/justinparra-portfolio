@@ -18,7 +18,7 @@ export function urlFor(source: SanityImageSource) {
 }
 
 // Queries
-export const workPostsQuery = `*[_type == "workPost"] | order(date desc) {
+export const workPostsQuery = `*[_type == "workPost" && !(_id in path("drafts.**"))] | order(date desc) {
   _id,
   title,
   slug,
