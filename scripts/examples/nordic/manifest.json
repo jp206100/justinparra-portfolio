@@ -1,0 +1,36 @@
+{
+  "title": "Nordic Global - Mergers, Acquisitions, Rebrands, and Expansions",
+  "slug": "nordic-global",
+  "description": "Our UX team helped Nordic evolve from Nordic Health to Nordic Global, redesigning their digital presence to accommodate new services and products during a landmark year of growth.",
+  "date": "2023-06-15",
+  "categories": ["Case Studies"],
+  "caseStudyWhat": "The Nordic was on a fast-track to evolve and expand from being Nordic Health, a company with most of its business centered in Wisconsin, to Nordic Global- A worldwide healthcare efficiency company worth more than a billion dollars. Our team jumped on board for a fast-paced ride to accommodate for new services and products joining the fold as their business evolved during a landmark year for their organization.",
+  "caseStudyHow": "Our UX team consisting of designers, developers and project managers were integrated into the project from day one. Before we included the new services and products into the new website, we knew there was work needed to consolidate the pages of the website and streamline the user journey. Our copywriters collaborated with our marketing team to rename navigation labels to make sense of all the pages and information while we simplified the navigation experience based on user feedback and stakeholder interviews.",
+  "caseStudyResults": "We were able to build out several new sitemaps as the company evolved over the year that encompassed their products and services under easy to find categories. We also designed a complete overhaul of their Home page and several key pages that served to improve legibility and the user's likelihood of cross-traversing the website to explore more content.",
+  "caseStudyRole": [
+    "Conducted a card sorting exercise with the client to start the conversation about content hierarchy and priorities",
+    "Multiple live sitemap building sessions to discuss, design, and revise the sitemap",
+    "Led an internal design team to build out wireframes and multiple Home page mockups",
+    "Directed the client's development team in Brazil to build the new Home page and inner pages",
+    "Led QA and testing via Jira with the development team to finalize the work and make sure the work was to specifications"
+  ],
+  "heroImage": "./Header.png",
+  "heroImageAlt": "Nordic Global website header design showing the new brand identity",
+  "galleryImages": [
+    {
+      "path": "./Sitemap.png",
+      "alt": "Nordic Global sitemap showing reorganized navigation and content hierarchy",
+      "caption": "Revised sitemap organizing Nordic's expanded services and products into intuitive categories"
+    },
+    {
+      "path": "./Wireframe.png",
+      "alt": "Nordic Global homepage wireframe showing new page layout and content structure",
+      "caption": "Wireframe exploration for the redesigned Nordic homepage"
+    },
+    {
+      "path": "./Live site.png",
+      "alt": "Nordic Global live website showing the final redesigned homepage",
+      "caption": "The final redesigned Nordic Global homepage with improved navigation and content organization"
+    }
+  ]
+}
