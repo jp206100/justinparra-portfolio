@@ -58,6 +58,55 @@ const workPost = {
       type: "boolean",
       initialValue: false,
     },
+    {
+      name: "caseStudyWhat",
+      title: "What",
+      type: "text",
+      description: "Case Study: What was the project about?",
+      hidden: ({ document }: { document: { categories?: { _ref: string }[] } }) =>
+        !document?.categories?.length,
+    },
+    {
+      name: "caseStudyHow",
+      title: "How",
+      type: "text",
+      description: "Case Study: How did you approach it?",
+      hidden: ({ document }: { document: { categories?: { _ref: string }[] } }) =>
+        !document?.categories?.length,
+    },
+    {
+      name: "caseStudyResults",
+      title: "Results",
+      type: "text",
+      description: "Case Study: What were the results?",
+      hidden: ({ document }: { document: { categories?: { _ref: string }[] } }) =>
+        !document?.categories?.length,
+    },
+    {
+      name: "caseStudyRole",
+      title: "My Role",
+      type: "array",
+      of: [{ type: "string" }],
+      description: "Case Study: List of responsibilities",
+      hidden: ({ document }: { document: { categories?: { _ref: string }[] } }) =>
+        !document?.categories?.length,
+    },
+    {
+      name: "galleryImages",
+      title: "Gallery Images",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            { name: "alt", title: "Alt Text", type: "string" },
+            { name: "caption", title: "Caption", type: "string" },
+          ],
+        },
+      ],
+      description: "Case Study: Project images (recommended 5)",
+    },
   ],
   preview: {
     select: { title: "title", media: "image" },

@@ -38,7 +38,12 @@ export const workPostBySlugQuery = `*[_type == "workPost" && slug.current == $sl
   date,
   image,
   featured,
-  "categories": categories[]->{ title, slug }
+  "categories": categories[]->{ title, slug },
+  caseStudyWhat,
+  caseStudyHow,
+  caseStudyResults,
+  caseStudyRole,
+  galleryImages
 }`;
 
 export const siteSettingsQuery = `*[_type == "siteSettings"][0]`;

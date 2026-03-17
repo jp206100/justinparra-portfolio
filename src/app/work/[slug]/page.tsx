@@ -3,8 +3,9 @@ export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { client, workPostBySlugQuery, workPostsQuery, urlFor } from "@/lib/sanity";
-import type { SanityWorkPost } from "@/lib/types";
+import type { SanityWorkPost, SanityGalleryImage } from "@/lib/types";
 import PortableTextBody from "@/components/PortableTextBody";
+import CaseStudyLayout from "@/components/CaseStudyLayout";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
@@ -123,6 +124,11 @@ async function getWorkPost(slug: string) {
         categories: post.categories?.map((c) => c.title) ?? [],
         imageUrl: post.image ? urlFor(post.image).width(1200).url() : null,
         body: post.body,
+        caseStudyWhat: post.caseStudyWhat ?? null,
+        caseStudyHow: post.caseStudyHow ?? null,
+        caseStudyResults: post.caseStudyResults ?? null,
+        caseStudyRole: post.caseStudyRole ?? null,
+        galleryImages: post.galleryImages ?? null,
       };
     }
   } catch {
@@ -130,7 +136,16 @@ async function getWorkPost(slug: string) {
   }
   const fallback = fallbackPosts[slug];
   if (fallback) {
-    return { ...fallback, imageUrl: null, body: null };
+    return {
+      ...fallback,
+      imageUrl: null,
+      body: null,
+      caseStudyWhat: null,
+      caseStudyHow: null,
+      caseStudyResults: null,
+      caseStudyRole: null,
+      galleryImages: null,
+    };
   }
   return null;
 }
@@ -138,6 +153,32 @@ async function getWorkPost(slug: string) {
 export default async function WorkPostPage({ params }: WorkPostPageProps) {
   const { slug } = await params;
   const post = await getWorkPost(slug);
+
+  // Use Case Study template when structured case study fields are present
+  const isCaseStudy =
+    post &&
+    post.categories.includes("Case Studies") &&
+    post.caseStudyWhat &&
+    post.caseStudyHow &&
+    post.caseStudyResults &&
+    post.caseStudyRole;
+
+  if (isCaseStudy) {
+    return (
+      <CaseStudyLayout
+        title={post.title}
+        desc={post.desc}
+        date={post.date}
+        categories={post.categories}
+        imageUrl={post.imageUrl}
+        caseStudyWhat={post.caseStudyWhat!}
+        caseStudyHow={post.caseStudyHow!}
+        caseStudyResults={post.caseStudyResults!}
+        caseStudyRole={post.caseStudyRole!}
+        galleryImages={(post.galleryImages as SanityGalleryImage[]) ?? []}
+      />
+    );
+  }
 
   if (!post) {
     return (

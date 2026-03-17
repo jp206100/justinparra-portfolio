@@ -8,6 +8,12 @@ export interface SanityCategory {
   slug: SanitySlug;
 }
 
+export interface SanityGalleryImage {
+  asset: { _ref: string };
+  alt?: string;
+  caption?: string;
+}
+
 export interface SanityWorkPost {
   _id: string;
   title: string;
@@ -18,6 +24,11 @@ export interface SanityWorkPost {
   featured: boolean;
   categories: SanityCategory[];
   body?: SanityBlock[];
+  caseStudyWhat?: string;
+  caseStudyHow?: string;
+  caseStudyResults?: string;
+  caseStudyRole?: string[];
+  galleryImages?: SanityGalleryImage[];
 }
 
 export interface SanityImage {
