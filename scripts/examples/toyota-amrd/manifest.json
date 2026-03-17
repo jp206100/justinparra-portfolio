@@ -1,0 +1,36 @@
+{
+  "title": "Navigating a Reorg with Toyota's Advanced Mobility R&D",
+  "slug": "toyota-amrd-reorg",
+  "description": "When Toyota asked us to help them present this new consolidated department to the public, our integrated team stepped in to build out an experience that made a very complex and large organization's work digestible to a niche audience.",
+  "date": "2018-10-15",
+  "categories": ["Case Studies"],
+  "caseStudyWhat": "Toyota's AMRD conducts research and product development for the next 10, 20, and 50 years of automotive technology.",
+  "caseStudyHow": "When Toyota asked us to help them present this new consolidated department to the public, our integrated team stepped in to build out an experience that made a very complex and large organization's work digestible to a niche audience. We visited Toyota's AMRD headquarters in Ann Arbor, Michigan to meet with their Communications Team, engineering leads, and researchers to get a better picture of how the new R&D divisions would be organized. While conducting stakeholder interviews, we learned of their challenges and objectives in appealing primarily to experienced engineers in the job pool along with the media who report on their work. Utilizing existing user data, past research, and stakeholder feedback, we started the process of building user flows, user personas, a sitemap, and wireframes that guided our design teams and helped build mutual buy-in with the client.",
+  "caseStudyResults": "Toyota gained a new recruiting and public engagement tool that can efficiently answer \"What's the difference between AMRD's divisions?\". Our preliminary SEO work helped the site rank higher for several key search terms.",
+  "caseStudyRole": [
+    "Built user personas",
+    "Designed the sitemap with the client team",
+    "Conducted stakeholder interviews with Toyota's engineering and communications leaders",
+    "Led our internal team of designers to build out a site audit, wireframes, and responsive mockups",
+    "Directed the dev team to build, test, and deploy the website and CMS"
+  ],
+  "heroImage": "./images/toyota-amrd-homepage-mockup.png",
+  "heroImageAlt": "Toyota Advanced Mobility R&D website homepage displayed on desktop monitor",
+  "galleryImages": [
+    {
+      "path": "./images/toyota-amrd-user-flows.png",
+      "alt": "Toyota AMRD user flows and persona research document",
+      "caption": "User flows and personas mapping audience segments and navigation paths"
+    },
+    {
+      "path": "./images/toyota-amrd-wireframes.png",
+      "alt": "Toyota AMRD website wireframe showing page layout and content hierarchy",
+      "caption": "Wireframe exploration for the AMRD homepage structure"
+    },
+    {
+      "path": "./images/toyota-amrd-final-website-pages.png",
+      "alt": "Toyota AMRD final responsive website design showing homepage, about, and division pages",
+      "caption": "The redesigned AMRD website with division-specific landing pages"
+    }
+  ]
+}
