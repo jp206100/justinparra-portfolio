@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "draft:case-study": "node scripts/draft-case-study.mjs"
   },
   "dependencies": {
     "@portabletext/react": "^6.0.3",
