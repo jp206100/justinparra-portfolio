@@ -1,0 +1,34 @@
+{
+  "title": "City of Seattle - Renting in Seattle",
+  "slug": "city-of-seattle-renting-in-seattle",
+  "description": "A comprehensive web portal for Seattle renters and landlords, designed in compliance with the City's style guide to provide a 360-degree view of the rental process.",
+  "date": "2017-03-15",
+  "categories": ["Case Studies"],
+  "caseStudyWhat": "The Seattle Department of Construction & Inspections (SDCI) engaged the creative studio I support to architect and design a web portal, which would live within SDCI's existing architecture and website. The portal provides Seattle renters and landlords with a comprehensive 360-degree view of the rental process. In compliance with the City's new style guide, the illustrator and web designer delivered a set of intuitive wireframes and redline designs that were built by the City's development team.",
+  "caseStudyHow": "Our UX team worked with stakeholders from City of Seattle and internal agency account managers to learn as much as possible about the target demographic and current userbase of SDCI; Utilizing data, user studies, and stakeholder interviews.",
+  "caseStudyResults": "The City of Seattle gained a new resource for tenants and landlords that offers concise and accessible information about tenant rights and policies around renting and leasing property.",
+  "caseStudyRole": [
+    "Led a team of UX specialists to build out a set user-centered wireframes for client review and acceptance",
+    "Collaborated with city officials and our internal graphic design team to build full resolution design mockups that are optimized for implementation by the City of Seattle's web development team",
+    "QA and testing for accessibility and cross-browser compatibility"
+  ],
+  "heroImage": "./Header.png",
+  "heroImageAlt": "City of Seattle Renting in Seattle web portal header design",
+  "galleryImages": [
+    {
+      "path": "./Wireframe 1.png",
+      "alt": "Renting in Seattle wireframe showing portal layout and content structure",
+      "caption": "Wireframe exploration for the Renting in Seattle portal information architecture"
+    },
+    {
+      "path": "./Wireframe 2.png",
+      "alt": "Renting in Seattle detailed wireframe for tenant and landlord resources",
+      "caption": "Detailed wireframe for tenant and landlord resource pages"
+    },
+    {
+      "path": "./Final Home Screen.png",
+      "alt": "Renting in Seattle final home screen design showing the completed portal",
+      "caption": "Final design mockup for the Renting in Seattle portal home screen"
+    }
+  ]
+}
