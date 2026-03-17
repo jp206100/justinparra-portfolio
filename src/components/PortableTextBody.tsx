@@ -2,6 +2,13 @@ import { PortableText, PortableTextComponents } from "@portabletext/react";
 import { urlFor } from "@/lib/sanity";
 import type { SanityBlock } from "@/lib/types";
 
+function getYouTubeId(url: string): string | null {
+  const match = url.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/
+  );
+  return match ? match[1] : null;
+}
+
 const components: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
@@ -133,6 +140,38 @@ const components: PortableTextComponents = {
             </figcaption>
           )}
         </figure>
+      );
+    },
+    youtube: ({ value }) => {
+      if (!value?.url) return null;
+      const id = getYouTubeId(value.url);
+      if (!id) return null;
+      return (
+        <div
+          style={{
+            position: "relative",
+            paddingBottom: "56.25%",
+            height: 0,
+            margin: "40px 0",
+            overflow: "hidden",
+            borderRadius: 8,
+          }}
+        >
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${id}`}
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              border: 0,
+            }}
+          />
+        </div>
       );
     },
   },
