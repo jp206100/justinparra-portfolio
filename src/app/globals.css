@@ -72,4 +72,22 @@ body {
   .github-bottom-grid {
     grid-template-columns: 1fr !important;
   }
+
+  .case-study-section {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .case-study-meta {
+    flex-direction: column !important;
+  }
+
+  .case-study-meta span {
+    margin-left: 0 !important;
+    margin-top: 16px !important;
+  }
+
+  .case-study-gallery-row {
+    grid-template-columns: 1fr !important;
+  }
 }
