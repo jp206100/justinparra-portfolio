@@ -23,6 +23,11 @@
       "caption": "User flows and personas mapping audience segments and navigation paths"
     },
     {
+      "path": "./images/toyota-amrd-sitemap.png",
+      "alt": "Toyota AMRD sitemap showing main navigation and division page hierarchy",
+      "caption": "Sitemap designed with the client team to organize AMRD's divisions"
+    },
+    {
       "path": "./images/toyota-amrd-wireframes.png",
       "alt": "Toyota AMRD website wireframe showing page layout and content hierarchy",
       "caption": "Wireframe exploration for the AMRD homepage structure"
