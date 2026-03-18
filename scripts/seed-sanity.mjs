@@ -1,8 +1,14 @@
 import { createClient } from "@sanity/client";
 
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+if (!projectId) {
+  console.error("Error: NEXT_PUBLIC_SANITY_PROJECT_ID environment variable is required.");
+  process.exit(1);
+}
+
 const client = createClient({
-  projectId: "hzqd03zv",
-  dataset: "production",
+  projectId,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   apiVersion: "2024-01-01",
   token: process.env.SANITY_API_TOKEN,
   useCdn: false,
