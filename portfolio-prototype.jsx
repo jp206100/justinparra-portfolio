@@ -512,7 +512,7 @@ export default function Portfolio() {
           </Reveal>
           <Reveal>
             <p style={{ fontSize: 15, color: fgSec, marginBottom: 20, lineHeight: 1.7 }}>With early career roots in web development, I bring a rare blend of creative and technical fluency to every project.</p>
-            <p style={{ fontSize: 15, color: fgSec, marginBottom: 20, lineHeight: 1.7 }}>I've led cross-functional teams to ship CMS platforms, VR experiences, analytics dashboards, and public engagement tools for clients ranging from Toyota North America to the US Fire Administration.</p>
+            <p style={{ fontSize: 15, color: fgSec, marginBottom: 20, lineHeight: 1.7 }}>I've led cross-functional teams to ship apps, VR experiences, websites, analytics dashboards, and public engagement tools for clients ranging from Toyota North America to the US Fire Administration.</p>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginTop: 40, paddingTop: 32, borderTop: `1px solid ${border}` }}>
               <div><span style={{ fontSize: 36, fontWeight: 300, letterSpacing: "-0.02em" }}>18+</span><br/><span style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: fgSec }}>Years Experience</span></div>
               <div><span style={{ fontSize: 36, fontWeight: 300, letterSpacing: "-0.02em" }}>100+</span><br/><span style={{ fontFamily: mono, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: fgSec }}>Projects Shipped</span></div>
