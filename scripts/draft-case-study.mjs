@@ -45,8 +45,13 @@ import { readFile } from "node:fs/promises";
 import { resolve, dirname, basename, extname } from "node:path";
 import sharp from "sharp";
 
-const SANITY_PROJECT_ID = "hzqd03zv";
-const SANITY_DATASET = "production";
+const SANITY_PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const SANITY_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
+
+if (!SANITY_PROJECT_ID) {
+  console.error("Error: NEXT_PUBLIC_SANITY_PROJECT_ID environment variable is required.");
+  process.exit(1);
+}
 
 // Image optimization settings
 const HERO_MAX_WIDTH = 2400;
@@ -121,7 +126,7 @@ async function main() {
   if (!token) {
     console.error("Error: SANITY_API_TOKEN environment variable is required.");
     console.error(
-      "Get a token from https://www.sanity.io/manage/project/hzqd03zv/api#tokens"
+      "Get a token from https://www.sanity.io/manage → your project → API → Tokens"
     );
     process.exit(1);
   }
