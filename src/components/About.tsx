@@ -1,7 +1,15 @@
-import { PortableText } from "@portabletext/react";
+import { PortableText, PortableTextComponents } from "@portabletext/react";
 import type { SanityBlock } from "@/lib/types";
 import SectionLabel from "./SectionLabel";
 import Reveal from "./Reveal";
+
+const aboutBodyComponents: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => (
+      <p style={{ marginBottom: 20 }}>{children}</p>
+    ),
+  },
+};
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
@@ -47,7 +55,7 @@ export default function About({ statement, body }: AboutProps) {
             }}
           >
             {body ? (
-              <PortableText value={body} />
+              <PortableText value={body} components={aboutBodyComponents} />
             ) : (
               <>
                 <p style={{ marginBottom: 20 }}>
