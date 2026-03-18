@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
+import { formatDate } from "@/lib/formatDate";
 import type { SanityGalleryImage } from "@/lib/types";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
@@ -296,7 +297,7 @@ export default function CaseStudyLayout({
               marginLeft: 40,
             }}
           >
-            {date}
+            {formatDate(date)}
           </span>
         </div>
       </div>
