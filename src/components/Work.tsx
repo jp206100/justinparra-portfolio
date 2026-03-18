@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import SectionLabel from "./SectionLabel";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
@@ -195,15 +196,15 @@ export default function Work({ posts, categories }: WorkProps) {
                   style={{
                     aspectRatio: "16/9",
                     overflow: "hidden",
+                    position: "relative",
                   }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={post.imageUrl}
                     alt={post.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     style={{
-                      width: "100%",
-                      height: "100%",
                       objectFit: "cover",
                       transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)",
                       transform: isHovered ? "scale(1.05)" : "scale(1)",

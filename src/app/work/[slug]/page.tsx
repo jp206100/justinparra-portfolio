@@ -1,7 +1,8 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { client, workPostBySlugQuery, workPostsQuery, getImageUrl } from "@/lib/sanity";
 import type { SanityWorkPost, SanityGalleryImage } from "@/lib/types";
 import PortableTextBody from "@/components/PortableTextBody";
@@ -235,17 +236,16 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
             aspectRatio: "21/9",
             maxHeight: 480,
             overflow: "hidden",
+            position: "relative",
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={post.imageUrl}
             alt={post.title}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            fill
+            sizes="100vw"
+            priority
+            style={{ objectFit: "cover" }}
           />
         </div>
       ) : (

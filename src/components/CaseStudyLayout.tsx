@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import type { SanityGalleryImage } from "@/lib/types";
 
@@ -77,10 +78,12 @@ function GalleryImage({
   const url = urlFor(img).width(width).url();
   return (
     <figure style={{ margin: 0 }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={url}
         alt={img.alt || ""}
+        width={width}
+        height={Math.round(width * 0.75)}
+        sizes="(max-width: 768px) 100vw, 50vw"
         style={{
           width: "100%",
           height: "auto",
@@ -192,17 +195,16 @@ export default function CaseStudyLayout({
             aspectRatio: "21/9",
             maxHeight: 560,
             overflow: "hidden",
+            position: "relative",
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={imageUrl}
             alt={title}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            fill
+            sizes="100vw"
+            priority
+            style={{ objectFit: "cover" }}
           />
         </div>
       ) : (
