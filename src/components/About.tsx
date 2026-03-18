@@ -1,3 +1,5 @@
+import { PortableText } from "@portabletext/react";
+import type { SanityBlock } from "@/lib/types";
 import SectionLabel from "./SectionLabel";
 import Reveal from "./Reveal";
 
@@ -8,9 +10,10 @@ const fallbackStatement =
 
 interface AboutProps {
   statement?: string;
+  body?: SanityBlock[];
 }
 
-export default function About({ statement }: AboutProps) {
+export default function About({ statement, body }: AboutProps) {
   const aboutText = statement ?? fallbackStatement;
 
   return (
@@ -36,30 +39,30 @@ export default function About({ statement }: AboutProps) {
           </div>
         </Reveal>
         <Reveal>
-          <p
+          <div
             style={{
               fontSize: 15,
               color: "var(--color-fg-secondary)",
-              marginBottom: 20,
               lineHeight: 1.7,
             }}
           >
-            With early career roots in web development, I bring a rare blend of
-            creative and technical fluency to every project.
-          </p>
-          <p
-            style={{
-              fontSize: 15,
-              color: "var(--color-fg-secondary)",
-              marginBottom: 20,
-              lineHeight: 1.7,
-            }}
-          >
-            I&apos;ve led cross-functional teams to ship CMS platforms, VR
-            experiences, analytics dashboards, and public engagement tools for
-            clients ranging from Toyota North America to the US Fire
-            Administration.
-          </p>
+            {body ? (
+              <PortableText value={body} />
+            ) : (
+              <>
+                <p style={{ marginBottom: 20 }}>
+                  With early career roots in web development, I bring a rare
+                  blend of creative and technical fluency to every project.
+                </p>
+                <p style={{ marginBottom: 20 }}>
+                  I&apos;ve led cross-functional teams to ship apps, VR
+                  experiences, websites, analytics dashboards, and public
+                  engagement tools for clients ranging from Toyota North America
+                  to the US Fire Administration.
+                </p>
+              </>
+            )}
+          </div>
           <div
             className="grid grid-cols-2 gap-6"
             style={{
