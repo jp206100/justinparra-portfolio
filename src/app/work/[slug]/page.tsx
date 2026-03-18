@@ -91,13 +91,15 @@ export async function generateMetadata({ params }: WorkPostPageProps): Promise<M
     if (post) {
       const title = post.title;
       const description = post.description;
+      const canonical = `https://justinparra-portfolio.vercel.app/work/${slug}`;
       const images = post.image
         ? [{ url: getImageUrl(post.image, 1200, 630) }]
         : [];
       return {
         title,
         description,
-        openGraph: { title, description, type: "article", images },
+        alternates: { canonical },
+        openGraph: { title, description, type: "article", images, url: canonical },
         twitter: { card: "summary_large_image", title, description, images: images.map((i) => i.url) },
       };
     }
@@ -106,7 +108,11 @@ export async function generateMetadata({ params }: WorkPostPageProps): Promise<M
   }
   const fallback = fallbackPosts[slug];
   if (fallback) {
-    return { title: fallback.title, description: fallback.desc };
+    return {
+      title: fallback.title,
+      description: fallback.desc,
+      alternates: { canonical: `https://justinparra-portfolio.vercel.app/work/${slug}` },
+    };
   }
   return { title: "Work" };
 }
@@ -155,6 +161,19 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
   const { slug } = await params;
   const post = await getWorkPost(slug);
 
+  const articleJsonLd = post
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: post.title,
+        description: post.desc,
+        datePublished: post.date,
+        author: { "@type": "Person", name: "Justin Parra" },
+        url: `https://justinparra-portfolio.vercel.app/work/${slug}`,
+        ...(post.imageUrl ? { image: post.imageUrl } : {}),
+      }
+    : null;
+
   // Use Case Study template when structured case study fields are present
   const isCaseStudy =
     post &&
@@ -166,18 +185,26 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
 
   if (isCaseStudy) {
     return (
-      <CaseStudyLayout
-        title={post.title}
-        desc={post.desc}
-        date={post.date}
-        categories={post.categories}
-        imageUrl={post.imageUrl}
-        caseStudyWhat={post.caseStudyWhat!}
-        caseStudyHow={post.caseStudyHow!}
-        caseStudyResults={post.caseStudyResults!}
-        caseStudyRole={post.caseStudyRole!}
-        galleryImages={(post.galleryImages as SanityGalleryImage[]) ?? []}
-      />
+      <>
+        {articleJsonLd && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+          />
+        )}
+        <CaseStudyLayout
+          title={post.title}
+          desc={post.desc}
+          date={post.date}
+          categories={post.categories}
+          imageUrl={post.imageUrl}
+          caseStudyWhat={post.caseStudyWhat!}
+          caseStudyHow={post.caseStudyHow!}
+          caseStudyResults={post.caseStudyResults!}
+          caseStudyRole={post.caseStudyRole!}
+          galleryImages={(post.galleryImages as SanityGalleryImage[]) ?? []}
+        />
+      </>
     );
   }
 
@@ -207,8 +234,15 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
   }
 
   return (
-    <div style={{ minHeight: "100vh" }}>
-      {/* Back nav */}
+    <>
+      {articleJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        />
+      )}
+      <div style={{ minHeight: "100vh" }}>
+        {/* Back nav */}
       <nav
         style={{
           padding: `24px ${pagePad}`,
@@ -390,6 +424,7 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
         </span>
       </footer>
     </div>
+    </>
   );
 }
 

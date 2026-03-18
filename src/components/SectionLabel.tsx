@@ -23,7 +23,7 @@ export default function SectionLabel({ label, num }: SectionLabelProps) {
         alignItems: "center",
       }}
     >
-      <span>{label}</span>
+      <h2 style={{ fontSize: "inherit", fontWeight: "inherit", margin: 0 }}>{label}</h2>
       <span style={{ color: "var(--color-accent)" }}>{num}</span>
     </Reveal>
   );
