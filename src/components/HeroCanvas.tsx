@@ -65,8 +65,8 @@ export default function HeroCanvas() {
     const onScroll = () => {
       scrollRef.current = window.scrollY;
     };
-    document.addEventListener("mousemove", onMouse);
-    window.addEventListener("scroll", onScroll);
+    document.addEventListener("mousemove", onMouse, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     const drawGrid = (
       grid: { ox: number; oz: number; y: number }[][],
@@ -225,7 +225,7 @@ export default function HeroCanvas() {
     <canvas
       ref={canvasRef}
       className="absolute top-0 left-0 w-full h-full"
-      style={{ zIndex: 0 }}
+      style={{ zIndex: 0, willChange: "transform" }}
     />
   );
 }
