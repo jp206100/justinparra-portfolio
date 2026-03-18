@@ -104,7 +104,8 @@ export default function GitHubActivity() {
               letterSpacing: "0.05em",
             }}
           >
-            View Profile &rarr;
+            <span aria-hidden="true">View Profile &rarr;</span>
+            <span className="sr-only">View GitHub profile for {data?.username ?? "jp206100"}</span>
           </a>
         </div>
 
@@ -219,6 +220,7 @@ export default function GitHubActivity() {
                     }}
                   >
                     <span
+                      aria-hidden="true"
                       style={{
                         width: 6,
                         height: 6,

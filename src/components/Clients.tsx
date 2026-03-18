@@ -29,7 +29,8 @@ export default function Clients({ clients }: ClientsProps) {
   const clientList = clients ?? fallbackClients;
 
   return (
-    <div
+    <section
+      aria-label="Select Clients"
       style={{
         background: "var(--color-fg)",
         color: "var(--color-bg)",
@@ -79,6 +80,6 @@ export default function Clients({ clients }: ClientsProps) {
           </Reveal>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

@@ -315,6 +315,8 @@ export default function GitHubGrid({ activityDays }: Props) {
           cursor: "default",
           touchAction: "pan-y",
         }}
+        role="img"
+        aria-label="GitHub activity chart showing recent contribution history"
       />
     </div>
   );

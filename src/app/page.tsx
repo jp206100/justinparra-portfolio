@@ -141,21 +141,23 @@ export default async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
       <Nav />
-      <Hero
-        label={settings?.heroLabel}
-        title={settings?.heroTitle}
-        subtitle={settings?.heroSubtitle}
-      />
-      <About statement={settings?.aboutStatement} />
-      <CurrentlySeeking text={settings?.seekingText} />
-      <Experience entries={experience} />
-      <Clients clients={clients} />
-      <GitHubActivity />
-      <Work posts={posts} categories={categories} />
-      <Contact
-        heading={settings?.contactHeading}
-        subtext={settings?.contactSubtext}
-      />
+      <main id="main-content">
+        <Hero
+          label={settings?.heroLabel}
+          title={settings?.heroTitle}
+          subtitle={settings?.heroSubtitle}
+        />
+        <About statement={settings?.aboutStatement} />
+        <CurrentlySeeking text={settings?.seekingText} />
+        <Experience entries={experience} />
+        <Clients clients={clients} />
+        <GitHubActivity />
+        <Work posts={posts} categories={categories} />
+        <Contact
+          heading={settings?.contactHeading}
+          subtext={settings?.contactSubtext}
+        />
+      </main>
       <Footer />
     </>
   );
