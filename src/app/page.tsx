@@ -147,7 +147,7 @@ export default async function Home() {
           title={settings?.heroTitle}
           subtitle={settings?.heroSubtitle}
         />
-        <About statement={settings?.aboutStatement} />
+        <About statement={settings?.aboutStatement} body={settings?.aboutBody} />
         <CurrentlySeeking text={settings?.seekingText} />
         <Experience entries={experience} />
         <Clients clients={clients} />
