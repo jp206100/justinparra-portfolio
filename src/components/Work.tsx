@@ -135,6 +135,7 @@ export default function Work({ posts, categories }: WorkProps) {
                 setActiveFilter(cat);
                 setVisibleCount(5);
               }}
+              aria-pressed={isActive}
               style={{
                 fontSize: 10,
                 letterSpacing: "0.1em",
@@ -146,7 +147,6 @@ export default function Work({ posts, categories }: WorkProps) {
                 cursor: "pointer",
                 transition: "all 0.3s ease",
                 borderRadius: 0,
-                outline: "none",
               }}
             >
               {cat}
@@ -306,7 +306,6 @@ export default function Work({ posts, categories }: WorkProps) {
                 color: "var(--color-fg)",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
-                outline: "none",
               }}
             >
               Load More

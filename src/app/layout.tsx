@@ -26,7 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={interTight.variable}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <a
+          href="#main-content"
+          className="skip-link"
+        >
+          Skip to main content
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

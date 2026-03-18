@@ -32,6 +32,7 @@ export default function Nav() {
       >
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Justin Parra — scroll to top"
           style={{
             fontSize: 13,
             fontWeight: 500,
@@ -129,6 +130,9 @@ export default function Nav() {
       {/* Mobile menu overlay */}
       <div
         className="mobile-menu-overlay"
+        role="dialog"
+        aria-label="Navigation menu"
+        aria-hidden={!menuOpen}
         style={{
           position: "fixed",
           inset: 0,

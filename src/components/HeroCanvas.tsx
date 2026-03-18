@@ -226,6 +226,8 @@ export default function HeroCanvas() {
       ref={canvasRef}
       className="absolute top-0 left-0 w-full h-full"
       style={{ zIndex: 0, willChange: "transform" }}
+      role="img"
+      aria-label="Decorative animated grid background"
     />
   );
 }
