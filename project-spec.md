@@ -118,7 +118,7 @@ Single-page layout with smooth scroll navigation. Individual routes for full wor
   - "I simplify the complex. My work lives at the intersection of *design strategy*, *technical leadership*, and *user advocacy*, translating business goals into intuitive digital products."
 - Right: Body copy + stats
   - "With early career roots in web development, I bring a rare blend of creative and technical fluency to every project."
-  - "I've led cross-functional teams to ship CMS platforms, VR experiences, analytics dashboards, and public engagement tools for clients ranging from Toyota North America to the US Fire Administration."
+  - "I've led cross-functional teams to ship apps, VR experiences, websites, analytics dashboards, and public engagement tools for clients ranging from Toyota North America to the US Fire Administration."
   - Stats: "18+" Years Experience, "100+" Projects Shipped
 
 ### Currently Seeking (02)
