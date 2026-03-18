@@ -26,6 +26,7 @@ body {
   font-family: var(--font-sans);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -43,6 +44,16 @@ body {
 @keyframes cardIn {
   from { opacity: 0; transform: translateY(24px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Backdrop-filter fallback for older browsers */
+@supports not (backdrop-filter: blur(1px)) {
+  nav {
+    background: rgba(245, 242, 237, 0.97) !important;
+  }
+  .mobile-menu-overlay {
+    background: rgba(245, 242, 237, 1) !important;
+  }
 }
 
 /* Mobile menu overlay hidden on desktop */

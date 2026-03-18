@@ -50,7 +50,7 @@ export default function GitHubGrid({ activityDays }: Props) {
     const onLeave = () => {
       mouseRef.current.active = false;
     };
-    canvas.addEventListener("mousemove", onMouse);
+    canvas.addEventListener("mousemove", onMouse, { passive: true });
     canvas.addEventListener("mouseleave", onLeave);
 
     /* ── Animation loop ──────────────────────────────────── */
@@ -188,14 +188,25 @@ export default function GitHubGrid({ activityDays }: Props) {
           // Tooltip background
           ctx.fillStyle = "rgba(26, 26, 26, 0.85)";
           const tipPad = 6;
+          const tipW = textW + tipPad * 2;
+          const tipH = 18;
+          const tipR = 3;
           ctx.beginPath();
-          ctx.roundRect(
-            tipX,
-            tipY,
-            textW + tipPad * 2,
-            18,
-            3
-          );
+          if (typeof ctx.roundRect === "function") {
+            ctx.roundRect(tipX, tipY, tipW, tipH, tipR);
+          } else {
+            // Fallback for browsers without roundRect support
+            ctx.moveTo(tipX + tipR, tipY);
+            ctx.lineTo(tipX + tipW - tipR, tipY);
+            ctx.quadraticCurveTo(tipX + tipW, tipY, tipX + tipW, tipY + tipR);
+            ctx.lineTo(tipX + tipW, tipY + tipH - tipR);
+            ctx.quadraticCurveTo(tipX + tipW, tipY + tipH, tipX + tipW - tipR, tipY + tipH);
+            ctx.lineTo(tipX + tipR, tipY + tipH);
+            ctx.quadraticCurveTo(tipX, tipY + tipH, tipX, tipY + tipH - tipR);
+            ctx.lineTo(tipX, tipY + tipR);
+            ctx.quadraticCurveTo(tipX, tipY, tipX + tipR, tipY);
+            ctx.closePath();
+          }
           ctx.fill();
 
           // Tooltip text
@@ -302,6 +313,7 @@ export default function GitHubGrid({ activityDays }: Props) {
           width: "100%",
           height: "100%",
           cursor: "default",
+          touchAction: "pan-y",
         }}
       />
     </div>
