@@ -393,13 +393,34 @@ export default function CaseStudyLayout({
         </SectionBlock>
       </article>
 
+      {/* Bottom back nav */}
+      <nav
+        style={{
+          padding: `24px ${pagePad}`,
+          borderTop: "1px solid var(--color-border)",
+          marginTop: "clamp(48px, 8vh, 96px)",
+        }}
+      >
+        <Link
+          href="/#work"
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "var(--color-fg-secondary)",
+            textDecoration: "none",
+          }}
+        >
+          &larr; Back to Work
+        </Link>
+      </nav>
+
       {/* Footer */}
       <footer
         className="flex items-center justify-between"
         style={{
           padding: `32px ${pagePad}`,
           borderTop: "1px solid var(--color-border)",
-          marginTop: "clamp(48px, 8vh, 96px)",
         }}
       >
         <span

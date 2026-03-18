@@ -341,6 +341,27 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
         )}
       </article>
 
+      {/* Bottom back nav */}
+      <nav
+        style={{
+          padding: `24px ${pagePad}`,
+          borderTop: "1px solid var(--color-border)",
+        }}
+      >
+        <Link
+          href="/#work"
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "var(--color-fg-secondary)",
+            textDecoration: "none",
+          }}
+        >
+          &larr; Back to Work
+        </Link>
+      </nav>
+
       {/* Footer */}
       <footer
         className="flex items-center justify-between"
