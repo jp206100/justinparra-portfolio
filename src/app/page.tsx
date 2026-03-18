@@ -122,8 +122,24 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   const { experience, clients, posts, categories, settings } = await getSanityData();
 
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Justin Parra",
+    url: "https://justinparra-portfolio.vercel.app",
+    jobTitle: "UX Leader & Digital Strategist",
+    description:
+      settings?.heroSubtitle ??
+      "18+ years leading design, development, and strategy teams across private and public sectors.",
+    sameAs: ["https://github.com/justinparra"],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <Nav />
       <Hero
         label={settings?.heroLabel}
