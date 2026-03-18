@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
+import { Inter_Tight } from "next/font/google";
 import "./globals.css";
+
+const interTight = Inter_Tight({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-inter-tight",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://justinparra-portfolio.vercel.app"),
@@ -17,19 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={interTight.variable}>
       <body className="font-sans antialiased">{children}</body>
     </html>
   );

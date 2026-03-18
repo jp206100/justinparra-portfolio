@@ -1,4 +1,5 @@
 import { PortableText, PortableTextComponents } from "@portabletext/react";
+import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import type { SanityBlock } from "@/lib/types";
 
@@ -117,10 +118,12 @@ const components: PortableTextComponents = {
       const url = urlFor(value).width(800).url();
       return (
         <figure style={{ margin: "40px 0" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={url}
             alt={value.alt || ""}
+            width={800}
+            height={450}
+            sizes="(max-width: 800px) 100vw, 800px"
             style={{
               width: "100%",
               height: "auto",
