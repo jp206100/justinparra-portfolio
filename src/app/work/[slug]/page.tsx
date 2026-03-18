@@ -6,6 +6,7 @@ import Image from "next/image";
 import { client, workPostBySlugQuery, workPostsQuery, getImageUrl } from "@/lib/sanity";
 import type { SanityWorkPost, SanityGalleryImage } from "@/lib/types";
 import PortableTextBody from "@/components/PortableTextBody";
+import { formatDate } from "@/lib/formatDate";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
@@ -352,7 +353,7 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
             borderBottom: "1px solid var(--color-border)",
           }}
         >
-          {post.date}
+          {formatDate(post.date)}
         </div>
 
         {post.body ? (

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SectionLabel from "./SectionLabel";
+import { formatDate } from "@/lib/formatDate";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
@@ -280,7 +281,7 @@ export default function Work({ posts, categories }: WorkProps) {
                     letterSpacing: "0.02em",
                   }}
                 >
-                  {post.date}
+                  {formatDate(post.date)}
                 </div>
               </div>
             </Link>
