@@ -30,17 +30,22 @@ export default function Nav() {
           WebkitBackdropFilter: "blur(12px)",
         }}
       >
-        <div
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           style={{
             fontSize: 13,
             fontWeight: 500,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
             color: "var(--color-fg)",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: 0,
           }}
         >
           Justin Parra
-        </div>
+        </button>
 
         {/* Desktop nav links */}
         <div className="nav-links flex gap-8">
