@@ -38,7 +38,7 @@ const nextConfig: NextConfig = {
         {
           key: "Content-Security-Policy",
           value:
-            "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' cdn.sanity.io data: blob:; font-src 'self'; connect-src 'self' https://*.sanity.io https://api.github.com; frame-src 'self' https://www.youtube-nocookie.com; media-src 'self' https://*.sanity.io; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+            "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline'; img-src 'self' cdn.sanity.io data: blob: https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self'; connect-src 'self' https://*.sanity.io https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://*.g.doubleclick.net; frame-src 'self' https://www.youtube-nocookie.com; media-src 'self' https://*.sanity.io; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
         },
       ],
     },
