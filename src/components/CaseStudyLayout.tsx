@@ -40,7 +40,7 @@ function SectionBlock({
       }}
     >
       <div>
-        <div
+        <h2
           style={{
             fontSize: 11,
             fontWeight: 500,
@@ -48,11 +48,14 @@ function SectionBlock({
             textTransform: "uppercase",
             color: "var(--color-fg-secondary)",
             marginBottom: 8,
+            margin: 0,
+            marginBlockEnd: 8,
           }}
         >
           {label}
-        </div>
+        </h2>
         <div
+          aria-hidden="true"
           style={{
             fontSize: 11,
             letterSpacing: "0.1em",
@@ -81,7 +84,7 @@ function GalleryImage({
     <figure style={{ margin: 0 }}>
       <Image
         src={url}
-        alt={img.alt || ""}
+        alt={img.alt || `${img.caption || "Project image"}`}
         width={width}
         height={Math.round(width * 0.75)}
         sizes="(max-width: 768px) 100vw, 50vw"

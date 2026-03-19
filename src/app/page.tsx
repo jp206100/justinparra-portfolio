@@ -126,12 +126,15 @@ export default async function Home() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Justin Parra",
-    url: "https://justinparra-portfolio.vercel.app",
+    url: "https://justinparra.com",
     jobTitle: "UX Leader & Digital Strategist",
     description:
       settings?.heroSubtitle ??
       "18+ years leading design, development, and strategy teams across private and public sectors.",
-    sameAs: ["https://github.com/justinparra"],
+    sameAs: [
+      "https://github.com/justinparra",
+      "https://www.linkedin.com/in/justin-parra/",
+    ],
   };
 
   return (
