@@ -11,7 +11,7 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://justinparra-portfolio.vercel.app"),
+  metadataBase: new URL("https://justinparra.com"),
   title: {
     default: "Justin Parra | UX Leader & Digital Strategist",
     template: "%s | Justin Parra",

@@ -1,47 +1,51 @@
 import type { MetadataRoute } from "next";
 import { client, workPostsQuery } from "@/lib/sanity";
 
-const BASE_URL = "https://justinparra-portfolio.vercel.app";
+const BASE_URL = "https://justinparra.com";
 
 const fallbackSlugs = [
-  "neris-modernizing-fire-data",
-  "toyota-newsroom-cms",
-  "epa-water-resilience-tool",
-  "sound-transit-light-rail-microsites",
-  "ai-powered-content-workflow-prototype",
+  "toyota-amrd-reorg",
   "personal-portfolio-site",
-  "design-system-audit-framework",
-  "interactive-data-storytelling-toolkit",
-  "accessible-wayfinding-for-transit",
-  "claude-code-publishing-workflow",
+  "ai-generated-website-audit-framework",
+  "world-radio-sampler-preview",
+  "max-for-live-device-for-motion-hub",
+  "motion-hub-v1-0-release",
+  "katzman-produce-brand-overhaul",
+  "motionhub-app-preview",
+  "nordic-global",
+  "city-of-seattle-renting-in-seattle",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  let workSlugs: string[] = [];
+  let workEntries: MetadataRoute.Sitemap = [];
 
   try {
-    const posts: { slug: { current: string } }[] =
+    const posts: { slug: { current: string }; date?: string }[] =
       await client.fetch(workPostsQuery);
     if (posts?.length > 0) {
-      workSlugs = posts.map((p) => p.slug.current);
+      workEntries = posts.map((p) => ({
+        url: `${BASE_URL}/work/${p.slug.current}`,
+        lastModified: p.date ? new Date(p.date) : undefined,
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      }));
     }
   } catch {
     // Fall through to fallback
   }
 
-  if (workSlugs.length === 0) {
-    workSlugs = fallbackSlugs;
+  if (workEntries.length === 0) {
+    workEntries = fallbackSlugs.map((slug) => ({
+      url: `${BASE_URL}/work/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
   }
-
-  const workEntries: MetadataRoute.Sitemap = workSlugs.map((slug) => ({
-    url: `${BASE_URL}/work/${slug}`,
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
 
   return [
     {
       url: BASE_URL,
+      lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
     },

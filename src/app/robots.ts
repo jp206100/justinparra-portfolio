@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/studio/", "/api/"],
       },
     ],
-    sitemap: "https://justinparra-portfolio.vercel.app/sitemap.xml",
+    sitemap: "https://justinparra.com/sitemap.xml",
   };
 }

@@ -92,7 +92,7 @@ export async function generateMetadata({ params }: WorkPostPageProps): Promise<M
     if (post) {
       const title = post.title;
       const description = post.description;
-      const canonical = `https://justinparra-portfolio.vercel.app/work/${slug}`;
+      const canonical = `https://justinparra.com/work/${slug}`;
       const images = post.image
         ? [{ url: getImageUrl(post.image, 1200, 630) }]
         : [];
@@ -112,7 +112,7 @@ export async function generateMetadata({ params }: WorkPostPageProps): Promise<M
     return {
       title: fallback.title,
       description: fallback.desc,
-      alternates: { canonical: `https://justinparra-portfolio.vercel.app/work/${slug}` },
+      alternates: { canonical: `https://justinparra.com/work/${slug}` },
     };
   }
   return { title: "Work" };
@@ -170,7 +170,7 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
         description: post.desc,
         datePublished: post.date,
         author: { "@type": "Person", name: "Justin Parra" },
-        url: `https://justinparra-portfolio.vercel.app/work/${slug}`,
+        url: `https://justinparra.com/work/${slug}`,
         ...(post.imageUrl ? { image: post.imageUrl } : {}),
       }
     : null;
