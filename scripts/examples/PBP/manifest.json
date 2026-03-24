@@ -1,0 +1,20 @@
+{
+  "title": "Ballmer Group's Portal for Educator Resources",
+  "slug": "ballmer-group-portal-for-educator-resources",
+  "description": "A resource finder platform backed by the Ballmer Group and StriveTogether, connecting hundreds of place-based educational partnerships with tools, training, and technical assistance to improve outcomes for educators and students.",
+  "date": "2024-06-15",
+  "categories": ["Case Studies"],
+  "caseStudyWhat": "The Ballmer Group and StriveTogether needed a digital platform that could serve hundreds of place-based educational partnerships across the country. These community organizations work to transform outcomes for educators and students but lacked a centralized way to discover and access critical resources like training programs, technical assistance, talent acquisition support, and data tools. The challenge was designing a resource finder experience that could speak to a wide range of users, from organizations just beginning their work to established initiatives ready to scale proven strategies.",
+  "caseStudyHow": "We started with discovery sessions to understand the diverse needs of the partnership network and the organizations funding the work. The core UX challenge was building a resource finder that could intelligently match users to the right tools based on their organization type, grantee status, and specific needs. We designed an interactive filtering system that guides users through a series of selections and dynamically surfaces personalized resource recommendations. The experience needed to feel simple despite the complexity of the underlying partnerships between StriveTogether, the Ballmer Group, Blue Meridian Partners, and the Catalyst Exchange. We worked closely with stakeholders to define the content strategy and ensure each resource portal, from the Technical Assistance Marketplace to the Training Hub, was accessible and clearly communicated its value.",
+  "caseStudyResults": "The platform launched as PlaceBasedPartnerships.org, providing a unified front door to a suite of resource portals that previously existed in silos. Community leaders can now quickly identify which resources are available to them and navigate directly to training, talent support, or technical assistance. The resource finder tool reduced friction in connecting partnerships with the right support, making it easier for hundreds of organizations to access vetted consultants, self-paced courses, and funding opportunities through a single, intuitive experience.",
+  "caseStudyRole": [
+    "Led UX discovery and stakeholder interviews to map the needs of the partnership network",
+    "Designed the interactive resource finder flow that matches users to personalized recommendations",
+    "Built wireframes and responsive mockups for the platform and its connected resource portals",
+    "Collaborated with StriveTogether and Ballmer Group stakeholders to define content strategy and information architecture",
+    "Directed the development team through build, QA, and deployment of the responsive website"
+  ],
+  "heroImage": "./pbp-header.png",
+  "heroImageAlt": "Place Based Partnerships resource finder platform displayed across desktop, laptop, tablet, and mobile devices",
+  "galleryImages": []
+}
