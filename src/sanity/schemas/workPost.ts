@@ -65,7 +65,8 @@ const workPost = {
     {
       name: "caseStudyWhat",
       title: "What",
-      type: "text",
+      type: "array",
+      of: [{ type: "block" }],
       description: "Case Study: What was the project about?",
       hidden: ({ document }: { document: { categories?: { _ref: string }[] } }) =>
         !document?.categories?.length,
@@ -73,7 +74,8 @@ const workPost = {
     {
       name: "caseStudyHow",
       title: "How",
-      type: "text",
+      type: "array",
+      of: [{ type: "block" }],
       description: "Case Study: How did you approach it?",
       hidden: ({ document }: { document: { categories?: { _ref: string }[] } }) =>
         !document?.categories?.length,
@@ -81,7 +83,8 @@ const workPost = {
     {
       name: "caseStudyResults",
       title: "Results",
-      type: "text",
+      type: "array",
+      of: [{ type: "block" }],
       description: "Case Study: What were the results?",
       hidden: ({ document }: { document: { categories?: { _ref: string }[] } }) =>
         !document?.categories?.length,
