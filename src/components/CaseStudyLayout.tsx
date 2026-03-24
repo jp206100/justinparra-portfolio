@@ -2,7 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanity";
 import { formatDate } from "@/lib/formatDate";
-import type { SanityGalleryImage } from "@/lib/types";
+import type { SanityBlock, SanityGalleryImage } from "@/lib/types";
+import PortableTextBody from "@/components/PortableTextBody";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
@@ -12,9 +13,9 @@ interface CaseStudyProps {
   date: string;
   categories: string[];
   imageUrl: string | null;
-  caseStudyWhat: string;
-  caseStudyHow: string;
-  caseStudyResults: string;
+  caseStudyWhat: SanityBlock[];
+  caseStudyHow: SanityBlock[];
+  caseStudyResults: SanityBlock[];
   caseStudyRole: string[];
   galleryImages: SanityGalleryImage[];
 }
@@ -315,15 +316,15 @@ export default function CaseStudyLayout({
       >
         {/* What */}
         <SectionBlock label="What" num="01">
-          <p
+          <div
             style={{
               fontSize: "clamp(16px, 1.3vw, 18px)",
               lineHeight: 1.8,
               color: "var(--color-fg-secondary)",
             }}
           >
-            {caseStudyWhat}
-          </p>
+            <PortableTextBody value={caseStudyWhat} />
+          </div>
         </SectionBlock>
 
         {/* Gallery: after What */}
@@ -331,15 +332,15 @@ export default function CaseStudyLayout({
 
         {/* How */}
         <SectionBlock label="How" num="02">
-          <p
+          <div
             style={{
               fontSize: "clamp(16px, 1.3vw, 18px)",
               lineHeight: 1.8,
               color: "var(--color-fg-secondary)",
             }}
           >
-            {caseStudyHow}
-          </p>
+            <PortableTextBody value={caseStudyHow} />
+          </div>
         </SectionBlock>
 
         {/* Gallery: after How */}
@@ -347,15 +348,15 @@ export default function CaseStudyLayout({
 
         {/* Results */}
         <SectionBlock label="Results" num="03">
-          <p
+          <div
             style={{
               fontSize: "clamp(16px, 1.3vw, 18px)",
               lineHeight: 1.8,
               color: "var(--color-fg-secondary)",
             }}
           >
-            {caseStudyResults}
-          </p>
+            <PortableTextBody value={caseStudyResults} />
+          </div>
         </SectionBlock>
 
         {/* Gallery: after Results */}

@@ -24,9 +24,9 @@ export interface SanityWorkPost {
   featured: boolean;
   categories: SanityCategory[];
   body?: SanityBlock[];
-  caseStudyWhat?: string;
-  caseStudyHow?: string;
-  caseStudyResults?: string;
+  caseStudyWhat?: SanityBlock[];
+  caseStudyHow?: SanityBlock[];
+  caseStudyResults?: SanityBlock[];
   caseStudyRole?: string[];
   galleryImages?: SanityGalleryImage[];
 }
