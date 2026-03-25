@@ -1,0 +1,26 @@
+{
+  "title": "US EPA - Resilient Strategies Guide",
+  "slug": "us-epa-resilient-strategies-guide",
+  "description": "Built a custom single page application for the EPA's Resilient Strategies Guide for Water Utilities, featuring step-by-step user flows, dynamic filtering, and automated PDF report generation.",
+  "date": "2019-08-15",
+  "categories": ["Case Studies"],
+  "caseStudyWhat": "The U.S. Environmental Protection Agency needed a digital tool that could help drinking water, wastewater, and stormwater utilities identify risks from natural disasters and service disruptions, and then guide them through strategies to build resilience. The challenge was translating a complex framework of planning priorities, vulnerable assets, potential strategies, and funding sources into an intuitive, self-service web application. The tool needed to feel approachable for utility operators of all technical levels while handling a significant amount of interconnected data behind the scenes.",
+  "caseStudyHow": "We built a custom single page application on top of Drupal CMS using PHP, JavaScript/jQuery, HTML5, and CSS3. The SPA architecture allowed us to create a seamless, step-by-step experience that walks users through the full resilience planning process without page reloads. We designed a custom filtering system that dynamically narrows down relevant priorities, assets, strategies, and funding sources based on each utility's specific inputs like utility type, state or territory, and population served. At the end of the guided flow, users can generate a comprehensive PDF report containing all of their selections and detailed descriptions, giving them a tangible deliverable to take back to their teams. The progress bar and modular step design keeps users oriented throughout what could otherwise be an overwhelming amount of information.",
+  "caseStudyResults": "The EPA gained a public-facing tool that makes resilience planning accessible to utilities nationwide. The guided experience reduced the barrier to entry for smaller utilities that may not have had the resources to navigate complex federal guidance on their own. The dynamic filtering ensured that users only see the most relevant information for their situation, and the PDF report generation gave them a ready-made document to share with stakeholders and use for internal planning.",
+  "caseStudyRole": [
+    "Led the front-end development of the custom SPA, building the step-by-step user flow and interactive filtering system",
+    "Architected the dynamic content filtering logic that surfaces relevant strategies and funding sources based on user inputs",
+    "Developed the custom PDF report generation feature that compiles user selections into a downloadable document",
+    "Built the application on Drupal CMS, integrating PHP backend services with the JavaScript/jQuery front-end",
+    "Collaborated with EPA stakeholders to refine the user experience and ensure the tool met federal accessibility and usability standards"
+  ],
+  "heroImage": "./RS-header.png",
+  "heroImageAlt": "EPA Resilient Strategies Guide for Water Utilities displayed on desktop computer",
+  "galleryImages": [
+    {
+      "path": "./RS-body.png",
+      "alt": "EPA Resilient Strategies Guide completion screen showing step progress and summary report",
+      "caption": "The guided flow completion screen with progress steps, summary panel, and PDF report generation"
+    }
+  ]
+}
