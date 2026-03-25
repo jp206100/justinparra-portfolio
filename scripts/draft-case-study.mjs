@@ -58,6 +58,29 @@ const HERO_MAX_WIDTH = 2400;
 const GALLERY_MAX_WIDTH = 1600;
 const JPEG_QUALITY = 92;
 
+/**
+ * Convert a plain text string into a Portable Text block array.
+ * Each paragraph (double newline) becomes a separate block.
+ */
+function toPortableText(text) {
+  if (!text) return [];
+  const paragraphs = text.split(/\n\n+/).filter(Boolean);
+  return paragraphs.map((para, i) => ({
+    _type: "block",
+    _key: `block-${i}`,
+    style: "normal",
+    markDefs: [],
+    children: [
+      {
+        _type: "span",
+        _key: `span-${i}`,
+        text: para.trim(),
+        marks: [],
+      },
+    ],
+  }));
+}
+
 const CATEGORY_IDS = {
   "Case Studies": "cat-case-studies",
   "Work in Progress": "cat-work-in-progress",
@@ -240,9 +263,9 @@ async function main() {
     date: manifest.date,
     featured: manifest.featured || false,
     categories,
-    caseStudyWhat: manifest.caseStudyWhat,
-    caseStudyHow: manifest.caseStudyHow,
-    caseStudyResults: manifest.caseStudyResults,
+    caseStudyWhat: toPortableText(manifest.caseStudyWhat),
+    caseStudyHow: toPortableText(manifest.caseStudyHow),
+    caseStudyResults: toPortableText(manifest.caseStudyResults),
     caseStudyRole: manifest.caseStudyRole,
   };
 
