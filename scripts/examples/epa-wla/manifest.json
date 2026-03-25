@@ -1,0 +1,27 @@
+{
+  "title": "US EPA - Analytical Preparedness Self-Assessment",
+  "slug": "us-epa-analytical-preparedness-self-assessment",
+  "description": "Built an interactive self-assessment tool for the EPA's Water Laboratory Alliance, guiding water sector stakeholders through a customized evaluation of their analytical preparedness for water contamination events.",
+  "date": "2020-02-15",
+  "categories": ["Case Studies"],
+  "preserveFormat": true,
+  "caseStudyWhat": "The U.S. Environmental Protection Agency's Water Laboratory Alliance (WLA) needed a digital self-assessment tool that could help water sector stakeholders evaluate their analytical preparedness for water contamination events. The tool needed to serve a wide range of users including WLA member and non-member laboratories, drinking water and wastewater utilities, emergency managers, on-scene coordinators, first responders, and state and local government officials. The challenge was building an experience that could walk diverse stakeholders through a comprehensive assessment, dynamically generate customized recommendations based on their responses, and ultimately increase awareness of EPA water security tools and resources.",
+  "caseStudyHow": "We built a custom single page application that guides users through a structured self-assessment flow using dynamic dropdown selections tailored to each stakeholder type. The tool tracks progress with a visual progress bar and adapts its question sets based on the user's organization type, ensuring relevance throughout the approximately 25-minute assessment. As users complete each section, the application builds a personalized set of recommendations to enhance their organization's analytical preparedness. At the end of the assessment, users can export their full set of answers and recommendations to a Word document for offline review and sharing with their teams. We designed the interface to be approachable and clear, reducing the complexity of what could otherwise be an overwhelming federal assessment process.",
+  "caseStudyResults": "The EPA gained a public-facing tool that makes analytical preparedness planning accessible to water sector stakeholders nationwide. The guided self-assessment format lowered the barrier for organizations that may not have had the resources or expertise to evaluate their own preparedness independently. The dynamic recommendation engine ensures that each stakeholder receives actionable, relevant guidance based on their specific situation. The Word document export gives users a tangible deliverable to bring back to their organizations for planning and coordination.",
+  "caseStudyRole": [
+    "Led the front-end development of the self-assessment SPA, building the step-by-step user flow and dynamic question logic",
+    "Architected the recommendation engine that generates customized preparedness guidance based on user selections",
+    "Developed the Word document export feature that compiles assessment responses and recommendations into a downloadable report",
+    "Collaborated with EPA and WLA stakeholders to refine the user experience and ensure the tool met federal accessibility and usability standards",
+    "Built the progress tracking system and session state management to orient users throughout the assessment"
+  ],
+  "heroImage": "./EPA-WLA-Header-2.png",
+  "heroImageAlt": "EPA Water Laboratory Alliance Analytical Preparedness Self-Assessment tool displayed on desktop",
+  "galleryImages": [
+    {
+      "path": "./WLA-body.png",
+      "alt": "EPA WLA self-assessment questionnaire interface showing dropdown selections and progress tracking",
+      "caption": "The self-assessment interface with dynamic dropdown selections and progress bar tracking"
+    }
+  ]
+}
