@@ -30,7 +30,8 @@
  * }
  *
  * Images paths are resolved relative to the manifest file location.
- * All images are converted to JPEG and optimized for web before upload.
+ * By default, images are converted to JPEG and optimized for web before upload.
+ * Set "preserveFormat": true in the manifest to keep PNG images as PNG.
  *
  * SEO: Image filenames are auto-generated from the slug + alt text.
  *   e.g. "katzman-produce-brand-overhaul-user-persona-development.jpg"
@@ -93,46 +94,55 @@ const CATEGORY_IDS = {
  * e.g. ("katzman-produce-brand-overhaul", "hero") -> "katzman-produce-brand-overhaul-hero.jpg"
  * e.g. ("katzman-produce-brand-overhaul", "stakeholder interviews") -> "katzman-produce-brand-overhaul-stakeholder-interviews.jpg"
  */
-function seoFilename(slug, label) {
+function seoFilename(slug, label, ext = ".jpg") {
   const suffix = label
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
-  return `${slug}-${suffix}.jpg`;
+  return `${slug}-${suffix}${ext}`;
 }
 
 /**
- * Optimize an image: convert to JPEG, resize to maxWidth, compress.
+ * Optimize an image: resize to maxWidth and compress.
+ * When preservePng is true and the input is a PNG, keeps it as PNG.
+ * Otherwise converts to JPEG.
  * Returns a Buffer ready for upload.
  */
-async function optimizeImage(inputPath, maxWidth) {
+async function optimizeImage(inputPath, maxWidth, preservePng = false) {
   const image = sharp(inputPath);
   const metadata = await image.metadata();
+  const isPng = preservePng && metadata.format === "png";
 
-  const pipeline = image
+  let pipeline = image
     .rotate() // auto-rotate based on EXIF
     .resize({
       width: Math.min(metadata.width || maxWidth, maxWidth),
       withoutEnlargement: true,
-    })
-    .jpeg({ quality: JPEG_QUALITY, progressive: true, mozjpeg: true });
+    });
+
+  if (isPng) {
+    pipeline = pipeline.png({ compressionLevel: 9, palette: false });
+  } else {
+    pipeline = pipeline.jpeg({ quality: JPEG_QUALITY, progressive: true, mozjpeg: true });
+  }
 
   const buffer = await pipeline.toBuffer();
   const originalKB = Math.round((metadata.size || 0) / 1024);
   const optimizedKB = Math.round(buffer.length / 1024);
 
-  return { buffer, originalKB, optimizedKB, width: Math.min(metadata.width || maxWidth, maxWidth) };
+  return { buffer, originalKB, optimizedKB, width: Math.min(metadata.width || maxWidth, maxWidth), isPng };
 }
 
 /**
  * Upload an optimized image buffer to Sanity with an SEO filename.
  */
-async function uploadOptimized(client, inputPath, maxWidth, filename) {
-  const { buffer, originalKB, optimizedKB, width } = await optimizeImage(inputPath, maxWidth);
+async function uploadOptimized(client, inputPath, maxWidth, filename, preservePng = false) {
+  const { buffer, originalKB, optimizedKB, width, isPng } = await optimizeImage(inputPath, maxWidth, preservePng);
 
+  const contentType = isPng ? "image/png" : "image/jpeg";
   const asset = await client.assets.upload("image", buffer, {
     filename,
-    contentType: "image/jpeg",
+    contentType,
   });
 
   return { asset, originalKB, optimizedKB, width, filename };
@@ -201,14 +211,21 @@ async function main() {
   console.log(`\nDrafting case study: ${manifest.title}\n`);
 
   const slug = manifest.slug;
+  const preservePng = manifest.preserveFormat === true;
+
+  // Determine file extension based on format preservation and source format
+  function getExt(inputPath) {
+    if (preservePng && extname(inputPath).toLowerCase() === ".png") return ".png";
+    return ".jpg";
+  }
 
   // Upload hero image with SEO filename
   let heroImageAsset = null;
   if (manifest.heroImage) {
     const heroPath = resolve(manifestDir, manifest.heroImage);
-    const heroFilename = seoFilename(slug, "hero");
+    const heroFilename = seoFilename(slug, "hero", getExt(heroPath));
     console.log(`  Hero image: ${manifest.heroImage}`);
-    const result = await uploadOptimized(client, heroPath, HERO_MAX_WIDTH, heroFilename);
+    const result = await uploadOptimized(client, heroPath, HERO_MAX_WIDTH, heroFilename, preservePng);
     heroImageAsset = result.asset;
     console.log(
       `    -> ${result.filename} (${result.width}px, ${result.originalKB}KB -> ${result.optimizedKB}KB)`
@@ -223,11 +240,11 @@ async function main() {
       const img = manifest.galleryImages[i];
       const imgPath = resolve(manifestDir, img.path);
       // Derive SEO filename from alt text: "User persona development" -> "katzman-produce-brand-overhaul-user-persona-development.jpg"
-      const imgFilename = seoFilename(slug, img.alt);
+      const imgFilename = seoFilename(slug, img.alt, getExt(imgPath));
       console.log(
         `  Gallery ${i + 1}/${manifest.galleryImages.length}: ${img.path}`
       );
-      const result = await uploadOptimized(client, imgPath, GALLERY_MAX_WIDTH, imgFilename);
+      const result = await uploadOptimized(client, imgPath, GALLERY_MAX_WIDTH, imgFilename, preservePng);
       console.log(
         `    -> ${result.filename} (${result.width}px, ${result.originalKB}KB -> ${result.optimizedKB}KB)`
       );
