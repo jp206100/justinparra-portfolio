@@ -1,0 +1,30 @@
+{
+  "title": "REAL ID Washington - Public Awareness Campaign",
+  "slug": "real-id-washington-public-awareness-campaign",
+  "description": "A multilingual public awareness platform for the Washington State Department of Licensing, helping millions of residents understand REAL ID requirements and determine their travel readiness before the federal deadline.",
+  "date": "2024-11-15",
+  "categories": ["Case Studies"],
+  "preserveFormat": true,
+  "caseStudyWhat": "The Washington State Department of Licensing needed a public-facing platform to educate residents about the REAL ID Act, a federal law that changed identification requirements for domestic air travel and access to secure federal facilities. With the May 2025 enforcement deadline approaching and widespread confusion about what the law actually required, the state needed a way to reach millions of residents with clear, actionable guidance. The challenge was that REAL ID is a law, not a specific document, and Washington residents could already be compliant through any of nine different accepted ID types without realizing it. The platform needed to cut through the noise, serve a diverse multilingual population, and drive residents to the right next step, whether that was confirming they were already set, renewing a document online, or scheduling an appointment at a licensing office.",
+
+  "caseStudyHow": "We designed the experience around a central insight: most people just want to know if they are ready to fly. Rather than leading with policy language, we built an interactive readiness quiz that walks users through a few simple questions and tells them whether their current ID will work. The site presents the nine accepted ID types with illustrated cards featuring playful animal mascot characters, making a potentially dry government topic feel approachable and memorable. We prioritized multilingual accessibility from the start, building full Spanish, Vietnamese, Korean, and Chinese translations to reflect the diversity of Washington's population. The information architecture was structured to serve two user paths: those who want a quick answer through the quiz and those who want to browse resources like online renewal links, appointment scheduling, and document requirement guides. We worked closely with the Department of Licensing to ensure accuracy across all content while keeping the tone conversational and free of bureaucratic jargon.",
+
+  "caseStudyResults": "The platform launched as RealIDWA.com, giving Washington residents a single destination to understand REAL ID requirements and take action. The readiness quiz reduced call volume and confusion by giving users a personalized answer in under a minute. The multilingual experience expanded access to non-English-speaking communities that are often underserved by government outreach. The illustrated visual identity helped the campaign stand out from typical government communications and made the content more shareable across social media and community channels. The resource hub connected residents directly to online renewals, appointment scheduling, and document checklists, turning awareness into action.",
+
+  "caseStudyRole": [
+    "Led the UX strategy and information architecture, structuring the site around user-first pathways for quick answers and deeper exploration",
+    "Designed the interactive readiness quiz flow that guides residents to a personalized compliance answer",
+    "Directed the multilingual content strategy across English, Spanish, Vietnamese, Korean, and Chinese",
+    "Collaborated with the Washington State Department of Licensing to ensure regulatory accuracy across all content",
+    "Built responsive wireframes and mockups for the illustrated campaign identity and resource hub"
+  ],
+  "heroImage": "./RealID-header.png",
+  "heroImageAlt": "REAL ID Washington awareness platform displayed on desktop showing the homepage with illustrated mascot characters and readiness quiz",
+  "galleryImages": [
+    {
+      "path": "./RealID-body.png",
+      "alt": "REAL ID Washington mobile experience showing the Spanish language version of the awareness campaign",
+      "caption": "The fully translated Spanish language mobile experience, one of four non-English translations available on the platform"
+    }
+  ]
+}
