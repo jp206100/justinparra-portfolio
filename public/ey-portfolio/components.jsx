@@ -329,7 +329,6 @@ function Footer() {
   return (
     <footer className="footer">
       <div>© 2026 Justin Parra <span className="footer__yellow-dot"></span> Prepared for EY Studio+</div>
-      <div>Designed &amp; built by hand</div>
     </footer>
   );
 }
