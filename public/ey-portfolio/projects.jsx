@@ -384,12 +384,6 @@ function Work() {
             Four engagements, <em>one operating system</em> — clarity,
             craft, and measurable outcome.
           </h2>
-          <p className="work__caption reveal reveal--delay-1">
-            Each chapter below mirrors the structure of the case studies on
-            justinparra.com — <em>What, How, Results, My Role</em> —
-            interleaved with project imagery. Imagery is intentionally
-            placeholder; final assets will swap in before the panel.
-          </p>
         </div>
 
         <div className="projects">
