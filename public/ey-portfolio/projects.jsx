@@ -381,8 +381,8 @@ function Work() {
         </div>
         <div className="work__intro">
           <h2 className="work__title reveal">
-            Four engagements, <em>one operating system</em> — clarity,
-            craft, and measurable outcome.
+            Four engagements illustrating clarity, craft, and measurable
+            outcome.
           </h2>
         </div>
 
