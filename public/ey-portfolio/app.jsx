@@ -19,6 +19,19 @@ function App() {
     document.body.setAttribute("data-pairing", tweaks.pairing);
   }, [tweaks.pairing]);
 
+  // Scroll to the hash target once React has mounted the section. Needed
+  // because the page renders client-side via Babel/unpkg, so the browser's
+  // initial anchor scroll fires before #work / #contact exist in the DOM.
+  React.useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (!id) return;
+    const scroll = () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView();
+    };
+    requestAnimationFrame(() => requestAnimationFrame(scroll));
+  }, []);
+
   return (
     <React.Fragment>
       <IntroCurtain />
