@@ -33,6 +33,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Serve /public/ey-portfolio/index.html for the bare /ey-portfolio path so
+  // visitors don't have to type the index filename. (Next.js doesn't auto-
+  // resolve directories in /public the way Apache/Nginx do.)
+  rewrites: async () => [
+    { source: "/ey-portfolio", destination: "/ey-portfolio/index.html" },
+  ],
   headers: async () => [
     {
       // Security headers for the main app — excludes /ey-portfolio so its
