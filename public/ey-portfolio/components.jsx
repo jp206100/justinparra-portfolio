@@ -246,7 +246,7 @@ function Philosophy() {
             </div>
             <div className="tenet reveal reveal--delay-3">
               <div className="tenet__num">— 03</div>
-              <h3 className="tenet__title">Trust is the unit of measurement</h3>
+              <h3 className="tenet__title">Trust as a unit of measurement</h3>
               <p className="tenet__body">
                 Especially in human + AI experiences. I set standards for
                 transparency, accessibility, and responsible design so the
