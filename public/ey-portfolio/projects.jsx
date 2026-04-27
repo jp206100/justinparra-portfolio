@@ -167,7 +167,7 @@ const PROJECTS = [
     images: [
       {
         imageId: "03-nordic-hero",
-        caption: "Hero — Nordic Global homepage in context.",
+        caption: "Nordic Global homepage and mega menu.",
         slot: "hero",
         src: "/ey-portfolio/img/03-nordic-hero.png",
         alt: "Nordic Global website header design showing the new brand identity",
