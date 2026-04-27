@@ -202,7 +202,7 @@ const PROJECTS = [
     ],
     role: [
       "Conceived the experiment and chose the dataset",
-      "Designed the 3D visual language — geometry, color mapping, camera framing",
+      "Designed the 3D visual language consisting of geometry, color mapping, and camera framing",
       "Built the Three.js scene and data pipeline",
       "Used Claude Code as a pair-programmer for shader and geometry iteration",
       "Documented the workflow as a reference for AI-assisted prototyping",
