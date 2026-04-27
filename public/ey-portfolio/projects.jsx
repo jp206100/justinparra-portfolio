@@ -17,7 +17,7 @@ const PROJECTS = [
     nameItalic: "Toyota's Advanced Mobility R&D",
     year: "2026",
     lede:
-      "When Toyota asked us to help them present their newly consolidated R&D division to the public, our integrated team built an experience that made a complex organization's work digestible to a niche audience.",
+      "When Toyota needed help presenting their newly consolidated R&D division to the public, our integrated team built an experience that made a complex organization's work digestible to a niche audience.",
     tags: [
       "Case Study",
       "Stakeholder Research",
