@@ -82,7 +82,7 @@ const PROJECTS = [
     nameItalic: "Website Audit Framework",
     year: "2026",
     lede:
-      "An experiment in building a reusable methodology for evaluating website performance, SEO, usability, and content — combining AI-assisted analysis with structured human review.",
+      "An experiment in building a reusable methodology for evaluating website performance, SEO, usability, and content that combines AI-assisted analysis with structured human review.",
     tags: [
       "Experiment / Case Study",
       "AI Workflow Design",
