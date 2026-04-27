@@ -193,7 +193,7 @@ const PROJECTS = [
     nameItalic: "Three.js & Open Data",
     year: "2026",
     lede:
-      "A 3D visualization experiment using Three.js, Claude Code, and open French traffic-accident data from data.gouv.fr — exploring how immersive views can make public-sector data legible at a glance.",
+      "A 3D visualization experiment using Three.js, Claude Code, and open French traffic-accident data from data.gouv.fr that explored how immersive views can make public-sector data legible at a glance.",
     tags: [
       "Experiment",
       "Three.js · WebGL",
