@@ -150,7 +150,7 @@ const PROJECTS = [
       "Led QA and testing via Jira with the development team to finalize the work to spec",
     ],
     what: [
-      "Nordic was on a fast-track to evolve from Nordic Health — a company with most of its business centered in Wisconsin — to Nordic Global, a worldwide healthcare-efficiency company worth more than a billion dollars.",
+      "Nordic was on a fast-track to evolve from Nordic Health in Wisconsin, to Nordic Global, a worldwide healthcare-efficiency company worth more than a billion dollars.",
       "Our team jumped on board for a fast-paced ride, accommodating new services and products joining the fold as the business grew through a landmark year for the organization.",
     ],
     how: [
