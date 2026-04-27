@@ -111,6 +111,8 @@ const PROJECTS = [
         imageId: "02-audit-hero",
         caption: "Hero — Audit framework reporting view.",
         slot: "hero",
+        src: "/ey-portfolio/img/02-audit-hero.jpg",
+        alt: "AI-generated website audit framework reporting view",
       },
       {
         imageId: "02-audit-scorecard",
