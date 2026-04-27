@@ -82,7 +82,7 @@ const PROJECTS = [
     nameItalic: "Website Audit Framework",
     year: "2026",
     lede:
-      "An experiment in building a reusable methodology for evaluating website performance, SEO, usability, and content — combining AI-assisted analysis with structured human review.",
+      "An experiment in building a reusable methodology for evaluating website performance, SEO, usability, and content that combines AI-assisted analysis with structured human review.",
     tags: [
       "Experiment / Case Study",
       "AI Workflow Design",
@@ -97,14 +97,14 @@ const PROJECTS = [
       "Piloted the framework on internal site audits before rolling it out to client work",
     ],
     what: [
-      "Website audits — performance, SEO, usability, content — were getting done one engagement at a time, each from scratch. Findings were inconsistent across teams, slow to produce, and rarely connected the technical signals (Core Web Vitals, crawlability) to the experience signals (IA, content quality) in a way clients could actually act on.",
+      "Website audits of performance, SEO, usability, and content were getting done one engagement at a time, each from scratch. Findings were inconsistent across teams, slow to produce, and rarely connected the technical signals (Core Web Vitals, crawlability) to the experience signals (IA, content quality) in a way clients could actually act on.",
     ],
     how: [
       "I built a repeatable audit framework that pairs AI-assisted analysis with a structured human review pass. Lighthouse, accessibility scanners, and content-quality models do the heavy data collection; a templated reporting layer in Figma turns those raw signals into prioritized recommendations clients can hand straight to their dev and content teams.",
-      "Each pass produces a consistent scorecard, so improvements can be measured pre/post — and the same methodology runs whether the site is a 12-page brochure or a 12,000-page enterprise platform.",
+      "Each pass produces a consistent scorecard, so improvements can be measured pre/post. The same methodology runs whether the site is a 12-page brochure or a 12,000-page enterprise platform.",
     ],
     results: [
-      "Cut audit turnaround from weeks to days. Standardized output across the team so any designer or strategist can run the framework, and findings now feed directly into roadmap prioritization rather than sitting in a slide deck. The framework has become a model for how we introduce AI into client-facing deliverables — augmenting expertise, not replacing it.",
+      "Cut audit turnaround from weeks to days. Standardized output across the team so any designer or strategist can run the framework, and findings now feed directly into roadmap prioritization rather than sitting in a slide deck. The framework has become a model for how we introduce AI into client-facing deliverables.",
     ],
     images: [
       {
@@ -150,15 +150,15 @@ const PROJECTS = [
       "Led QA and testing via Jira with the development team to finalize the work to spec",
     ],
     what: [
-      "Nordic was on a fast-track to evolve from Nordic Health — a company with most of its business centered in Wisconsin — to Nordic Global, a worldwide healthcare-efficiency company worth more than a billion dollars.",
+      "Nordic was on a fast-track to evolve from Nordic Health in Wisconsin, to Nordic Global, a worldwide healthcare-efficiency company worth more than a billion dollars.",
       "Our team jumped on board for a fast-paced ride, accommodating new services and products joining the fold as the business grew through a landmark year for the organization.",
     ],
     how: [
-      "Our UX team — designers, developers, and project managers — was integrated into the project from day one. Before we layered the new services and products into the new website, we knew there was upstream work to do: consolidating pages and streamlining the user journey.",
+      "Our UX team of designers, developers, and project managers was integrated into the project from day one. Before we layered the new services and products into the new website, we knew there was upstream work to do: consolidating pages and streamlining the user journey.",
       "Our copywriters collaborated with the marketing team to rename navigation labels so the page inventory actually made sense, while we simplified the navigation experience based on user feedback and stakeholder interviews.",
     ],
     results: [
-      "We built out several new sitemaps as the company evolved over the year, encompassing their products and services under easy-to-find categories. We also designed a complete overhaul of the Home page and several key inner pages — improving legibility and the user's likelihood of cross-traversing the site to explore more content.",
+      "We built out several new sitemaps as the company evolved over the year, encompassing their products and services under easy-to-find categories. We also designed a complete overhaul of the Home page and several key inner pages, which improved legibility and the user's likelihood of cross-traversing the site to explore more content.",
     ],
     images: [
       {
@@ -193,7 +193,7 @@ const PROJECTS = [
     nameItalic: "Three.js & Open Data",
     year: "2026",
     lede:
-      "A 3D visualization experiment using Three.js, Claude Code, and open French traffic-accident data from data.gouv.fr — exploring how immersive views can make public-sector data legible at a glance.",
+      "A 3D visualization experiment using Three.js, Claude Code, and open French traffic-accident data from data.gouv.fr that explored how immersive views can make public-sector data legible at a glance.",
     tags: [
       "Experiment",
       "Three.js · WebGL",
@@ -202,21 +202,21 @@ const PROJECTS = [
     ],
     role: [
       "Conceived the experiment and chose the dataset",
-      "Designed the 3D visual language — geometry, color mapping, camera framing",
+      "Designed the 3D visual language consisting of geometry, color mapping, and camera framing",
       "Built the Three.js scene and data pipeline",
       "Used Claude Code as a pair-programmer for shader and geometry iteration",
       "Documented the workflow as a reference for AI-assisted prototyping",
     ],
     what: [
-      "A self-directed experiment exploring how 3D environments can make public-sector data legible at a glance. The dataset — open French traffic-accident records from data.gouv.fr — has rich geographic, temporal, and severity dimensions that flatten poorly in standard charts.",
+      "A self-directed experiment exploring how 3D environments can make public-sector data legible at a glance. The dataset derived from open French traffic-accident records at data.gouv.fr that contained rich geographic, temporal, and severity dimensions that flatten poorly in standard charts.",
       "The question: can a 3D scene let a viewer feel the pattern (where, when, how severe) before they read a single number?",
     ],
     how: [
       "Built the visualization in Three.js, with Claude Code as a pair-programming collaborator for shader work, geometry generation, and data wrangling. Pulled the raw accident records, geocoded and clustered them, then mapped severity to vertical extrusion and time-of-day to color.",
-      "Iterated quickly on camera framing and interaction patterns to find a view that reads as both atlas and analysis tool — orienting non-technical viewers in seconds while still rewarding deeper exploration.",
+      "Iterated quickly on camera framing and interaction patterns to find a view that reads as both atlas and analysis tool that oriented non-technical viewers in seconds while still rewarding deeper exploration.",
     ],
     results: [
-      "A working prototype that surfaces geographic accident hotspots and temporal patterns instantly — the kind of view a public-safety stakeholder could orient to in seconds. Just as importantly, it became a working reference for how AI-assisted development (Claude Code) compresses a one-person prototyping cycle from weeks to days.",
+      "A working prototype that surfaces geographic accident hotspots and temporal patterns instantly. Orienting a view that a public-safety stakeholder could understand in seconds. Just as importantly, it became a working reference for how AI-assisted development (Claude Code) compresses a one-person prototyping cycle from weeks to days.",
     ],
     images: [
       {
