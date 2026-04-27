@@ -16,7 +16,7 @@
   /* Default type pairing: Editorial Serif */
   --font-display: "Fraunces", "Instrument Serif", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-mono: "Inter", system-ui, sans-serif;
 
   --maxw: 1480px;
   --gutter: clamp(24px, 5vw, 96px);

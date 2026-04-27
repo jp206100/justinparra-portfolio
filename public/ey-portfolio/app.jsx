@@ -56,7 +56,7 @@ function App() {
               { value: "akzidenz-archivo", label: "Akzidenz × Archivo — heavy grotesk" },
               { value: "ibm-plex", label: "IBM Plex — disciplined technical" },
               { value: "work-sans", label: "Work Sans × Inter — Müller-Brockmann" },
-              { value: "manrope-mono", label: "Manrope × Plex Mono — geometric" },
+              { value: "manrope-mono", label: "Manrope — geometric grotesk" },
               { value: "editorial-serif", label: "Editorial — Fraunces × Inter" },
               { value: "instrument-classic", label: "Instrument × DM Sans" },
               { value: "modern-grotesk", label: "Space Grotesk × Inter" },
