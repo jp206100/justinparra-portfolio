@@ -45,7 +45,7 @@ const PROJECTS = [
     images: [
       {
         imageId: "01-toyota-hero",
-        caption: "Hero — Toyota AMRD homepage in context.",
+        caption: "Toyota AMRD homepage.",
         slot: "hero",
         src: "/ey-portfolio/img/01-toyota-hero.png",
         alt: "Toyota Advanced Mobility R&D website displayed on laptop, tablet, and mobile phone",
