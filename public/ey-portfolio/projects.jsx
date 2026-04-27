@@ -17,7 +17,7 @@ const PROJECTS = [
     nameItalic: "Toyota's Advanced Mobility R&D",
     year: "2026",
     lede:
-      "When Toyota asked us to help them present their newly consolidated R&D division to the public, our integrated team built an experience that made a complex organization's work digestible to a niche audience.",
+      "When Toyota needed help presenting their newly consolidated R&D division to the public, our integrated team built an experience that made a complex organization's work digestible to a niche audience.",
     tags: [
       "Case Study",
       "Stakeholder Research",
@@ -32,11 +32,11 @@ const PROJECTS = [
       "Directed the dev team to build, test, and deploy the website and CMS",
     ],
     what: [
-      "Toyota's AMRD (Advanced Mobility R&D) conducts research and product development for the next 10, 20, and 50 years of automotive technology — quietly setting the agenda for what mobility looks like decades out.",
+      "Toyota's AMRD (Advanced Mobility R&D) conducts research and product development for the next 10, 20, and 50 years of automotive technology. Setting the agenda for what mobility looks like decades out.",
     ],
     how: [
       "When Toyota asked us to help them present this newly consolidated department to the public, our integrated team stepped in to make a very complex organization's work digestible to a niche audience.",
-      "We visited Toyota's AMRD headquarters in Ann Arbor, Michigan to meet their Communications Team, engineering leads, and researchers — and to understand how the new R&D divisions would actually be organized. Stakeholder interviews surfaced the challenge: appealing primarily to experienced engineers in the talent pool, alongside the journalists who report on AMRD's work.",
+      "We visited Toyota's AMRD headquarters in Ann Arbor, Michigan to meet their Communications Team, engineering leads, and researchers to understand how the new R&D divisions would actually be organized. Stakeholder interviews surfaced the challenge: appealing primarily to experienced engineers in the talent pool, alongside the journalists who report on AMRD's work.",
       "Using existing user data, past research, and stakeholder feedback, we built user flows, personas, a sitemap, and wireframes that guided our design teams and built mutual buy-in with the client.",
     ],
     results: [
