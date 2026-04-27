@@ -189,8 +189,8 @@ const PROJECTS = [
 
   {
     num: "04",
-    name: "Accidents de France —",
-    nameItalic: "Three.js & Open Data",
+    name: "Accidents de France",
+    nameItalic: "Three.js & Open Data Visualization",
     year: "2026",
     lede:
       "A 3D visualization experiment using Three.js, Claude Code, and open French traffic-accident data from data.gouv.fr that explored how immersive views can make public-sector data legible at a glance.",
