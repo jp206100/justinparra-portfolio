@@ -158,7 +158,7 @@ const PROJECTS = [
       "Our copywriters collaborated with the marketing team to rename navigation labels so the page inventory actually made sense, while we simplified the navigation experience based on user feedback and stakeholder interviews.",
     ],
     results: [
-      "We built out several new sitemaps as the company evolved over the year, encompassing their products and services under easy-to-find categories. We also designed a complete overhaul of the Home page and several key inner pages — improving legibility and the user's likelihood of cross-traversing the site to explore more content.",
+      "We built out several new sitemaps as the company evolved over the year, encompassing their products and services under easy-to-find categories. We also designed a complete overhaul of the Home page and several key inner pages, which improved legibility and the user's likelihood of cross-traversing the site to explore more content.",
     ],
     images: [
       {
