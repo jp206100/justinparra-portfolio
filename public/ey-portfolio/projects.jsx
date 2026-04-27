@@ -111,7 +111,7 @@ const PROJECTS = [
         imageId: "02-audit-hero",
         caption: "Hero — Audit framework reporting view.",
         slot: "hero",
-        src: "/ey-portfolio/img/02-audit-hero.jpg",
+        src: "/ey-portfolio/img/02-audit-hero.png",
         alt: "AI-generated website audit framework reporting view",
       },
       {
@@ -119,12 +119,16 @@ const PROJECTS = [
         caption:
           "Standardized scorecard surfacing performance, SEO, usability, and content signals in one view.",
         slot: "after-what",
+        src: "/ey-portfolio/img/02-audit-scorecard.png",
+        alt: "Standardized audit scorecard surfacing performance, SEO, usability, and content signals",
       },
       {
         imageId: "02-audit-recommendations",
         caption:
           "Prioritized recommendations layer — the human review pass that turns signals into client-ready actions.",
         slot: "after-how",
+        src: "/ey-portfolio/img/02-audit-recommendations.png",
+        alt: "Prioritized audit recommendations turning signals into client-ready actions",
       },
     ],
   },
