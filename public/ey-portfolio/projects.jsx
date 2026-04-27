@@ -310,7 +310,6 @@ function Project({ data }) {
           <div className="project__rail-name">
             {data.name} <em>{data.nameItalic}</em>
           </div>
-          <div className="project__rail-year">{data.year}</div>
         </div>
       </aside>
 
