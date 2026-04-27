@@ -131,7 +131,7 @@ const PROJECTS = [
 
   {
     num: "03",
-    name: "Nordic Global —",
+    name: "Nordic Global",
     nameItalic: "Mergers, Acquisitions, Rebrands",
     year: "2025",
     lede:
