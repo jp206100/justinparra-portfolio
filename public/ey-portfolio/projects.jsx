@@ -36,7 +36,7 @@ const PROJECTS = [
     ],
     how: [
       "When Toyota asked us to help them present this newly consolidated department to the public, our integrated team stepped in to make a very complex organization's work digestible to a niche audience.",
-      "We visited Toyota's AMRD headquarters in Ann Arbor, Michigan to meet their Communications Team, engineering leads, and researchers  to understand how the new R&D divisions would actually be organized. Stakeholder interviews surfaced the challenge: appealing primarily to experienced engineers in the talent pool, alongside the journalists who report on AMRD's work.",
+      "We visited Toyota's AMRD headquarters in Ann Arbor, Michigan to meet their Communications Team, engineering leads, and researchers to understand how the new R&D divisions would actually be organized. Stakeholder interviews surfaced the challenge: appealing primarily to experienced engineers in the talent pool, alongside the journalists who report on AMRD's work.",
       "Using existing user data, past research, and stakeholder feedback, we built user flows, personas, a sitemap, and wireframes that guided our design teams and built mutual buy-in with the client.",
     ],
     results: [
