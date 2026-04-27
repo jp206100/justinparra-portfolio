@@ -154,7 +154,7 @@ const PROJECTS = [
       "Our team jumped on board for a fast-paced ride, accommodating new services and products joining the fold as the business grew through a landmark year for the organization.",
     ],
     how: [
-      "Our UX team — designers, developers, and project managers — was integrated into the project from day one. Before we layered the new services and products into the new website, we knew there was upstream work to do: consolidating pages and streamlining the user journey.",
+      "Our UX team of designers, developers, and project managers was integrated into the project from day one. Before we layered the new services and products into the new website, we knew there was upstream work to do: consolidating pages and streamlining the user journey.",
       "Our copywriters collaborated with the marketing team to rename navigation labels so the page inventory actually made sense, while we simplified the navigation experience based on user feedback and stakeholder interviews.",
     ],
     results: [
