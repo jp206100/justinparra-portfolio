@@ -216,7 +216,7 @@ const PROJECTS = [
       "Iterated quickly on camera framing and interaction patterns to find a view that reads as both atlas and analysis tool that oriented non-technical viewers in seconds while still rewarding deeper exploration.",
     ],
     results: [
-      "A working prototype that surfaces geographic accident hotspots and temporal patterns instantly — the kind of view a public-safety stakeholder could orient to in seconds. Just as importantly, it became a working reference for how AI-assisted development (Claude Code) compresses a one-person prototyping cycle from weeks to days.",
+      "A working prototype that surfaces geographic accident hotspots and temporal patterns instantly. Orienting a view that a public-safety stakeholder could understand in seconds. Just as importantly, it became a working reference for how AI-assisted development (Claude Code) compresses a one-person prototyping cycle from weeks to days.",
     ],
     images: [
       {
