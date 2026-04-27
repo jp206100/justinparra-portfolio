@@ -208,7 +208,7 @@ const PROJECTS = [
       "Documented the workflow as a reference for AI-assisted prototyping",
     ],
     what: [
-      "A self-directed experiment exploring how 3D environments can make public-sector data legible at a glance. The dataset — open French traffic-accident records from data.gouv.fr — has rich geographic, temporal, and severity dimensions that flatten poorly in standard charts.",
+      "A self-directed experiment exploring how 3D environments can make public-sector data legible at a glance. The dataset derived from open French traffic-accident records at data.gouv.fr that contained rich geographic, temporal, and severity dimensions that flatten poorly in standard charts.",
       "The question: can a 3D scene let a viewer feel the pattern (where, when, how severe) before they read a single number?",
     ],
     how: [
