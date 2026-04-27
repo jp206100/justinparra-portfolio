@@ -131,11 +131,11 @@ const PROJECTS = [
 
   {
     num: "03",
-    name: "Nordic Global —",
+    name: "Nordic Global",
     nameItalic: "Mergers, Acquisitions, Rebrands",
     year: "2025",
     lede:
-      "Helped Nordic evolve from Nordic Health to Nordic Global — redesigning their digital presence to accommodate new services and products during a landmark year of growth.",
+      "Helped Nordic evolve from Nordic Health to Nordic Global while redesigning their digital presence to accommodate new services and products during a landmark year of growth.",
     tags: [
       "Case Study",
       "Information Architecture",
@@ -189,8 +189,8 @@ const PROJECTS = [
 
   {
     num: "04",
-    name: "Accidents de France —",
-    nameItalic: "Three.js & Open Data",
+    name: "Accidents de France",
+    nameItalic: "Three.js & Open Data Visualization",
     year: "2026",
     lede:
       "A 3D visualization experiment using Three.js, Claude Code, and open French traffic-accident data from data.gouv.fr that explored how immersive views can make public-sector data legible at a glance.",
