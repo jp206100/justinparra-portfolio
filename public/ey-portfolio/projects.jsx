@@ -104,7 +104,7 @@ const PROJECTS = [
       "Each pass produces a consistent scorecard, so improvements can be measured pre/post. The same methodology runs whether the site is a 12-page brochure or a 12,000-page enterprise platform.",
     ],
     results: [
-      "Cut audit turnaround from weeks to days. Standardized output across the team so any designer or strategist can run the framework, and findings now feed directly into roadmap prioritization rather than sitting in a slide deck. The framework has become a model for how we introduce AI into client-facing deliverables — augmenting expertise, not replacing it.",
+      "Cut audit turnaround from weeks to days. Standardized output across the team so any designer or strategist can run the framework, and findings now feed directly into roadmap prioritization rather than sitting in a slide deck. The framework has become a model for how we introduce AI into client-facing deliverables.",
     ],
     images: [
       {
