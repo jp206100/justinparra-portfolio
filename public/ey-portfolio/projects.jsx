@@ -47,23 +47,31 @@ const PROJECTS = [
         imageId: "01-toyota-hero",
         caption: "Hero — Toyota AMRD homepage in context.",
         slot: "hero",
+        src: "/ey-portfolio/img/01-toyota-hero.png",
+        alt: "Toyota Advanced Mobility R&D website displayed on laptop, tablet, and mobile phone",
       },
       {
         imageId: "01-toyota-personas",
         caption:
           "User flows and personas mapping audience segments and navigation paths.",
         slot: "after-what",
+        src: "/ey-portfolio/img/01-toyota-personas.png",
+        alt: "Toyota AMRD user flows and persona research document",
       },
       {
         imageId: "01-toyota-sitemap",
         caption:
           "Sitemap designed with the client team to organize AMRD's divisions.",
         slot: "after-how-1",
+        src: "/ey-portfolio/img/01-toyota-sitemap.png",
+        alt: "Toyota AMRD sitemap showing main navigation and division page hierarchy",
       },
       {
         imageId: "01-toyota-wireframe",
         caption: "Wireframe exploration for the AMRD homepage structure.",
         slot: "after-how-2",
+        src: "/ey-portfolio/img/01-toyota-wireframe.png",
+        alt: "Toyota AMRD website wireframe showing page layout and content hierarchy",
       },
     ],
   },
@@ -155,18 +163,24 @@ const PROJECTS = [
         imageId: "03-nordic-hero",
         caption: "Hero — Nordic Global homepage in context.",
         slot: "hero",
+        src: "/ey-portfolio/img/03-nordic-hero.png",
+        alt: "Nordic Global website header design showing the new brand identity",
       },
       {
         imageId: "03-nordic-sitemap",
         caption:
           "Revised sitemap organizing Nordic's expanded services and products into intuitive categories.",
         slot: "after-what",
+        src: "/ey-portfolio/img/03-nordic-sitemap.png",
+        alt: "Nordic Global sitemap showing reorganized navigation and content hierarchy",
       },
       {
         imageId: "03-nordic-homepage",
         caption:
           "The final redesigned Nordic Global homepage with improved navigation and content organization.",
         slot: "after-how",
+        src: "/ey-portfolio/img/03-nordic-homepage.png",
+        alt: "Nordic Global live website showing the final redesigned homepage",
       },
     ],
   },
@@ -207,6 +221,8 @@ const PROJECTS = [
         imageId: "04-accidents-hero",
         caption: "Hero — 3D visualization of French accident data.",
         slot: "hero",
+        src: "/ey-portfolio/img/04-accidents-hero.png",
+        alt: "Three.js 3D visualization of French accident data, hero view",
       },
       {
         imageId: "04-accidents-detail",
@@ -235,11 +251,20 @@ function ProjectMedia({ image, full = false }) {
       }
     >
       <div className="project__media-frame">
-        <div className="project__media-placeholder">
-          <span className="project__media-placeholder-id">
-            [ {image.imageId} ]
-          </span>
-        </div>
+        {image.src ? (
+          <img
+            className="project__media-img"
+            src={image.src}
+            alt={image.alt || image.caption || image.imageId}
+            loading="lazy"
+          />
+        ) : (
+          <div className="project__media-placeholder">
+            <span className="project__media-placeholder-id">
+              [ {image.imageId} ]
+            </span>
+          </div>
+        )}
       </div>
       <figcaption className="project__media-caption">
         {image.caption}
