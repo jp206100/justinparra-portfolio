@@ -32,7 +32,7 @@ const PROJECTS = [
       "Directed the dev team to build, test, and deploy the website and CMS",
     ],
     what: [
-      "Toyota's AMRD (Advanced Mobility R&D) conducts research and product development for the next 10, 20, and 50 years of automotive technology — quietly setting the agenda for what mobility looks like decades out.",
+      "Toyota's AMRD (Advanced Mobility R&D) conducts research and product development for the next 10, 20, and 50 years of automotive technology. Setting the agenda for what mobility looks like decades out.",
     ],
     how: [
       "When Toyota asked us to help them present this newly consolidated department to the public, our integrated team stepped in to make a very complex organization's work digestible to a niche audience.",
