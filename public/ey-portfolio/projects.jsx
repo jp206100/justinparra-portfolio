@@ -97,7 +97,7 @@ const PROJECTS = [
       "Piloted the framework on internal site audits before rolling it out to client work",
     ],
     what: [
-      "Website audits — performance, SEO, usability, content — were getting done one engagement at a time, each from scratch. Findings were inconsistent across teams, slow to produce, and rarely connected the technical signals (Core Web Vitals, crawlability) to the experience signals (IA, content quality) in a way clients could actually act on.",
+      "Website audits of performance, SEO, usability, and content were getting done one engagement at a time, each from scratch. Findings were inconsistent across teams, slow to produce, and rarely connected the technical signals (Core Web Vitals, crawlability) to the experience signals (IA, content quality) in a way clients could actually act on.",
     ],
     how: [
       "I built a repeatable audit framework that pairs AI-assisted analysis with a structured human review pass. Lighthouse, accessibility scanners, and content-quality models do the heavy data collection; a templated reporting layer in Figma turns those raw signals into prioritized recommendations clients can hand straight to their dev and content teams.",
