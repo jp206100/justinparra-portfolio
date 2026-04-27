@@ -135,7 +135,7 @@ const PROJECTS = [
     nameItalic: "Mergers, Acquisitions, Rebrands",
     year: "2025",
     lede:
-      "Helped Nordic evolve from Nordic Health to Nordic Global — redesigning their digital presence to accommodate new services and products during a landmark year of growth.",
+      "Helped Nordic evolve from Nordic Health to Nordic Global while redesigning their digital presence to accommodate new services and products during a landmark year of growth.",
     tags: [
       "Case Study",
       "Information Architecture",
