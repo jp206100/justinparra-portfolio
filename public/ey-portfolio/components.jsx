@@ -23,7 +23,7 @@ function IntroCurtain() {
         <div className="intro-curtain__name">
           <span>Justin</span>{" "}<span>Parra</span>
         </div>
-        <div className="intro-curtain__sub">Portfolio &nbsp;·&nbsp; 2026</div>
+        <div className="intro-curtain__sub">UX + AI Portfolio &nbsp;·&nbsp; 2026</div>
         <button
           type="button"
           className="intro-curtain__start"
