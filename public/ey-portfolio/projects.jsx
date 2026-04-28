@@ -19,7 +19,6 @@ const PROJECTS = [
     lede:
       "When Toyota needed help presenting their newly consolidated R&D division to the public, our integrated team built an experience that made a complex organization's work digestible to a niche audience.",
     tags: [
-      "Case Study",
       "Stakeholder Research",
       "Information Architecture",
       "Design + CMS",
@@ -45,7 +44,7 @@ const PROJECTS = [
     images: [
       {
         imageId: "01-toyota-hero",
-        caption: "Hero — Toyota AMRD homepage in context.",
+        caption: "Toyota AMRD homepage.",
         slot: "hero",
         src: "/ey-portfolio/img/01-toyota-hero.png",
         alt: "Toyota Advanced Mobility R&D website displayed on laptop, tablet, and mobile phone",
@@ -84,7 +83,6 @@ const PROJECTS = [
     lede:
       "An experiment in building a reusable methodology for evaluating website performance, SEO, usability, and content that combines AI-assisted analysis with structured human review.",
     tags: [
-      "Experiment / Case Study",
       "AI Workflow Design",
       "Audit Methodology",
       "Reporting Templates",
@@ -125,7 +123,7 @@ const PROJECTS = [
       {
         imageId: "02-audit-recommendations",
         caption:
-          "Prioritized recommendations layer — the human review pass that turns signals into client-ready actions.",
+          "Prioritized recommendations layer.",
         slot: "after-how",
         src: "/ey-portfolio/img/02-audit-recommendations.png",
         alt: "Prioritized audit recommendations turning signals into client-ready actions",
@@ -141,7 +139,6 @@ const PROJECTS = [
     lede:
       "Helped Nordic evolve from Nordic Health to Nordic Global while redesigning their digital presence to accommodate new services and products during a landmark year of growth.",
     tags: [
-      "Case Study",
       "Information Architecture",
       "Web Platform",
       "Distributed Dev Team",
@@ -199,7 +196,6 @@ const PROJECTS = [
     lede:
       "A 3D visualization experiment using Three.js, Claude Code, and open French traffic-accident data from data.gouv.fr that explored how immersive views can make public-sector data legible at a glance.",
     tags: [
-      "Experiment",
       "Three.js · WebGL",
       "Open Data",
       "AI-Assisted Development",
@@ -225,7 +221,7 @@ const PROJECTS = [
     images: [
       {
         imageId: "04-accidents-hero",
-        caption: "Hero — 3D visualization of French accident data.",
+        caption: "3D visualization of French accident data.",
         slot: "hero",
         src: "/ey-portfolio/img/04-accidents-hero.png",
         alt: "Three.js 3D visualization of French accident data, hero view",
@@ -239,7 +235,7 @@ const PROJECTS = [
       {
         imageId: "04-accidents-pipeline",
         caption:
-          "Data pipeline view — raw open-data records geocoded and clustered before render.",
+          "Data pipeline view. Raw open-data records geocoded and clustered before render.",
         slot: "after-how",
       },
     ],
