@@ -82,17 +82,17 @@ img { max-width: 100%; display: block; }
 .intro-curtain {
   position: fixed;
   inset: 0;
-  background: var(--ink);
+  background: var(--bg);
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .intro-curtain__inner {
   text-align: center;
-  color: var(--bg);
+  color: var(--ink);
 }
 
 .intro-curtain__name {
@@ -119,7 +119,7 @@ img { max-width: 100%; display: block; }
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(247, 246, 242, 0.55);
+  color: var(--muted);
   opacity: 0;
   animation: introFade 0.6s ease forwards;
   animation-delay: 0.7s;
@@ -131,21 +131,62 @@ img { max-width: 100%; display: block; }
   left: 0;
   height: 2px;
   background: var(--accent);
-  width: 0%;
-  animation: introBar 1.6s cubic-bezier(.7,0,.3,1) forwards;
-  animation-delay: 0.2s;
+  width: 100%;
+}
+
+.intro-curtain__start {
+  margin-top: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 36px;
+  background: var(--accent);
+  color: var(--ink);
+  border: none;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: introStart 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+  animation-delay: 0.95s;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.intro-curtain__start:hover {
+  background: var(--accent-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -10px rgba(10, 10, 10, 0.35);
+}
+.intro-curtain__start:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+.intro-curtain__start-arrow {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  transition: transform 0.25s ease;
+}
+.intro-curtain__start:hover .intro-curtain__start-arrow {
+  transform: translateX(4px);
 }
 
 .intro-curtain.is-leaving {
   animation: curtainLift 1.0s cubic-bezier(.7,0,.3,1) forwards;
-  animation-delay: 1.9s;
 }
 
 @keyframes introWord {
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes introFade { to { opacity: 1; } }
-@keyframes introBar { to { width: 100%; } }
+@keyframes introStart {
+  to { opacity: 1; transform: translateY(0); }
+}
 @keyframes curtainLift {
   to { transform: translateY(-100%); }
 }
@@ -154,11 +195,8 @@ img { max-width: 100%; display: block; }
    APP SHELL
    ============================================ */
 .app {
-  opacity: 0;
-  animation: appReveal 0.8s ease forwards;
-  animation-delay: 2.6s;
+  opacity: 1;
 }
-@keyframes appReveal { to { opacity: 1; } }
 
 .shell {
   max-width: var(--maxw);

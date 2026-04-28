@@ -8,22 +8,31 @@ function IntroCurtain() {
   const [gone, setGone] = useState(false);
   const [leaving, setLeaving] = useState(false);
 
-  useEffect(() => {
-    const t1 = setTimeout(() => setLeaving(true), 1900);
-    const t2 = setTimeout(() => setGone(true), 3000);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
-
   if (gone) return null;
+
+  const handleStart = () => {
+    if (leaving) return;
+    setLeaving(true);
+    setTimeout(() => setGone(true), 1100);
+  };
 
   return (
     <div className={"intro-curtain" + (leaving ? " is-leaving" : "")}>
       <div className="intro-curtain__bar"></div>
       <div className="intro-curtain__inner">
         <div className="intro-curtain__name">
-          <span>Justin</span>{" "}<span><em>Parra</em></span>
+          <span>Justin</span>{" "}<span>Parra</span>
         </div>
         <div className="intro-curtain__sub">Portfolio &nbsp;·&nbsp; 2026</div>
+        <button
+          type="button"
+          className="intro-curtain__start"
+          onClick={handleStart}
+          aria-label="Start presentation"
+        >
+          <span className="intro-curtain__start-label">Start</span>
+          <span className="intro-curtain__start-arrow" aria-hidden="true">→</span>
+        </button>
       </div>
     </div>
   );
