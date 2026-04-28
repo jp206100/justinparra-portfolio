@@ -130,7 +130,7 @@ const PROJECTS = [
   {
     num: "03",
     name: "Nordic Global",
-    nameItalic: "Mergers, Acquisitions, Rebrands",
+    nameItalic: "Mergers, Acquisitions, and Rebrands",
     year: "2025",
     lede:
       "Helped Nordic evolve from Nordic Health to Nordic Global while redesigning their digital presence to accommodate new services and products during a landmark year of growth.",
