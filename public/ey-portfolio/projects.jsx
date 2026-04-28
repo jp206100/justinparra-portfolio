@@ -231,6 +231,8 @@ const PROJECTS = [
         caption:
           "Severity mapped to vertical extrusion; time-of-day mapped to color.",
         slot: "after-what",
+        src: "/ey-portfolio/img/04-accidents-detail.png",
+        alt: "Detail view of the 3D accident visualization showing severity as vertical extrusion and time-of-day as color",
       },
       {
         imageId: "04-accidents-pipeline",
