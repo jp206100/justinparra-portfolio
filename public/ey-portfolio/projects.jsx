@@ -123,7 +123,7 @@ const PROJECTS = [
       {
         imageId: "02-audit-recommendations",
         caption:
-          "Prioritized recommendations layer — the human review pass that turns signals into client-ready actions.",
+          "Prioritized recommendations layer.",
         slot: "after-how",
       },
     ],
