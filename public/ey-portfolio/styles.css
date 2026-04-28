@@ -107,69 +107,11 @@ img { max-width: 100%; display: block; }
   animation-delay: 1.9s;
 }
 
-/* Top header nav inside the curtain — mirrors the home page nav
-   on justinparra.com so the layout introduces itself before the
-   curtain lifts. */
-.intro-curtain__nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 24px clamp(20px, 5vw, 80px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1;
-}
-.intro-curtain__nav-wordmark {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink);
-  opacity: 0;
-  transform: translateY(20px);
-  animation: introNavWordmark 0.8s cubic-bezier(.2,.8,.2,1) forwards;
-  animation-delay: 0.4s;
-}
-.intro-curtain__nav-links {
-  display: flex;
-  gap: 32px;
-}
-.intro-curtain__nav-links a {
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink);
-  text-decoration: none;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: introNavLink 0.8s cubic-bezier(.2,.8,.2,1) forwards;
-  transition: opacity 0.2s ease;
-}
-.intro-curtain__nav-links a:nth-child(1) { animation-delay: 0.50s; }
-.intro-curtain__nav-links a:nth-child(2) { animation-delay: 0.58s; }
-.intro-curtain__nav-links a:nth-child(3) { animation-delay: 0.66s; }
-.intro-curtain__nav-links a:nth-child(4) { animation-delay: 0.74s; }
-.intro-curtain__nav-links a:hover { opacity: 1; }
-
-@media (max-width: 720px) {
-  .intro-curtain__nav-links { display: none; }
-}
-
 @keyframes introWord {
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes introFade { to { opacity: 1; } }
 @keyframes introBar { to { width: 100%; } }
-@keyframes introNavWordmark {
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes introNavLink {
-  to { opacity: 0.6; transform: translateY(0); }
-}
 @keyframes curtainLift {
   to { transform: translateY(-100%); }
 }

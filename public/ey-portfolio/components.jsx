@@ -10,51 +10,15 @@ function IntroCurtain() {
 
   if (gone) return null;
 
-  const dismiss = (after) => {
+  const handleStart = () => {
     if (leaving) return;
     setLeaving(true);
-    setTimeout(() => {
-      setGone(true);
-      if (typeof after === "function") after();
-    }, 1100);
+    setTimeout(() => setGone(true), 1100);
   };
-
-  const handleStart = () => dismiss();
-
-  const handleNavClick = (e, hash) => {
-    e.preventDefault();
-    dismiss(() => {
-      const el = document.querySelector(hash);
-      if (el) el.scrollIntoView();
-    });
-  };
-
-  const navLinks = [
-    { label: "About", hash: "#about" },
-    { label: "Philosophy", hash: "#philosophy" },
-    { label: "Work", hash: "#work" },
-    { label: "Contact", hash: "#contact" },
-  ];
 
   return (
     <div className={"intro-curtain" + (leaving ? " is-leaving" : "")}>
       <div className="intro-curtain__bar"></div>
-
-      <nav className="intro-curtain__nav" aria-label="Portfolio sections">
-        <span className="intro-curtain__nav-wordmark">Justin Parra</span>
-        <div className="intro-curtain__nav-links">
-          {navLinks.map((link) => (
-            <a
-              key={link.hash}
-              href={link.hash}
-              onClick={(e) => handleNavClick(e, link.hash)}
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </nav>
-
       <div className="intro-curtain__inner">
         <div className="intro-curtain__name">
           <span>Justin</span>{" "}<span>Parra</span>
