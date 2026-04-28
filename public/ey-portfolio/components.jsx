@@ -21,7 +21,7 @@ function IntroCurtain() {
       <div className="intro-curtain__bar"></div>
       <div className="intro-curtain__inner">
         <div className="intro-curtain__name">
-          <span>Justin</span>{" "}<span><em>Parra</em></span>
+          <span>Justin</span>{" "}<span>Parra</span>
         </div>
         <div className="intro-curtain__sub">Portfolio &nbsp;·&nbsp; 2026</div>
       </div>
