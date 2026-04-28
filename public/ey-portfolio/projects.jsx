@@ -237,6 +237,8 @@ const PROJECTS = [
         caption:
           "Data pipeline view. Raw open-data records geocoded and clustered before render.",
         slot: "after-how",
+        src: "/ey-portfolio/img/04-accidents-pipeline.png",
+        alt: "Infographic showing the data pipeline from raw open-data records through geocoding and clustering to 3D render",
       },
     ],
   },
