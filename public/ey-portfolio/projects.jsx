@@ -221,7 +221,7 @@ const PROJECTS = [
     images: [
       {
         imageId: "04-accidents-hero",
-        caption: "Hero — 3D visualization of French accident data.",
+        caption: "3D visualization of French accident data.",
         slot: "hero",
         src: "/ey-portfolio/img/04-accidents-hero.png",
         alt: "Three.js 3D visualization of French accident data, hero view",
