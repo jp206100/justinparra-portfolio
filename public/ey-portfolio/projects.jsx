@@ -19,7 +19,6 @@ const PROJECTS = [
     lede:
       "When Toyota needed help presenting their newly consolidated R&D division to the public, our integrated team built an experience that made a complex organization's work digestible to a niche audience.",
     tags: [
-      "Case Study",
       "Stakeholder Research",
       "Information Architecture",
       "Design + CMS",
@@ -84,7 +83,6 @@ const PROJECTS = [
     lede:
       "An experiment in building a reusable methodology for evaluating website performance, SEO, usability, and content that combines AI-assisted analysis with structured human review.",
     tags: [
-      "Experiment / Case Study",
       "AI Workflow Design",
       "Audit Methodology",
       "Reporting Templates",
@@ -137,7 +135,6 @@ const PROJECTS = [
     lede:
       "Helped Nordic evolve from Nordic Health to Nordic Global while redesigning their digital presence to accommodate new services and products during a landmark year of growth.",
     tags: [
-      "Case Study",
       "Information Architecture",
       "Web Platform",
       "Distributed Dev Team",
