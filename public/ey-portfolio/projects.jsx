@@ -231,12 +231,16 @@ const PROJECTS = [
         caption:
           "Severity mapped to vertical extrusion; time-of-day mapped to color.",
         slot: "after-what",
+        src: "/ey-portfolio/img/04-accidents-detail.png",
+        alt: "Detail view of the 3D accident visualization showing severity as vertical extrusion and time-of-day as color",
       },
       {
         imageId: "04-accidents-pipeline",
         caption:
           "Data pipeline view. Raw open-data records geocoded and clustered before render.",
         slot: "after-how",
+        src: "/ey-portfolio/img/04-accidents-pipeline.png",
+        alt: "Infographic showing the data pipeline from raw open-data records through geocoding and clustering to 3D render",
       },
     ],
   },
