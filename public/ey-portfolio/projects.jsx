@@ -235,7 +235,7 @@ const PROJECTS = [
       {
         imageId: "04-accidents-pipeline",
         caption:
-          "Data pipeline view — raw open-data records geocoded and clustered before render.",
+          "Data pipeline view. Raw open-data records geocoded and clustered before render.",
         slot: "after-how",
       },
     ],
