@@ -55,6 +55,20 @@ const nextConfig: NextConfig = {
       headers: [
         ...baseSecurityHeaders,
         { key: "Content-Security-Policy", value: portfolioCSP },
+        {
+          key: "X-Robots-Tag",
+          value: "noindex, nofollow, noarchive, nosnippet, noimageindex",
+        },
+      ],
+    },
+    {
+      // Also cover the bare /ey-portfolio path (rewritten to index.html)
+      source: "/ey-portfolio",
+      headers: [
+        {
+          key: "X-Robots-Tag",
+          value: "noindex, nofollow, noarchive, nosnippet, noimageindex",
+        },
       ],
     },
     {
