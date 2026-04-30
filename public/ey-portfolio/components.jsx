@@ -257,6 +257,7 @@ function IntroCurtain() {
    ============================================ */
 function useReveal() {
   useEffect(() => {
+    document.documentElement.classList.add("js-reveal-ready");
     const els = document.querySelectorAll(".reveal, .word-reveal");
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
