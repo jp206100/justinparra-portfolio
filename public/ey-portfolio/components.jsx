@@ -512,7 +512,7 @@ function Contact() {
               className="contact__channel reveal reveal--delay-2"
               href="https://justinparra.com"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               <span className="contact__channel-label">Portfolio</span>
               <span className="contact__channel-value">justinparra.com</span>
@@ -522,7 +522,7 @@ function Contact() {
               className="contact__channel reveal reveal--delay-3"
               href="https://www.linkedin.com/in/justinparra"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               <span className="contact__channel-label">LinkedIn</span>
               <span className="contact__channel-value">/in/justinparra</span>
@@ -532,7 +532,7 @@ function Contact() {
               className="contact__channel reveal reveal--delay-4"
               href="https://github.com/jp206100"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               <span className="contact__channel-label">GitHub</span>
               <span className="contact__channel-value">/jp206100</span>
