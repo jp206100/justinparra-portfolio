@@ -383,6 +383,7 @@ img { max-width: 100%; display: block; }
 .hero__statement .ink-accent {
   position: relative;
   display: inline-block;
+  isolation: isolate;
 }
 .hero__statement .ink-accent::after {
   content: "";
@@ -892,6 +893,7 @@ img { max-width: 100%; display: block; }
 .contact__statement .ink-accent {
   position: relative;
   display: inline-block;
+  isolation: isolate;
 }
 .contact__statement .ink-accent::after {
   content: "";
