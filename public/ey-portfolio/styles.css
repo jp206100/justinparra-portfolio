@@ -283,7 +283,9 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 720px) {
-  .topnav__meta { display: none; }
+  .topnav { padding: 12px var(--gutter); }
+  .topnav__meta { gap: 16px; font-size: 10px; }
+  .topnav__meta > span:first-child { display: none; } /* hide "Prepared for EY Studio+" pip */
 }
 
 /* ============================================
