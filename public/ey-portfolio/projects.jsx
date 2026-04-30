@@ -308,7 +308,7 @@ function Project({ data }) {
   return (
     <article className="project" id={`project-${data.num}`}>
       {/* Sticky left rail — anchors the chapter while you scroll */}
-      <aside className="project__rail">
+      <aside className="project__rail" aria-hidden="true">
         <div className="project__rail-inner">
           <div className="project__rail-num" aria-hidden="true">— {data.num}</div>
           <div className="project__rail-name">
