@@ -51,7 +51,6 @@ img { max-width: 100%; display: block; }
 .topnav__meta,
 .section-label,
 .hero__eyebrow,
-.hero__meta-label,
 .hero__scroll,
 .tenet__num,
 .project__rail-num,
@@ -379,33 +378,6 @@ img { max-width: 100%; display: block; }
   transform: skewX(-6deg);
 }
 
-.hero__meta {
-  margin-top: 80px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  border-top: 1px solid var(--line);
-  padding-top: 32px;
-}
-.hero__meta-item {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.hero__meta-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.hero__meta-value {
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--ink);
-}
-
 .hero__scroll {
   position: absolute;
   bottom: 32px;
@@ -442,7 +414,6 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 720px) {
-  .hero__meta { grid-template-columns: repeat(2, 1fr); gap: 24px; }
   .hero__scroll { display: none; }
 }
 
