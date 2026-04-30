@@ -16,6 +16,7 @@ function CurtainCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let animId;
 
     const project = (x, y, z, cx, cy, fov) => {
@@ -64,7 +65,9 @@ function CurtainCanvas() {
       mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       mouseRef.current.y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
     };
-    document.addEventListener("mousemove", onMouse, { passive: true });
+    if (!prefersReduced) {
+      document.addEventListener("mousemove", onMouse, { passive: true });
+    }
 
     const drawGrid = (
       grid, cols, rows, time, fade, cx, cy, mx, my,
@@ -155,7 +158,9 @@ function CurtainCanvas() {
     };
 
     const draw = () => {
-      animId = requestAnimationFrame(draw);
+      if (!prefersReduced) {
+        animId = requestAnimationFrame(draw);
+      }
       const W = canvas.width / dpr;
       const H = canvas.height / dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
