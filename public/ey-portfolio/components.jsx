@@ -501,6 +501,10 @@ function Philosophy() {
    Contact
    ============================================ */
 function Contact() {
+  const [email, setEmail] = React.useState("");
+  React.useEffect(() => {
+    setEmail(["JustinParra206", "gmail.com"].join("@"));
+  }, []);
   return (
     <section className="contact" id="contact">
       <div className="shell">
@@ -516,10 +520,11 @@ function Contact() {
           <div className="contact__channels">
             <a
               className="contact__channel reveal reveal--delay-1"
-              href="mailto:JustinParra206@gmail.com"
+              href={email ? `mailto:${email}` : "#"}
+              onClick={(e) => { if (!email) e.preventDefault(); }}
             >
               <span className="contact__channel-label">Email</span>
-              <span className="contact__channel-value">JustinParra206@gmail.com</span>
+              <span className="contact__channel-value">{email || "—"}</span>
               <span className="contact__channel-arrow">↗</span>
             </a>
             <a
