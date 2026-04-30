@@ -983,11 +983,15 @@ img { max-width: 100%; display: block; }
    SCROLL REVEAL
    ============================================ */
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+html.js-reveal-ready .reveal {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 1.0s cubic-bezier(.2,.8,.2,1), transform 1.0s cubic-bezier(.2,.8,.2,1);
 }
-.reveal.is-visible {
+html.js-reveal-ready .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1000,19 +1004,19 @@ img { max-width: 100%; display: block; }
 /* word-by-word reveal */
 .word-reveal {
   display: inline-block;
-  overflow: hidden;
   vertical-align: top;
-  /* Allow the italic glyph slant to extend horizontally without clipping;
-     only the vertical translateY(110%) needs to be masked. */
   padding-right: 0.12em;
 }
 .word-reveal__inner {
   display: inline-block;
-  transform: translateY(110%);
-  transition: transform 1.0s cubic-bezier(.2,.8,.2,1);
   padding-right: 0.06em;
 }
-.word-reveal.is-visible .word-reveal__inner {
+html.js-reveal-ready .word-reveal { overflow: hidden; }
+html.js-reveal-ready .word-reveal__inner {
+  transform: translateY(110%);
+  transition: transform 1.0s cubic-bezier(.2,.8,.2,1);
+}
+html.js-reveal-ready .word-reveal.is-visible .word-reveal__inner {
   transform: translateY(0);
 }
 
