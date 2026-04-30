@@ -1058,42 +1058,8 @@ img { max-width: 100%; display: block; }
 }
 
 /* ============================================
-   TYPOGRAPHY PAIRINGS (Tweaks)
+   TYPOGRAPHY PAIRING — Akzidenz × Archivo
    ============================================ */
-/* ============================================
-   TYPOGRAPHY PAIRINGS (Tweaks) — Swiss minimalist forward
-   ============================================ */
-
-/* Universal: Swiss-style mono details everywhere */
-body[data-pairing="swiss-classic"] {
-  /* Helvetica-spirited, the original Swiss workhorse */
-  --font-display: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-body[data-pairing="swiss-classic"] .hero__statement,
-body[data-pairing="swiss-classic"] .contact__statement,
-body[data-pairing="swiss-classic"] .work__title,
-body[data-pairing="swiss-classic"] .philosophy__intro,
-body[data-pairing="swiss-classic"] .about__heading,
-body[data-pairing="swiss-classic"] .project__name,
-body[data-pairing="swiss-classic"] .tenet__title,
-body[data-pairing="swiss-classic"] .intro-curtain__name {
-  font-style: normal;
-  font-weight: 500;
-  letter-spacing: -0.035em;
-}
-body[data-pairing="swiss-classic"] em,
-body[data-pairing="swiss-classic"] .hero__statement em,
-body[data-pairing="swiss-classic"] .contact__statement em,
-body[data-pairing="swiss-classic"] .project__name em,
-body[data-pairing="swiss-classic"] .work__title em,
-body[data-pairing="swiss-classic"] .about__heading em,
-body[data-pairing="swiss-classic"] .philosophy__intro em,
-body[data-pairing="swiss-classic"] .intro-curtain__name em {
-  font-style: normal;
-  font-weight: 300;
-}
 
 body[data-pairing="akzidenz-archivo"] {
   /* Archivo = closest Google Fonts proxy for Akzidenz-Grotesk */
@@ -1141,103 +1107,15 @@ body[data-pairing="akzidenz-archivo"] em {
   font-weight: 300;
 }
 
-body[data-pairing="ibm-plex"] {
-  /* IBM design language — disciplined, technical, Swiss-influenced */
-  --font-display: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
-}
-body[data-pairing="ibm-plex"] .hero__statement,
-body[data-pairing="ibm-plex"] .contact__statement,
-body[data-pairing="ibm-plex"] .work__title,
-body[data-pairing="ibm-plex"] .philosophy__intro,
-body[data-pairing="ibm-plex"] .about__heading,
-body[data-pairing="ibm-plex"] .project__name,
-body[data-pairing="ibm-plex"] .tenet__title,
-body[data-pairing="ibm-plex"] .intro-curtain__name {
-  font-style: normal;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-}
-body[data-pairing="ibm-plex"] em {
-  font-style: italic;
-  font-weight: 300;
-}
-
-body[data-pairing="work-sans"] {
-  /* Work Sans — geometric, modernist, Müller-Brockmann adjacent */
-  --font-display: "Work Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
-  --font-mono: "Inter", system-ui, sans-serif;
-}
-body[data-pairing="work-sans"] .hero__statement,
-body[data-pairing="work-sans"] .contact__statement,
-body[data-pairing="work-sans"] .work__title,
-body[data-pairing="work-sans"] .philosophy__intro,
-body[data-pairing="work-sans"] .about__heading,
-body[data-pairing="work-sans"] .project__name,
-body[data-pairing="work-sans"] .tenet__title,
-body[data-pairing="work-sans"] .intro-curtain__name {
-  font-style: normal;
-  font-weight: 500;
-  letter-spacing: -0.035em;
-}
-body[data-pairing="work-sans"] em {
-  font-style: normal;
-  font-weight: 300;
-}
-
-body[data-pairing="manrope-mono"] {
-  /* Geometric grotesk + matching tight labels */
-  --font-display: "Manrope", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "Manrope", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "Manrope", "Helvetica Neue", Arial, sans-serif;
-}
-body[data-pairing="manrope-mono"] .hero__statement,
-body[data-pairing="manrope-mono"] .contact__statement,
-body[data-pairing="manrope-mono"] .work__title,
-body[data-pairing="manrope-mono"] .philosophy__intro,
-body[data-pairing="manrope-mono"] .about__heading,
-body[data-pairing="manrope-mono"] .project__name,
-body[data-pairing="manrope-mono"] .tenet__title,
-body[data-pairing="manrope-mono"] .intro-curtain__name {
-  font-style: normal;
-  font-weight: 500;
-  letter-spacing: -0.035em;
-}
-body[data-pairing="manrope-mono"] em {
-  font-style: normal;
-  font-weight: 300;
-}
-
-/* Original editorial pairings */
-body[data-pairing="editorial-serif"] {
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body: "Inter", system-ui, sans-serif;
-}
-body[data-pairing="instrument-classic"] {
-  --font-display: "Instrument Serif", Georgia, serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
-}
-body[data-pairing="modern-grotesk"] {
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
-}
-body[data-pairing="playfair-clean"] {
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
-}
-
 </style>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 </head>
-<body>
+<body data-pairing="akzidenz-archivo">
 <div id="root"></div>
 
-<script type="text/babel" src="/ey-portfolio/tweaks-panel.jsx"></script>
 <script type="text/babel" src="/ey-portfolio/components.jsx"></script>
 <script type="text/babel" src="/ey-portfolio/projects.jsx"></script>
 <script type="text/babel" src="/ey-portfolio/app.jsx"></script>
