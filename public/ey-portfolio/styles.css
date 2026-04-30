@@ -16,6 +16,8 @@
   /* Default type pairing: Editorial Serif */
   --font-display: "Fraunces", "Instrument Serif", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
+  /* Mono slot now uses the body family — labels keep their tight tracking
+     + uppercase character but read as part of one unified type system. */
   --font-mono: "Inter", system-ui, sans-serif;
 
   --maxw: 1480px;
@@ -42,18 +44,40 @@ body {
 
 img { max-width: 100%; display: block; }
 
+/* Any element using --font-mono is a label/caption (uppercase tracked text).
+   Now that we use the body grotesk for these too, give them medium weight
+   so they still anchor as labels within the type system. */
+.intro-curtain__sub,
+.topnav__meta,
+.section-label,
+.hero__eyebrow,
+.hero__meta-label,
+.hero__scroll,
+.tenet__num,
+.project__rail-num,
+.project__rail-year,
+.project__tag,
+.project__media-caption,
+.project__media-placeholder-id,
+.project__section-label,
+.project__section-num,
+.contact__channel-label,
+.footer {
+  font-weight: 500;
+}
+
 /* ============================================
    INTRO CURTAIN (page-load)
    ============================================ */
 .intro-curtain {
   position: fixed;
   inset: 0;
-  background: var(--ink);
+  background: var(--bg);
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .intro-curtain__canvas {
@@ -69,7 +93,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   z-index: 2;
   text-align: center;
-  color: var(--bg);
+  color: var(--ink);
 }
 
 .intro-curtain__name {
@@ -96,7 +120,7 @@ img { max-width: 100%; display: block; }
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(247, 246, 242, 0.55);
+  color: var(--muted);
   opacity: 0;
   animation: introFade 0.6s ease forwards;
   animation-delay: 0.7s;
@@ -108,22 +132,63 @@ img { max-width: 100%; display: block; }
   left: 0;
   height: 2px;
   background: var(--accent);
-  width: 0%;
+  width: 100%;
   z-index: 1;
-  animation: introBar 1.6s cubic-bezier(.7,0,.3,1) forwards;
-  animation-delay: 0.2s;
+}
+
+.intro-curtain__start {
+  margin-top: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 36px;
+  background: var(--accent);
+  color: var(--ink);
+  border: none;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: introStart 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+  animation-delay: 0.95s;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.intro-curtain__start:hover {
+  background: var(--accent-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -10px rgba(10, 10, 10, 0.35);
+}
+.intro-curtain__start:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+.intro-curtain__start-arrow {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  transition: transform 0.25s ease;
+}
+.intro-curtain__start:hover .intro-curtain__start-arrow {
+  transform: translateX(4px);
 }
 
 .intro-curtain.is-leaving {
   animation: curtainLift 1.0s cubic-bezier(.7,0,.3,1) forwards;
-  animation-delay: 1.9s;
 }
 
 @keyframes introWord {
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes introFade { to { opacity: 1; } }
-@keyframes introBar { to { width: 100%; } }
+@keyframes introStart {
+  to { opacity: 1; transform: translateY(0); }
+}
 @keyframes curtainLift {
   to { transform: translateY(-100%); }
 }
@@ -132,11 +197,8 @@ img { max-width: 100%; display: block; }
    APP SHELL
    ============================================ */
 .app {
-  opacity: 0;
-  animation: appReveal 0.8s ease forwards;
-  animation-delay: 2.6s;
+  opacity: 1;
 }
-@keyframes appReveal { to { opacity: 1; } }
 
 .shell {
   max-width: var(--maxw);
@@ -151,26 +213,39 @@ img { max-width: 100%; display: block; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  padding: 22px var(--gutter);
+  padding: 18px var(--gutter);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  pointer-events: none;
-  mix-blend-mode: difference;
+  pointer-events: auto;
+  color: var(--ink);
+  background: rgba(247, 246, 242, 0.92);
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+/* When the user has scrolled past the dark Philosophy section,
+   a smarter version could swap themes — for now a single light glass
+   reads cleanly across all sections including the black panel,
+   because the blur darkens the underlying ink. */
+.topnav.is-on-dark {
+  background: rgba(10, 10, 10, 0.82);
   color: #F7F6F2;
+  border-bottom-color: rgba(247, 246, 242, 0.08);
 }
 .topnav__wordmark {
   font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 300;
-  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
   letter-spacing: -0.02em;
   pointer-events: auto;
 }
 .topnav__wordmark .dot {
   display: inline-block;
   width: 7px; height: 7px;
-  background: var(--accent);
+  background: #C8412B;
   border-radius: 50%;
   margin-left: 4px;
   vertical-align: middle;
@@ -195,17 +270,17 @@ img { max-width: 100%; display: block; }
 .topnav__meta a:hover { opacity: 1; }
 .topnav__pulse {
   width: 8px; height: 8px;
-  background: #2BD46B;
+  background: var(--accent); /* EY-resonant yellow */
   border-radius: 50%;
   display: inline-block;
   margin-right: 8px;
-  box-shadow: 0 0 0 0 rgba(43, 212, 107, 0.5);
+  box-shadow: 0 0 0 0 rgba(255, 230, 0, 0.6);
   animation: pulse 2s infinite;
 }
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(43, 212, 107, 0.5); }
-  70% { box-shadow: 0 0 0 8px rgba(43, 212, 107, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(43, 212, 107, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(255, 230, 0, 0.55); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 230, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 230, 0, 0); }
 }
 
 @media (max-width: 720px) {
@@ -278,10 +353,10 @@ img { max-width: 100%; display: block; }
 .hero__statement {
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: clamp(42px, 6.4vw, 104px);
-  line-height: 1.02;
+  font-size: clamp(34px, 4.6vw, 76px);
+  line-height: 1.05;
   letter-spacing: -0.025em;
-  max-width: 18ch;
+  max-width: 22ch;
   color: var(--ink);
 }
 .hero__statement em {
@@ -526,81 +601,138 @@ img { max-width: 100%; display: block; }
   .work__intro { grid-template-columns: 1fr; align-items: start; gap: 24px; }
 }
 
-/* ---- Project Card ---- */
+/* ---- Project Chapter ----
+   Each project is a long vertical "chapter" with a sticky left rail
+   (project number / name / year stays visible on screen during a Zoom
+   screenshare). The right column streams: hero image → What → image →
+   How → image(s) → Results → My Role. */
 .project {
   border-top: 1px solid var(--line);
-  padding: 80px 0;
+  padding: 100px 0 120px;
   position: relative;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: clamp(40px, 5vw, 80px);
+  align-items: start;
 }
 .project:last-child { border-bottom: 1px solid var(--line); }
 
-.project__head {
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
-  gap: 40px;
-  align-items: baseline;
-  margin-bottom: 60px;
+/* Sticky rail */
+.project__rail {
+  position: sticky;
+  top: 100px;
+  align-self: start;
 }
-.project__num {
+.project__rail-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-right: 16px;
+  border-left: 1px solid var(--line-strong);
+  padding-left: 20px;
+}
+.project__rail-num {
   font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.18em;
+  font-size: 11px;
+  letter-spacing: 0.22em;
   color: var(--muted);
   font-weight: 500;
+}
+.project__rail-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.project__rail-name em { font-style: italic; font-weight: 300; }
+.project__rail-year {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* Main column */
+.project__main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 5vh, 64px);
+  min-width: 0; /* allow image to shrink in grid */
+}
+
+.project__head {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 8px;
 }
 .project__name {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(36px, 4vw, 64px);
+  font-size: clamp(32px, 4vw, 56px);
   line-height: 1.05;
   letter-spacing: -0.025em;
 }
 .project__name em { font-style: italic; font-weight: 300; }
-.project__year {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.18em;
-  color: var(--muted);
-  white-space: nowrap;
+.project__lede {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(18px, 1.6vw, 24px);
+  line-height: 1.4;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  letter-spacing: -0.01em;
 }
-
-.project__body {
-  display: grid;
-  grid-template-columns: 80px 1.4fr 1fr;
-  gap: 40px;
-  align-items: start;
-}
-
 .project__tags {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  padding-top: 8px;
 }
 .project__tag {
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
+  font-weight: 500;
+}
+.project__tag::before {
+  content: "—";
+  margin-right: 8px;
+  color: var(--line-strong);
 }
 
-.project__visual {
+/* Media (figure + caption) */
+.project__media {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.project__media-frame {
   position: relative;
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 16 / 10;
   background: var(--bg-alt);
   overflow: hidden;
   border-radius: 4px;
-  cursor: pointer;
-  transition: transform 0.5s cubic-bezier(.2,.8,.2,1);
 }
-.project__visual:hover {
-  transform: translateY(-6px);
+.project__media--full .project__media-frame {
+  aspect-ratio: 16 / 9;
 }
-.project__visual:hover .project__visual-overlay {
-  opacity: 1;
+.project__media-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
-
-.project__visual-placeholder {
+.project__media-placeholder {
   position: absolute;
   inset: 0;
   display: flex;
@@ -616,116 +748,133 @@ img { max-width: 100%; display: block; }
     ),
     var(--bg-alt);
 }
-.project__visual-meta {
-  position: absolute;
-  top: 20px;
-  left: 20px;
+.project__media-placeholder-id {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
-  display: flex;
-  gap: 16px;
+  background: rgba(247, 246, 242, 0.85);
+  padding: 8px 14px;
+  border-radius: 2px;
 }
-.project__visual-meta span:first-child {
+.project__media-caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 70ch;
+  font-weight: 500;
+}
+
+/* Two-up image row (used when a project has 4 images) */
+.project__media-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 720px) {
+  .project__media-row { grid-template-columns: 1fr; }
+}
+
+/* Labeled content section: What / How / Results / My Role */
+.project__section {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 32px;
+  align-items: start;
+  border-top: 1px solid var(--line);
+  padding-top: 28px;
+}
+.project__section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.project__section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   color: var(--ink);
   font-weight: 500;
 }
-.project__visual-label {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-style: italic;
-  font-size: clamp(28px, 3.2vw, 52px);
-  letter-spacing: -0.02em;
-  text-align: center;
-  color: var(--ink-soft);
-  line-height: 1.05;
-  padding: 0 32px;
-}
-.project__visual-marker {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.project__visual-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(10,10,10,0.92);
-  color: var(--bg);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  text-align: center;
-}
-.project__visual-overlay-text {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(20px, 2vw, 30px);
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  max-width: 30ch;
-}
-.project__visual-overlay-text .accent { color: var(--accent); }
-
-.project__details {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-.project__detail-block {
-  border-top: 1px solid var(--line);
-  padding-top: 16px;
-}
-.project__detail-label {
+.project__section-num {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.22em;
-  text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 10px;
+  font-weight: 500;
 }
-.project__detail-text {
-  font-size: 15px;
-  line-height: 1.55;
+.project__section-body {
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.65;
   color: var(--ink-soft);
 }
-.project__detail-text strong {
+.project__section-body p + p { margin-top: 16px; }
+.project__section-body strong {
   color: var(--ink);
   font-weight: 500;
 }
-.project__metric {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(28px, 3vw, 44px);
-  line-height: 1;
-  color: var(--ink);
-  letter-spacing: -0.02em;
+
+/* My Role list */
+.project__role {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.project__metric .accent-bar {
-  display: inline-block;
-  width: 28px;
-  height: 1px;
-  background: var(--accent-deep);
-  vertical-align: middle;
-  margin-right: 12px;
-  transform: translateY(-4px);
+.project__role li {
+  position: relative;
+  padding-left: 24px;
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.project__role-marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent-deep);
+  font-weight: 600;
+  font-family: var(--font-mono);
 }
 
+/* Responsive */
+@media (max-width: 1080px) {
+  .project { grid-template-columns: 180px 1fr; }
+}
 @media (max-width: 900px) {
-  .project__head { grid-template-columns: 50px 1fr auto; gap: 16px; }
-  .project__body { grid-template-columns: 1fr; gap: 32px; }
-  .project__tags { flex-direction: row; flex-wrap: wrap; gap: 16px; }
+  .project {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 80px 0 100px;
+  }
+  .project__rail {
+    position: static;
+    top: auto;
+  }
+  .project__rail-inner {
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    padding: 16px 0 0;
+    border-left: none;
+    border-top: 1px solid var(--line-strong);
+  }
+  .project__section {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .project__section-head {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 14px;
+  }
 }
 
 /* ============================================
@@ -882,32 +1031,67 @@ img { max-width: 100%; display: block; }
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
+  /* Allow the italic glyph slant to extend horizontally without clipping;
+     only the vertical translateY(110%) needs to be masked. */
+  padding-right: 0.12em;
 }
 .word-reveal__inner {
   display: inline-block;
   transform: translateY(110%);
   transition: transform 1.0s cubic-bezier(.2,.8,.2,1);
+  padding-right: 0.06em;
 }
 .word-reveal.is-visible .word-reveal__inner {
   transform: translateY(0);
 }
 
 /* ============================================
-   TYPOGRAPHY PAIRINGS (Tweaks)
+   TYPOGRAPHY PAIRING — Akzidenz × Archivo
    ============================================ */
-body[data-pairing="editorial-serif"] {
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body: "Inter", system-ui, sans-serif;
+
+body[data-pairing="akzidenz-archivo"] {
+  /* Archivo = closest Google Fonts proxy for Akzidenz-Grotesk */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Archivo", "Helvetica Neue", Arial, sans-serif;
 }
-body[data-pairing="instrument-classic"] {
-  --font-display: "Instrument Serif", Georgia, serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
+body[data-pairing="akzidenz-archivo"] .hero__statement,
+body[data-pairing="akzidenz-archivo"] .contact__statement,
+body[data-pairing="akzidenz-archivo"] .work__title,
+body[data-pairing="akzidenz-archivo"] .philosophy__intro,
+body[data-pairing="akzidenz-archivo"] .about__heading,
+body[data-pairing="akzidenz-archivo"] .project__name,
+body[data-pairing="akzidenz-archivo"] .tenet__title,
+body[data-pairing="akzidenz-archivo"] .intro-curtain__name {
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -0.025em;
 }
-body[data-pairing="modern-grotesk"] {
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+/* Word-reveal wrappers clip overflow for the slide-up animation;
+   the heavier Archivo cut needs a little breathing room so the
+   right edge of letters like e, a, n isn't shaved off. */
+body[data-pairing="akzidenz-archivo"] .word-reveal {
+  padding-right: 0.08em;
+  overflow: visible;
 }
-body[data-pairing="playfair-clean"] {
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
+/* Italic Archivo glyphs slant right and would clip without the inner
+   span also being given padding + visible overflow. */
+body[data-pairing="akzidenz-archivo"] .word-reveal__inner {
+  padding-right: 0.18em;
+  overflow: visible;
 }
+/* Plain (non-revealed) tokens that use inline italic also need a guard. */
+body[data-pairing="akzidenz-archivo"] em {
+  padding-right: 0.05em;
+}
+body[data-pairing="akzidenz-archivo"] .hero__statement,
+body[data-pairing="akzidenz-archivo"] .contact__statement,
+body[data-pairing="akzidenz-archivo"] .project__name {
+  /* slight overflow tolerance for the heavy weight */
+  word-spacing: 0.02em;
+}
+body[data-pairing="akzidenz-archivo"] em {
+  font-style: normal;
+  font-weight: 300;
+}
+
