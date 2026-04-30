@@ -159,8 +159,8 @@ export default function GitHubActivity() {
             className="github-repos-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-              gap: 12,
+              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+              gap: 16,
             }}
           >
             {(data?.topRepos ?? []).map((repo) => (
@@ -171,8 +171,9 @@ export default function GitHubActivity() {
                 rel="noopener noreferrer"
                 style={{
                   textDecoration: "none",
-                  display: "block",
-                  padding: "10px 12px",
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "16px 18px",
                   borderRadius: 4,
                   border: "1px solid var(--color-border)",
                   transition: "border-color 0.2s",
@@ -186,10 +187,10 @@ export default function GitHubActivity() {
               >
                 <div
                   style={{
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: 500,
                     color: "var(--color-fg)",
-                    marginBottom: 2,
+                    marginBottom: 6,
                   }}
                 >
                   {repo.name}
@@ -197,13 +198,11 @@ export default function GitHubActivity() {
                 {repo.description && (
                   <div
                     style={{
-                      fontSize: 11,
+                      fontSize: 12,
                       color: "var(--color-fg-secondary)",
-                      lineHeight: 1.3,
-                      marginBottom: 4,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
+                      lineHeight: 1.5,
+                      marginBottom: 10,
+                      flexGrow: 1,
                     }}
                   >
                     {repo.description}
