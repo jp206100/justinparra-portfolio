@@ -208,8 +208,7 @@ function CurtainCanvas() {
     <canvas
       ref={canvasRef}
       className="intro-curtain__canvas"
-      role="img"
-      aria-label="Decorative animated grid background"
+      aria-hidden="true"
     />
   );
 }
