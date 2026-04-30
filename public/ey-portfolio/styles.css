@@ -44,6 +44,22 @@ body {
 
 img { max-width: 100%; display: block; }
 
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 18px;
+  font-family: var(--font-mono, sans-serif);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  z-index: 10000;
+}
+.skip-link:focus { left: 12px; top: 12px; outline: 2px solid var(--accent); }
+
 /* Any element using --font-mono is a label/caption (uppercase tracked text).
    Now that we use the body grotesk for these too, give them medium weight
    so they still anchor as labels within the type system. */
