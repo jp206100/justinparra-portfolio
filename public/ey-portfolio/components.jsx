@@ -316,17 +316,20 @@ function TopNav() {
   useEffect(() => {
     const phil = document.getElementById("philosophy");
     if (!phil) return;
-    const onScroll = () => {
-      const r = phil.getBoundingClientRect();
-      // header sits in the top ~80px — flip when the dark panel covers it
-      setOnDark(r.top <= 80 && r.bottom >= 80);
+    let io;
+    const setup = () => {
+      if (io) io.disconnect();
+      io = new IntersectionObserver(
+        ([entry]) => setOnDark(entry.isIntersecting),
+        { rootMargin: `-80px 0px -${Math.max(0, window.innerHeight - 81)}px 0px` }
+      );
+      io.observe(phil);
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    setup();
+    window.addEventListener("resize", setup);
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      if (io) io.disconnect();
+      window.removeEventListener("resize", setup);
     };
   }, []);
   return (
