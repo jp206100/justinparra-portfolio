@@ -347,8 +347,19 @@ function TopNav() {
    Hero
    ============================================ */
 function Hero() {
+  const heroRef = React.useRef(null);
+  React.useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => el.classList.toggle("is-paused", !entry.isIntersecting),
+      { threshold: 0 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <section className="hero" id="top">
+    <section className="hero" id="top" ref={heroRef}>
       <div className="hero__eyebrow reveal">
         <span>Portfolio &nbsp;/&nbsp; 2026</span>
       </div>

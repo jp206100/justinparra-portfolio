@@ -427,6 +427,7 @@ img { max-width: 100%; display: block; }
   background: var(--accent);
   animation: scrollDrop 2.4s ease-in-out infinite;
 }
+.hero.is-paused .hero__scroll-bar::after { animation-play-state: paused; }
 @keyframes scrollDrop {
   0% { top: -50%; }
   100% { top: 100%; }
