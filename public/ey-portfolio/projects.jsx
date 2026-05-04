@@ -287,8 +287,9 @@ function ProjectSection({ label, num, children }) {
   return (
     <section className="project__section reveal">
       <div className="project__section-head">
-        <div className="project__section-label">{label}</div>
-        <div className="project__section-num" aria-hidden="true">— {num}</div>
+        <span className="project__section-num" aria-hidden="true">{num}</span>
+        <span className="project__section-divider" aria-hidden="true">/</span>
+        <span className="project__section-label">{label}</span>
       </div>
       <div className="project__section-body">{children}</div>
     </section>
@@ -310,7 +311,7 @@ function Project({ data }) {
       {/* Sticky left rail — anchors the chapter while you scroll */}
       <aside className="project__rail" aria-hidden="true">
         <div className="project__rail-inner">
-          <div className="project__rail-num" aria-hidden="true">— {data.num}</div>
+          <div className="project__rail-num" aria-hidden="true">{data.num}</div>
           <div className="project__rail-name">
             {data.name} <em>{data.nameItalic}</em>
           </div>
@@ -407,7 +408,7 @@ function Work() {
       <div className="shell">
         <div className="section-label reveal">
           <span className="section-label__num" aria-hidden="true">03</span>
-          <span>Selected Work</span>
+          <span className="section-label__text">Selected Work</span>
         </div>
         <div className="work__intro">
           <h2 className="work__title reveal">
