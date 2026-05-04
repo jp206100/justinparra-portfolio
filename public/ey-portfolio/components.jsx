@@ -364,6 +364,7 @@ function Hero() {
   return (
     <section className="hero" id="top" ref={heroRef}>
       <div className="hero__eyebrow reveal">
+        <span className="hero__eyebrow-num" aria-hidden="true">00</span>
         <span>Portfolio &nbsp;/&nbsp; 2026</span>
       </div>
 
@@ -413,7 +414,7 @@ function About() {
       <div className="shell">
         <div className="section-label reveal">
           <span className="section-label__num" aria-hidden="true">01</span>
-          <span>About</span>
+          <span className="section-label__text">About</span>
         </div>
         <div className="about__grid">
           <h2 className="about__heading reveal">
@@ -453,7 +454,7 @@ function Philosophy() {
       <div className="shell">
         <div className="section-label reveal">
           <span className="section-label__num" aria-hidden="true">02</span>
-          <span>Approach</span>
+          <span className="section-label__text">Approach</span>
         </div>
         <div className="philosophy__grid">
           <h2 className="philosophy__intro reveal">
@@ -464,7 +465,7 @@ function Philosophy() {
 
           <div className="tenets">
             <div className="tenet reveal reveal--delay-1">
-              <div className="tenet__num" aria-hidden="true">— 01</div>
+              <div className="tenet__num" aria-hidden="true">01</div>
               <h3 className="tenet__title">Translate complexity into clarity</h3>
               <p className="tenet__body">
                 Whether the brief is federal policy, vehicle launch logistics,
@@ -473,7 +474,7 @@ function Philosophy() {
               </p>
             </div>
             <div className="tenet reveal reveal--delay-2">
-              <div className="tenet__num" aria-hidden="true">— 02</div>
+              <div className="tenet__num" aria-hidden="true">02</div>
               <h3 className="tenet__title">Design with the team, not for them</h3>
               <p className="tenet__body">
                 I lead designers, engineers, researchers, and account leads
@@ -482,7 +483,7 @@ function Philosophy() {
               </p>
             </div>
             <div className="tenet reveal reveal--delay-3">
-              <div className="tenet__num" aria-hidden="true">— 03</div>
+              <div className="tenet__num" aria-hidden="true">03</div>
               <h3 className="tenet__title">Trust as a unit of measurement</h3>
               <p className="tenet__body">
                 Especially in human + AI experiences. I set standards for
@@ -510,7 +511,7 @@ function Contact() {
       <div className="shell">
         <div className="section-label reveal">
           <span className="section-label__num" aria-hidden="true">04</span>
-          <span>Contact</span>
+          <span className="section-label__text">Contact</span>
         </div>
         <div className="contact__grid">
           <h2 className="contact__statement reveal">

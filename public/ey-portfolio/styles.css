@@ -313,26 +313,36 @@ img { max-width: 100%; display: block; }
 .section--tight { padding: 100px 0; }
 
 .section-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 60px;
+}
+.section-label__num {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(56px, 7vw, 88px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.section-label__text {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 60px;
   display: flex;
   align-items: center;
   gap: 14px;
 }
-.section-label::before {
+.section-label__text::after {
   content: "";
   display: inline-block;
   width: 36px;
   height: 1px;
   background: var(--ink);
-}
-.section-label__num {
-  color: var(--ink);
-  font-weight: 500;
 }
 
 /* ============================================
@@ -359,12 +369,15 @@ img { max-width: 100%; display: block; }
   align-items: center;
   gap: 14px;
 }
-.hero__eyebrow::before {
-  content: "";
-  display: inline-block;
-  width: 56px;
-  height: 1px;
-  background: var(--ink);
+.hero__eyebrow-num {
+  color: var(--ink);
+  font-weight: 500;
+}
+.hero__eyebrow-num::after {
+  content: "/";
+  margin-left: 14px;
+  color: var(--muted);
+  font-weight: 400;
 }
 
 .hero__statement {
@@ -493,9 +506,9 @@ img { max-width: 100%; display: block; }
   position: relative;
   overflow: hidden;
 }
-.philosophy .section-label { color: rgba(247,246,242,0.6); }
-.philosophy .section-label::before { background: rgba(247,246,242,0.4); }
 .philosophy .section-label__num { color: var(--bg); }
+.philosophy .section-label__text { color: rgba(247,246,242,0.6); }
+.philosophy .section-label__text::after { background: rgba(247,246,242,0.4); }
 
 .philosophy__grid {
   display: grid;
@@ -692,11 +705,6 @@ img { max-width: 100%; display: block; }
   color: var(--muted);
   font-weight: 500;
 }
-.project__tag::before {
-  content: "—";
-  margin-right: 8px;
-  color: var(--line-strong);
-}
 
 /* Media (figure + caption) */
 .project__media {
@@ -780,8 +788,22 @@ img { max-width: 100%; display: block; }
 }
 .project__section-head {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 8px;
+}
+.project__section-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  font-weight: 500;
+}
+.project__section-divider {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
 }
 .project__section-label {
   font-family: var(--font-mono);
@@ -789,13 +811,6 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink);
-  font-weight: 500;
-}
-.project__section-num {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  color: var(--muted);
   font-weight: 500;
 }
 .project__section-body {
@@ -1059,6 +1074,7 @@ body[data-pairing="akzidenz-archivo"] .philosophy__intro,
 body[data-pairing="akzidenz-archivo"] .about__heading,
 body[data-pairing="akzidenz-archivo"] .project__name,
 body[data-pairing="akzidenz-archivo"] .tenet__title,
+body[data-pairing="akzidenz-archivo"] .section-label__num,
 body[data-pairing="akzidenz-archivo"] .intro-curtain__name {
   font-style: normal;
   font-weight: 600;
