@@ -140,8 +140,8 @@ export async function GET() {
       if (recentEvents.length >= 8) break;
     }
 
-    // Top repos (most recently pushed, non-fork, up to 4)
-    const topRepos = ownRepos.slice(0, 4).map((r) => ({
+    // Top repos (most recently pushed, non-fork, up to 6)
+    const topRepos = ownRepos.slice(0, 6).map((r) => ({
       name: r.name,
       description: r.description,
       url: r.html_url,
