@@ -39,6 +39,13 @@ const nextConfig: NextConfig = {
   rewrites: async () => [
     { source: "/ey-portfolio", destination: "/ey-portfolio/index.html" },
   ],
+  redirects: async () => [
+    {
+      source: "/work/first-look-at-sortlab",
+      destination: "/work/first-look-at-catagree",
+      permanent: true,
+    },
+  ],
   headers: async () => [
     {
       // Security headers for the main app — excludes /ey-portfolio so its
