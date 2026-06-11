@@ -95,7 +95,7 @@ export async function generateMetadata({ params }: WorkPostPageProps): Promise<M
       const canonical = `https://justinparra.com/work/${slug}`;
       const images = post.image
         ? [{ url: getImageUrl(post.image, 1200, 630) }]
-        : [];
+        : [{ url: "/og-image.png" }];
       return {
         title,
         description,

@@ -18,6 +18,22 @@ export const metadata: Metadata = {
   },
   description:
     "18+ years leading design, development, and strategy teams across private and public sectors. From Toyota to the US EPA.",
+  openGraph: {
+    type: "website",
+    siteName: "Justin Parra",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Justin Parra — UX Leader & Digital Strategist",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
