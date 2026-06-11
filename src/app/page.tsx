@@ -106,8 +106,8 @@ export async function generateMetadata(): Promise<Metadata> {
       return {
         title,
         description,
-        openGraph: { title, description, type: "website" },
-        twitter: { card: "summary_large_image", title, description },
+        openGraph: { title, description, type: "website", images: ["/og-image.png"] },
+        twitter: { card: "summary_large_image", title, description, images: ["/og-image.png"] },
       };
     }
   } catch {
