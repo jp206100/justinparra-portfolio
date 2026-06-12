@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 const USERNAME = "jp206100";
+const TOKEN = process.env.GITHUB_TOKEN;
 
 interface GitHubEvent {
   type: string;
@@ -22,6 +23,17 @@ interface GitHubRepo {
   pushed_at: string;
   fork: boolean;
   stargazers_count: number;
+}
+
+interface ActivityDay {
+  date: string;
+  count: number;
+  repos: string[];
+}
+
+interface ContributionDay {
+  date: string;
+  contributionCount: number;
 }
 
 function formatEventType(event: GitHubEvent): string {
@@ -47,20 +59,96 @@ function formatEventType(event: GitHubEvent): string {
   }
 }
 
+/**
+ * Fetch the contribution calendar via the GraphQL API. Because this queries the
+ * authenticated `viewer`, GitHub includes contributions made to PRIVATE
+ * repositories in the daily counts. Only per-day counts are returned (never
+ * private repo names), so nothing private is exposed on the public site.
+ *
+ * Returns `null` when no token is configured or the request fails, so callers
+ * can fall back to public event data.
+ */
+async function fetchContributionCalendar(): Promise<ContributionDay[] | null> {
+  if (!TOKEN) return null;
+
+  // Cover a 90-day window — enough for the 60-day bar chart and the
+  // 30-day "events this month" stat.
+  const to = new Date();
+  const from = new Date();
+  from.setDate(from.getDate() - 90);
+
+  const query = `
+    query($from: DateTime!, $to: DateTime!) {
+      viewer {
+        contributionsCollection(from: $from, to: $to) {
+          contributionCalendar {
+            weeks {
+              contributionDays {
+                date
+                contributionCount
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const res = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "application/json",
+        "User-Agent": "justinparra-portfolio",
+      },
+      body: JSON.stringify({
+        query,
+        variables: { from: from.toISOString(), to: to.toISOString() },
+      }),
+      next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) return null;
+
+    const json = await res.json();
+    const weeks =
+      json?.data?.viewer?.contributionsCollection?.contributionCalendar?.weeks;
+    if (!Array.isArray(weeks)) return null;
+
+    const days: ContributionDay[] = [];
+    for (const week of weeks) {
+      for (const day of week.contributionDays ?? []) {
+        days.push({
+          date: day.date,
+          contributionCount: day.contributionCount,
+        });
+      }
+    }
+    return days;
+  } catch {
+    return null;
+  }
+}
+
 export async function GET() {
   try {
     const headers: HeadersInit = {
       Accept: "application/vnd.github.v3+json",
       "User-Agent": "justinparra-portfolio",
     };
+    if (TOKEN) {
+      headers.Authorization = `Bearer ${TOKEN}`;
+    }
 
-    // Fetch repos + multiple pages of events to cover more days
-    const reposRes = await fetch(
+    // Fetch repos, public events, and the (private-inclusive) contribution
+    // calendar in parallel.
+    const reposPromise = fetch(
       `https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=pushed`,
       { headers, next: { revalidate: 3600 } }
     );
 
-    const eventPages = await Promise.all(
+    const eventsPromise = Promise.all(
       [1, 2, 3].map((page) =>
         fetch(
           `https://api.github.com/users/${USERNAME}/events/public?per_page=100&page=${page}`,
@@ -68,6 +156,14 @@ export async function GET() {
         )
       )
     );
+
+    const calendarPromise = fetchContributionCalendar();
+
+    const [reposRes, eventPages, contributionDays] = await Promise.all([
+      reposPromise,
+      eventsPromise,
+      calendarPromise,
+    ]);
 
     if (!reposRes.ok) {
       throw new Error("GitHub API request failed");
@@ -93,35 +189,54 @@ export async function GET() {
       (r) => new Date(r.pushed_at) > ninetyDaysAgo
     ).length;
 
-    // Recent contributions (last 30 days)
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-    let recentContributions = 0;
-    for (const event of events) {
-      if (new Date(event.created_at) > thirtyDaysAgo) {
-        recentContributions++;
+
+    let recentContributions: number;
+    let activityDays: ActivityDay[];
+
+    if (contributionDays) {
+      // Private-inclusive path: drive the month count and bar chart from the
+      // contribution calendar so private-repo contributions are reflected.
+      recentContributions = contributionDays.reduce(
+        (sum, d) =>
+          new Date(d.date) > thirtyDaysAgo ? sum + d.contributionCount : sum,
+        0
+      );
+
+      activityDays = contributionDays
+        .filter((d) => d.contributionCount > 0)
+        .map((d) => ({ date: d.date, count: d.contributionCount, repos: [] }))
+        .sort((a, b) => b.date.localeCompare(a.date));
+    } else {
+      // Fallback (no token): count only public events from the events feed.
+      recentContributions = 0;
+      for (const event of events) {
+        if (new Date(event.created_at) > thirtyDaysAgo) {
+          recentContributions++;
+        }
       }
+
+      const dayMap = new Map<string, { count: number; repos: Set<string> }>();
+      for (const event of events) {
+        const date = event.created_at.split("T")[0];
+        const entry = dayMap.get(date) ?? { count: 0, repos: new Set<string>() };
+        entry.count++;
+        entry.repos.add(event.repo.name.split("/").pop() ?? event.repo.name);
+        dayMap.set(date, entry);
+      }
+
+      activityDays = Array.from(dayMap.entries())
+        .map(([date, { count, repos: repoSet }]) => ({
+          date,
+          count,
+          repos: Array.from(repoSet),
+        }))
+        .sort((a, b) => b.date.localeCompare(a.date));
     }
 
-    // Build activity stream: group events by day with counts
-    const dayMap = new Map<string, { count: number; repos: Set<string> }>();
-    for (const event of events) {
-      const date = event.created_at.split("T")[0];
-      const entry = dayMap.get(date) ?? { count: 0, repos: new Set<string>() };
-      entry.count++;
-      entry.repos.add(event.repo.name.split("/").pop() ?? event.repo.name);
-      dayMap.set(date, entry);
-    }
-
-    const activityDays = Array.from(dayMap.entries())
-      .map(([date, { count, repos: repoSet }]) => ({
-        date,
-        count,
-        repos: Array.from(repoSet),
-      }))
-      .sort((a, b) => b.date.localeCompare(a.date));
-
-    // Recent events for activity feed (last 10, deduplicated by repo+type+day)
+    // Recent events for activity feed (last 8, deduplicated by repo+type+day).
+    // Sourced from public events only so private repo names are never exposed.
     const seen = new Set<string>();
     const recentEvents = [];
     for (const event of events) {
