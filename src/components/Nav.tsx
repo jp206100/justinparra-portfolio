@@ -54,13 +54,13 @@ export default function Nav() {
             <a
               key={s}
               href={`#${s.toLowerCase()}`}
+              className="nav-link"
               style={{
                 fontSize: 11,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
                 color: "var(--color-fg)",
                 textDecoration: "none",
-                opacity: 0.6,
               }}
             >
               {s}
