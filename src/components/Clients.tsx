@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Reveal from "./Reveal";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
@@ -25,7 +22,6 @@ interface ClientsProps {
 }
 
 export default function Clients({ clients }: ClientsProps) {
-  const [hoveredClient, setHoveredClient] = useState<number | null>(null);
   const clientList = clients ?? fallbackClients;
 
   return (
@@ -65,16 +61,9 @@ export default function Clients({ clients }: ClientsProps) {
               borderBottom: "1px solid rgba(245,242,237,0.08)",
               fontSize: 15,
               fontWeight: 300,
-              color:
-                hoveredClient === i
-                  ? "var(--color-bg)"
-                  : "rgba(245,242,237,0.7)",
-              paddingLeft: hoveredClient === i ? 8 : 0,
-              transition: "color 0.3s, padding-left 0.3s",
+              color: "rgba(245,242,237,0.7)",
               cursor: "default",
             }}
-            onMouseEnter={() => setHoveredClient(i)}
-            onMouseLeave={() => setHoveredClient(null)}
           >
             {c}
           </Reveal>
