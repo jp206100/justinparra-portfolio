@@ -128,6 +128,55 @@ body {
   transform: translateY(-3px);
 }
 
+/* Work category filter buttons — accent rollover + subtle lift */
+.work-category-btn {
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-fg-secondary);
+  /* Overshoot easing gives a gentle bounce on settle */
+  transition: color 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+.work-category-btn:hover,
+.work-category-btn:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+/* Active (selected) filter — filled accent; rollover keeps the fill and just lifts */
+.work-category-btn.is-active {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: #fff;
+}
+.work-category-btn.is-active:hover,
+.work-category-btn.is-active:focus-visible {
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Load More button — accent rollover with lift */
+.load-more-btn {
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-fg);
+  /* Overshoot easing gives a gentle bounce on settle */
+  transition: color 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+.load-more-btn:hover,
+.load-more-btn:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: translateY(-3px);
+}
+
 /* Backdrop-filter fallback for older browsers */
 @supports not (backdrop-filter: blur(1px)) {
   nav {

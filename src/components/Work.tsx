@@ -137,16 +137,13 @@ export default function Work({ posts, categories }: WorkProps) {
                 setVisibleCount(5);
               }}
               aria-pressed={isActive}
+              className={`work-category-btn${isActive ? " is-active" : ""}`}
               style={{
                 fontSize: 10,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
                 padding: "8px 16px",
-                border: `1px solid ${isActive ? "var(--color-accent)" : "var(--color-border)"}`,
-                background: isActive ? "var(--color-accent)" : "transparent",
-                color: isActive ? "#fff" : "var(--color-fg-secondary)",
                 cursor: "pointer",
-                transition: "all 0.3s ease",
                 borderRadius: 0,
               }}
             >
@@ -302,11 +299,7 @@ export default function Work({ posts, categories }: WorkProps) {
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
                 padding: "14px 40px",
-                border: "1px solid var(--color-border)",
-                background: "transparent",
-                color: "var(--color-fg)",
                 cursor: "pointer",
-                transition: "all 0.3s ease",
               }}
             >
               Load More
