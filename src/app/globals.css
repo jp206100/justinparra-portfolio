@@ -113,6 +113,21 @@ body {
   transform: translateY(-3px);
 }
 
+/* Contact links (Email / LinkedIn / GitHub) — same lift + bounce rollover */
+.contact-link {
+  display: inline-block;
+  color: var(--color-fg);
+  /* Overshoot easing gives a gentle bounce on settle */
+  transition: color 0.3s ease,
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+.contact-link:hover,
+.contact-link:focus-visible {
+  color: var(--color-accent);
+  transform: translateY(-3px);
+}
+
 /* Backdrop-filter fallback for older browsers */
 @supports not (backdrop-filter: blur(1px)) {
   nav {

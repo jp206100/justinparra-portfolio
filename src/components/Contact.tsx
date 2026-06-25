@@ -53,13 +53,13 @@ export default function Contact({ heading, subtext }: ContactProps) {
           <a
             key={label}
             href={href}
+            className="contact-link"
             target={href.startsWith("mailto") ? undefined : "_blank"}
             rel={href.startsWith("mailto") ? undefined : "noopener noreferrer"}
             style={{
               fontSize: 12,
               letterSpacing: "0.1em",
               textTransform: "uppercase",
-              color: "var(--color-fg)",
               textDecoration: "none",
               paddingBottom: 4,
               borderBottom: "1px solid var(--color-accent)",
