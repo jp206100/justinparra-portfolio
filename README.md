@@ -27,16 +27,36 @@ activity bar chart, set a GitHub token:
 GITHUB_TOKEN=ghp_your_token_here
 ```
 
-- Create a token at https://github.com/settings/tokens. A classic token with
-  the `read:user` scope (and `repo` if you want private contributions counted)
-  works; a fine-grained token with read access to your profile/contributions
-  also works.
+- Create a token at https://github.com/settings/tokens. Use a **classic**
+  token with the `read:user` scope, plus `repo` if you want private-repo
+  contributions counted. Classic tokens are the reliable option here —
+  fine-grained tokens are frequently rejected by both the public events feed
+  and `viewer.contributionsCollection`.
+- The token must belong to the account named by `USERNAME` in
+  `src/app/api/github/route.ts` (`jp206100`). The calendar is queried as the
+  authenticated `viewer`, so a token from a different account silently reports
+  that other account's activity.
+- Classic PATs **expire**. When the token expires, GitHub rejects both the
+  events feed and the GraphQL calendar, and the section drops to `0`. If the
+  stat goes to zero unexpectedly, check the token's expiry first.
 - The token is used server-side only to query GitHub's GraphQL contribution
   calendar as the authenticated `viewer`, which includes private-repo
   contribution **counts** (never private repo names — nothing private is
   exposed on the public site).
 - If `GITHUB_TOKEN` is not set, the section gracefully falls back to public
   events only.
+
+### Diagnosing the GitHub Activity section
+
+`/api/github?debug=1` returns a `debug` object alongside the normal payload,
+reporting whether a token is present and what shape it is (never the token
+itself), the GraphQL HTTP status and any GraphQL `errors`, the `viewer` login
+the token resolves to and whether it matches `USERNAME`, and the HTTP status,
+item count, and remaining rate limit for each public-events page.
+
+`rateLimitRemaining` near 60 means the request went out **unauthenticated** —
+GitHub allows 5000/hour for an authenticated token and 60/hour per IP without
+one. Failures are also written to the Vercel runtime logs.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
