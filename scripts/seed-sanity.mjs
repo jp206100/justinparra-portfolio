@@ -24,6 +24,7 @@ const categories = [
 
 // Experience entries
 const experience = [
+  { _id: "exp-0", _type: "experienceEntry", role: "Independent Consultant", company: "Contract", startYear: 2026, endYear: "Present", order: 0 },
   { _id: "exp-1", _type: "experienceEntry", role: "VP, Digital", company: "Allison Worldwide", companyUrl: "https://www.allisonworldwide.com/", startYear: 2024, endYear: "2026", order: 1 },
   { _id: "exp-2", _type: "experienceEntry", role: "Digital Director", company: "Allison Worldwide", companyUrl: "https://www.allisonworldwide.com/", startYear: 2018, endYear: "2024", order: 2 },
   { _id: "exp-3", _type: "experienceEntry", role: "Sr. Interactive Producer", company: "PRR", companyUrl: "https://www.prrbiz.com/", startYear: 2016, endYear: "2018", order: 3 },

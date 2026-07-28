@@ -8,6 +8,11 @@ const pagePad = "clamp(20px, 5vw, 80px)";
 
 const fallbackExperience = [
   {
+    role: "Independent Consultant",
+    company: "Contract",
+    date: "2026 – Present",
+  },
+  {
     role: "VP, Digital",
     company: "Allison Worldwide",
     url: "https://www.allisonworldwide.com/",
