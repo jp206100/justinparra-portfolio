@@ -46,6 +46,35 @@ GITHUB_TOKEN=ghp_your_token_here
 - If `GITHUB_TOKEN` is not set, the section gracefully falls back to public
   events only.
 
+### Contact form (Resend)
+
+The contact form on the home page posts to `/api/contact`, which sends the
+inquiry through [Resend](https://resend.com) with the subject
+**"JustinParra.com Form Inquiry"**. `Reply-To` is set to the visitor's address,
+so replying in Gmail goes straight back to them.
+
+```bash
+# .env.local (and in your Vercel project settings)
+RESEND_API_KEY=re_your_key_here
+
+# Optional overrides
+CONTACT_TO_EMAIL=justinparra206@gmail.com
+CONTACT_FROM_EMAIL="JustinParra.com <hello@justinparra.com>"
+```
+
+- Create an API key at https://resend.com/api-keys.
+- `CONTACT_FROM_EMAIL` defaults to `JustinParra.com <onboarding@resend.dev>`.
+  That shared sender works immediately but **only delivers to the email address
+  the Resend account was signed up with**. For production, verify
+  `justinparra.com` at https://resend.com/domains (add the DNS records Resend
+  gives you) and set `CONTACT_FROM_EMAIL` to an address on that domain —
+  otherwise submissions from visitors will silently fail to arrive.
+- `CONTACT_TO_EMAIL` defaults to `justinparra206@gmail.com`.
+- Without `RESEND_API_KEY`, the endpoint returns HTTP 503 and the form tells
+  visitors to email directly instead of failing silently.
+- Spam handling is a hidden honeypot field plus a small per-instance rate limit
+  (3 submissions/minute per IP). No captcha, no third-party script.
+
 ### Diagnosing the GitHub Activity section
 
 `/api/github?debug=1` returns a `debug` object alongside the normal payload,

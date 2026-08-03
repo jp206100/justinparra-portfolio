@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import ContactForm from "./ContactForm";
 
 const pagePad = "clamp(20px, 5vw, 80px)";
 
@@ -48,7 +49,23 @@ export default function Contact({ heading, subtext }: ContactProps) {
           {contactSubtext}
         </p>
       </Reveal>
-      <Reveal className="flex justify-center gap-10">
+      <Reveal>
+        <ContactForm />
+      </Reveal>
+      <Reveal>
+        <p
+          style={{
+            fontSize: 10,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "var(--color-fg-secondary)",
+            margin: "48px 0 24px",
+          }}
+        >
+          Or reach me directly
+        </p>
+      </Reveal>
+      <Reveal className="flex flex-wrap justify-center gap-10">
         {contactLinks.map(([label, href]) => (
           <a
             key={label}
