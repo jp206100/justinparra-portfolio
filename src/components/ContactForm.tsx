@@ -136,7 +136,7 @@ export default function ContactForm() {
           Message Sent
         </div>
         <p style={{ fontSize: 16, marginBottom: 24 }}>
-          Thanks for reaching out — I&rsquo;ll get back to you shortly.
+          Thanks for reaching out. I&rsquo;ll get back to you shortly.
         </p>
         <button
           type="button"
