@@ -66,7 +66,7 @@ async function getSanityData() {
               description: string;
               date: string;
               categories: { title: string }[];
-              image?: { asset: { _ref: string } };
+              image?: { asset: { _ref: string }; alt?: string };
             }) => ({
               title: p.title,
               slug: p.slug.current,
@@ -76,6 +76,7 @@ async function getSanityData() {
               imageUrl: p.image
                 ? getImageUrl(p.image, 800, 450)
                 : undefined,
+              imageAlt: p.image?.alt,
             }),
           )
         : undefined;

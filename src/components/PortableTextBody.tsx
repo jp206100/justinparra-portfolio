@@ -130,7 +130,7 @@ const components: PortableTextComponents = {
               display: "block",
             }}
           />
-          {value.alt && (
+          {value.caption && (
             <figcaption
               style={{
                 fontSize: 12,
@@ -139,7 +139,7 @@ const components: PortableTextComponents = {
                 letterSpacing: "0.02em",
               }}
             >
-              {value.alt}
+              {value.caption}
             </figcaption>
           )}
         </figure>

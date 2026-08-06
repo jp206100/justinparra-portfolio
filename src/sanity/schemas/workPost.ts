@@ -28,7 +28,25 @@ const workPost = {
       type: "array",
       of: [
         { type: "block" },
-        { type: "image", options: { hotspot: true } },
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            {
+              name: "alt",
+              title: "Alt Text",
+              type: "string",
+              description:
+                "Describe the image for screen readers. Leave empty only if the image is purely decorative.",
+            },
+            {
+              name: "caption",
+              title: "Caption",
+              type: "string",
+              description: "Optional visible caption shown below the image",
+            },
+          ],
+        },
         { type: "youtube" },
       ],
     },
@@ -53,6 +71,8 @@ const workPost = {
           name: "alt",
           title: "Alt Text",
           type: "string",
+          description:
+            "Describe the image for screen readers. Falls back to the post title when empty.",
         },
       ],
     },

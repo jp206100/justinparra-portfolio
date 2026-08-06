@@ -131,6 +131,7 @@ async function getWorkPost(slug: string) {
         date: post.date,
         categories: post.categories?.map((c) => c.title) ?? [],
         imageUrl: post.image ? getImageUrl(post.image, 1200) : null,
+        imageAlt: post.image?.alt ?? null,
         body: post.body,
         caseStudyWhat: post.caseStudyWhat ?? null,
         caseStudyHow: post.caseStudyHow ?? null,
@@ -147,6 +148,7 @@ async function getWorkPost(slug: string) {
     return {
       ...fallback,
       imageUrl: null,
+      imageAlt: null,
       body: null,
       caseStudyWhat: null,
       caseStudyHow: null,
@@ -199,6 +201,7 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
           date={post.date}
           categories={post.categories}
           imageUrl={post.imageUrl}
+          imageAlt={post.imageAlt}
           caseStudyWhat={post.caseStudyWhat!}
           caseStudyHow={post.caseStudyHow!}
           caseStudyResults={post.caseStudyResults!}
@@ -276,7 +279,7 @@ export default async function WorkPostPage({ params }: WorkPostPageProps) {
         >
           <Image
             src={post.imageUrl}
-            alt={post.title}
+            alt={post.imageAlt || post.title}
             fill
             sizes="100vw"
             priority
