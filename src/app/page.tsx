@@ -133,7 +133,7 @@ export default async function Home() {
       settings?.heroSubtitle ??
       "18+ years leading design, development, and strategy teams across private and public sectors.",
     sameAs: [
-      "https://github.com/justinparra",
+      "https://github.com/jp206100",
       "https://www.linkedin.com/in/justin-parra/",
     ],
   };
