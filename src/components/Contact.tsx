@@ -6,7 +6,7 @@ const pagePad = "clamp(20px, 5vw, 80px)";
 const contactLinks = [
   ["Email", "mailto:justinparra206@gmail.com"],
   ["LinkedIn", "https://www.linkedin.com/in/justin-parra/"],
-  ["GitHub", "https://github.com/justinparra"],
+  ["GitHub", "https://github.com/jp206100"],
 ] as const;
 
 interface ContactProps {
