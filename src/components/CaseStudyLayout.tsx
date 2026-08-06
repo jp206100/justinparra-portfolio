@@ -13,6 +13,7 @@ interface CaseStudyProps {
   date: string;
   categories: string[];
   imageUrl: string | null;
+  imageAlt?: string | null;
   caseStudyWhat: SanityBlock[];
   caseStudyHow: SanityBlock[];
   caseStudyResults: SanityBlock[];
@@ -85,7 +86,7 @@ function GalleryImage({
     <figure style={{ margin: 0 }}>
       <Image
         src={url}
-        alt={img.alt || `${img.caption || "Project image"}`}
+        alt={img.alt || img.caption || "Project image"}
         width={width}
         height={Math.round(width * 0.75)}
         sizes="(max-width: 768px) 100vw, 50vw"
@@ -158,6 +159,7 @@ export default function CaseStudyLayout({
   date,
   categories,
   imageUrl,
+  imageAlt,
   caseStudyWhat,
   caseStudyHow,
   caseStudyResults,
@@ -205,7 +207,7 @@ export default function CaseStudyLayout({
         >
           <Image
             src={imageUrl}
-            alt={title}
+            alt={imageAlt || title}
             fill
             sizes="100vw"
             priority

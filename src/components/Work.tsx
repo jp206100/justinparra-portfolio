@@ -15,6 +15,7 @@ export interface WorkPost {
   date: string;
   categories: string[];
   imageUrl?: string;
+  imageAlt?: string;
 }
 
 const fallbackCategories = [
@@ -199,7 +200,7 @@ export default function Work({ posts, categories }: WorkProps) {
                 >
                   <Image
                     src={post.imageUrl}
-                    alt={post.title}
+                    alt={post.imageAlt || post.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     style={{
