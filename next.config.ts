@@ -17,12 +17,6 @@ const baseSecurityHeaders = [
 const appCSP =
   "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline'; img-src 'self' cdn.sanity.io data: blob: https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self'; connect-src 'self' https://*.sanity.io https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://*.g.doubleclick.net; frame-src 'self' https://www.youtube-nocookie.com; media-src 'self' https://*.sanity.io; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'";
 
-// /ey-portfolio is a static demo page that loads React + Babel from unpkg
-// and Google Fonts, so it needs a separate, more permissive CSP than the
-// main Next.js app.
-const portfolioCSP =
-  "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'";
-
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -33,12 +27,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Serve /public/ey-portfolio/index.html for the bare /ey-portfolio path so
-  // visitors don't have to type the index filename. (Next.js doesn't auto-
-  // resolve directories in /public the way Apache/Nginx do.)
-  rewrites: async () => [
-    { source: "/ey-portfolio", destination: "/ey-portfolio/index.html" },
-  ],
   redirects: async () => [
     {
       source: "/work/first-look-at-sortlab",
@@ -48,34 +36,11 @@ const nextConfig: NextConfig = {
   ],
   headers: async () => [
     {
-      // Security headers for the main app — excludes /ey-portfolio so its
-      // permissive CSP isn't combined with (and tightened by) this one.
-      source: "/((?!ey-portfolio).*)",
+      // Security headers for the main app
+      source: "/(.*)",
       headers: [
         ...baseSecurityHeaders,
         { key: "Content-Security-Policy", value: appCSP },
-      ],
-    },
-    {
-      // Static portfolio page
-      source: "/ey-portfolio/:path*",
-      headers: [
-        ...baseSecurityHeaders,
-        { key: "Content-Security-Policy", value: portfolioCSP },
-        {
-          key: "X-Robots-Tag",
-          value: "noindex, nofollow, noarchive, nosnippet, noimageindex",
-        },
-      ],
-    },
-    {
-      // Also cover the bare /ey-portfolio path (rewritten to index.html)
-      source: "/ey-portfolio",
-      headers: [
-        {
-          key: "X-Robots-Tag",
-          value: "noindex, nofollow, noarchive, nosnippet, noimageindex",
-        },
       ],
     },
     {
