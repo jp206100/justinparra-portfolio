@@ -124,7 +124,7 @@ Single-page layout with smooth scroll navigation. Individual routes for full wor
 ### Currently Seeking (02)
 
 - Single flowing sentence, light weight with medium-weight role titles
-- "Positions in the field of **Digital Product Management**, **UX Program Management**, **Digital Strategy**, **AI Enablement**, and **Creative Services Production**. Currently in Seattle, but open to move to San Francisco or Chicago."
+- "Positions in the field of **Digital Experience Management**, **UX Program Management**, **Digital Strategy**, **AI Enablement**, and **Creative Services Production**. Currently in Seattle, but open to move to San Francisco or Chicago."
 
 ### Experience (03)
 
