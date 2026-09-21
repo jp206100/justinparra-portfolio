@@ -147,7 +147,7 @@ const siteSettings = {
   heroTitle: "Justin Parra — Building digital experiences that move people forward.",
   heroSubtitle: "18+ years leading design, development, and strategy teams across private and public sectors. From Toyota to the US EPA.",
   aboutStatement: "I simplify the complex. My work lives at the intersection of design strategy, technical leadership, and user advocacy, translating business goals into intuitive digital products.",
-  seekingText: "Positions in the field of Digital Product Management, UX Program Management, Digital Strategy, AI Enablement, and Creative Services Production. Currently in Seattle, but open to move to San Francisco or Chicago.",
+  seekingText: "Positions in the field of Digital Experience Management, UX Program Management, Digital Strategy, AI Enablement, and Creative Services Production. Currently in Seattle, but open to move to San Francisco or Chicago.",
   contactHeading: "Let's build something worth using.",
   contactSubtext: "Currently open to new opportunities in UX leadership and digital strategy.",
   githubUsername: "justinparra",

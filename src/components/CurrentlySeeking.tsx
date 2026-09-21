@@ -4,7 +4,7 @@ import Reveal from "./Reveal";
 const pagePad = "clamp(20px, 5vw, 80px)";
 
 const fallbackText =
-  "Positions in the field of Digital Product Management, UX Program Management, Digital Strategy, AI Enablement, and Creative Services Production. Currently in Seattle, but open to move to San Francisco or Chicago.";
+  "Positions in the field of Digital Experience Management, UX Program Management, Digital Strategy, AI Enablement, and Creative Services Production. Currently in Seattle, but open to move to San Francisco or Chicago.";
 
 interface CurrentlySeekingProps {
   text?: string;
